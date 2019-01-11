@@ -45,7 +45,7 @@
     <script>
         debugger
         const urlParams = new URLSearchParams(window.location.search);
-        var websocketUrl = urlParams.get('websocketUrl');
+        var websocketUrl = urlParams.get('websocketURL');
 
         websocketUrl = websocketUrl.replace("\\", ""); // Clean URL
         var socket = io.connect(websocketUrl);
