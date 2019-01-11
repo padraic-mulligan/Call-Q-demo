@@ -45,7 +45,7 @@
         var websocketUrl = urlParams.get('websocketUrl');
 
         websocketUrl = websocketUrl.replace("\\", ""); // Clean URL
-        var socket = io.connect(websocketURL);
+        var socket = io.connect(websocketUrl);
         socket.on('connect', function () {
             console.log("connected")
         });
