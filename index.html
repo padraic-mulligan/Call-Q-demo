@@ -78,6 +78,38 @@
 </head>
 <body>
     <style>
+             div.scrolling-limit {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%
+        }
+
+        div.scrolling {
+            position: relative;
+            -webkit-animation: scroll 20s infinite linear;;
+            -moz-animation: scroll 20s infinite linear;
+            -o-animation: scroll 20s infinite linear;
+            animation: scroll 20s infinite linear;
+        }
+
+        @keyframes scroll {
+            0% {
+                left: 100%;
+            }
+            100% {
+                left: -80%;
+            }
+        }
+
+        @-webkit-keyframes scroll {
+            0% {
+                left: 100%;
+            }
+            100% {
+                left: -80%;
+            }
+        }
+        
   :root {
     --main-bg-color: rgb(63, 63, 63);
     --border-color: rgb(212, 212, 212);
@@ -241,7 +273,7 @@ h2 {
 }  
     </style>
 <div class="grid-container">
-    <div class="header border-grey"><h2>Welcome to Call-Q Demo/h2></div>
+    <div class="header border-grey"><h2>Welcome to Call-Q Demo</h2></div>
     <div class="main border-grey">
         <div id='cardCont'>
             <h2>Customers Waiting</h2>
@@ -280,10 +312,10 @@ h2 {
                     <i class="fas fa-cocktail"></i>
                     <i class="fas fa-concierge-bell"></i>
                 </span>
-                <span th:text="${key1}"></span>
-                <span th:text="${key2}"></span>
-                <span th:text="${key3}"></span>
-                <span th:text="${key4}"></span>
+                <span text="Scrolling text"></span>
+                <span text="This can display any text"></span>
+                <span text="${key3}"></span>
+                <span text="${key4}"></span>
             </div>
         </div>
     </div>
