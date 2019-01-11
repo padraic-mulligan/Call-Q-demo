@@ -13,9 +13,11 @@
         function getVisits() {
             $.get('/rest/quickServe/branch/1/current', function (data) {
                     console.log(data)
+                    $("#lastCalledList").html("");
                     data.forEach(visit => {
                         console.log(visit.customer)
-                        drawTicket(visit.ticket, visit.id)
+                        
+                        drawTicket(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id)
 
                     })
                 }
@@ -34,6 +36,7 @@
                 '                <p>Ticket Number: <br><h2>'+ticket+'</h2></p>\n' +
                 '                <p>Invoice Number: <br>'+invoice+'</p>\n' +
                 '            </div>';
+            $("#lastCalledList").html("");
             $("#lastCalledList").append(lastCalled);
 
         }
@@ -64,7 +67,7 @@
             getVisits();
             
             var visit = JSON.parse(data).visit
-            lastCalled(visit.ticket, visit.id);
+            lastCalled(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id);
         });
 
         socket.on('add', function (data) {
@@ -291,9 +294,6 @@ h2 {
         <div id='ticketListContainer'>
             <h2>Last Called</h2>
 
-            <div class="border-grey">
-                <p id="pastCalled"></p>
-            </div>
             <div id=lastCalledList>
                 <!--
                 <div class="border-grey">
@@ -307,15 +307,9 @@ h2 {
     <div class="footer">
         <div class="scrolling-limit">
             <div class="centre scrolling">
-                <span class="text-muted ">
-                    <i class="fas fa-utensils"></i>
-                    <i class="fas fa-cocktail"></i>
-                    <i class="fas fa-concierge-bell"></i>
-                </span>
                 <span text="Scrolling text"></span>
                 <span text="This can display any text"></span>
-                <span text="${key3}"></span>
-                <span text="${key4}"></span>
+
             </div>
         </div>
     </div>
