@@ -43,7 +43,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const websocketUrl = urlParams.get('websocketUrl');
 
-        websocketURL = websocketURL.replace("\\", ""); // Clean URL
+        websocketUrl = websocketUrl.replace("\\", ""); // Clean URL
         var socket = io.connect(websocketURL);
         socket.on('connect', function () {
             console.log("connected")
