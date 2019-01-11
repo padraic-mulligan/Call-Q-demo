@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MainDisplay1</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+    <script src="/js/socket.io/socket.io.js"></script>
+    <script>
+        function getVisits() {
+            $.get('/rest/quickServe/branch/1/current', function (data) {
+                    console.log(data)
+                    data.forEach(visit => {
+                        console.log(visit.customer)
+                        drawTicket(visit.ticket, visit.id)
+
+                    })
+                }
+            );
+        }
+
+
+        function drawTicket(ticket, invoice) {
+            var postIt = ' <div><p>Ticket Number: <br><h2>' + ticket + '</h2></p>\<' +
+                'p>Invoice Number: <br>' + invoice + '</p></div>'
+            $('.waiting-grid').append(postIt)
+        }
+
+        function lastCalled(ticket, invoice) {
+            var lastCalled = '<div class="border-grey">\n' +
+                '                <p>Ticket Number: <br><h2>'+ticket+'</h2></p>\n' +
+                '                <p>Invoice Number: <br>'+invoice+'</p>\n' +
+                '            </div>';
+            $("#lastCalledList").append(lastCalled);
+
+        }
+
+    </script>
+    <script th:inline="javascript">
+        var websocketURL = /*[[${websocketURL}]]*/ 'http://localhostDEFAULT:9092';
+        websocketURL = websocketURL.replace("\\", ""); // Clean URL
+        var socket = io.connect(websocketURL);
+        socket.on('connect', function () {
+            console.log("connected")
+        });
+
+        socket.on('refresh', function () {
+            window.location.reload(true);
+        });
+
+        socket.on('disconnect', function () {
+            console.log("disconnected")
+        });
+
+
+        socket.on('call', function (data) {
+            console.log('call')
+            getVisits();
+            lastCalled(data.ticket, data.id);
+        });
+
+        socket.on('add', function (data) {
+            console.log('Added')
+            getVisits();
+        });
+        getVisits();
+    </script>
+
+
+</head>
+<body>
+<div class="grid-container">
+    <div class="header border-grey"><h2>Welcome to Company name</h2></div>
+    <div class="main border-grey">
+        <div id='cardCont'>
+            <h2>Customers Waiting</h2>
+            <div class="waiting-grid">
+                <!--
+                <div>
+                    <p>Ticket Number: <br><h2>001</h2></p>
+                    <p>Invoice Number: <br>10001</p>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div id='ticketListContainer'>
+            <h2>Last Called</h2>
+
+            <div class="border-grey">
+                <p id="pastCalled"></p>
+            </div>
+            <div id=lastCalledList>
+                <!--
+                <div class="border-grey">
+                    <p>Ticket Number: <br><h2>001</h2></p>
+                    <p>Invoice Number: <br>10001</p>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="scrolling-limit">
+            <div class="centre scrolling">
+                <span class="text-muted ">
+                    <i class="fas fa-utensils"></i>
+                    <i class="fas fa-cocktail"></i>
+                    <i class="fas fa-concierge-bell"></i>
+                </span>
+                <span th:text="${key1}"></span>
+                <span th:text="${key2}"></span>
+                <span th:text="${key3}"></span>
+                <span th:text="${key4}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
