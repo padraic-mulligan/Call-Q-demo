@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,8 +39,10 @@
         }
 
     </script>
-    <script th:inline="javascript">
-        var websocketURL = /*[[${websocketURL}]]*/ 'http://localhostDEFAULT:9092';
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const websocketUrl = urlParams.get('websocketUrl');
+
         websocketURL = websocketURL.replace("\\", ""); // Clean URL
         var socket = io.connect(websocketURL);
         socket.on('connect', function () {
