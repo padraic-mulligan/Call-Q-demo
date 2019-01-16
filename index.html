@@ -33,13 +33,24 @@
 
         function lastCalled(ticket, invoice) {
             var lastCalled = '<div class="border-grey">\n' +
-                '                <p>Ticket Number: <br><h2>'+ticket+'</h2></p>\n' +
+                '                <p>Ticket Number: <br><p class="plarge">'+ticket+'</p></p>\n' +
                 '                <p>Invoice Number: <br>'+invoice+'</p>\n' +
                 '            </div>';
 
             $("#lastCalledList").prepend(lastCalled);
 
         }
+
+        function splashCall(ticket, invoice) {
+            var lastCalled = '<div>\n' +
+                '                <p>Ticket Number: <br><p class="plarge">'+ticket+'</p></p>\n' +
+                '                <p>Invoice Number: <br>'+invoice+'</p>\n' +
+                '            </div>';
+
+            $("#splashScreenDiv").prepend(splashCall);
+
+        }
+        
 
     </script>
     <script>
@@ -70,6 +81,7 @@
             
             var visit = JSON.parse(data).visit
             lastCalled(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id);
+            splashCall(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id);
 
             setTimeout(function(){
         
@@ -366,7 +378,7 @@ h2 {
     <div class="header border-grey"><h2>Welcome to SIG Ireland</h2></div>
     <div class="main border-grey">
         <div class="splashScreen" id="splashScreenDiv">
-            <p>Ticket Number: <br>25</p>
+            <!-- <p>Ticket Number: <br>25</p> -->
         </div>
         <div id='mainArea'>
             <h2>Customers Waiting</h2>
