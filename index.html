@@ -64,7 +64,6 @@
 
         socket.on('call', function (data) {
             console.log('call')
-            callScreen();
             getVisits();
             
             var visit = JSON.parse(data).visit
