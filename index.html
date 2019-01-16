@@ -76,6 +76,13 @@
         });
         getVisits();
     </script>
+    <script>
+        $(document).ready(function(){
+          $("lastCalledList").change(function(){
+            console.log("The Div has been changed.");
+          });
+        });
+    </script>
 
 
 </head>
@@ -351,7 +358,7 @@ h2 {
             <h2>Customers Waiting</h2>
             <div class="waiting-grid">
             
-                <div>
+                <!-- <div>
                     <p>Ticket Number: <br><p class="plarge" >001</p></p>
                     <p>Invoice Number: <br>This is to test the stretch capacity of the tickets</p>
                 </div>
@@ -378,7 +385,7 @@ h2 {
                 <div>
                     <p>Ticket Number: <br><p class="plarge" >20</p></p>
                     <p>Invoice Number: <br>Testing 3</p>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
