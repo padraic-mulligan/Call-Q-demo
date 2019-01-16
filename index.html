@@ -64,6 +64,7 @@
 
         socket.on('call', function (data) {
             console.log('call')
+            $("#mainArea").hide()
             getVisits();
             
             var visit = JSON.parse(data).visit
@@ -71,9 +72,9 @@
 
             setTimeout(function(){
         
-                $("#mainArea").hide()
+                $("#mainArea").show()
 
-            }, 3000);
+            }, 5000);
         });
 
         socket.on('add', function (data) {
