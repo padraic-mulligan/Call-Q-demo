@@ -50,6 +50,15 @@
             $("#splashScreenDiv").prepend(splashCall);
 
         }
+
+        function showSplash(){
+            $("#mainArea").hide()
+            $("#splashScreenDiv").show()
+            setTimeout(function(){
+                $("#splashScreenDiv").hide()
+                $("#mainArea").show()
+            }, 5000);
+        }
         
 
     </script>
@@ -75,21 +84,11 @@
 
         socket.on('call', function (data) {
             console.log('call')
-            $("#mainArea").hide()
-            $("#splashScreenDiv").show()
             getVisits();
-            
             var visit = JSON.parse(data).visit
+            var callItem = JSON.parse(data).visit
             lastCalled(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id);
-            splashCall(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id);
-
-            setTimeout(function(){
-        
-                $("#splashScreenDiv").hide()
-                $("#mainArea").show()
-
-
-            }, 5000);
+            splashCall(callItem.ticket, callItem.parsedJson.notes ? callItem.parsedJson.notes : callItem.id);
         });
 
         socket.on('add', function (data) {
@@ -377,7 +376,10 @@ h2 {
 <div class="grid-container">
     <div class="header border-grey"><h2>Welcome to SIG Ireland</h2></div>
     <div class="main border-grey">
-        <div class="splashScreen" id="splashScreenDiv">
+        <div class="splashScreen">
+            <div id="splashScreenDiv">
+
+            </div>
             <!-- <p>Ticket Number: <br>25</p> -->
         </div>
         <div id='mainArea'>
