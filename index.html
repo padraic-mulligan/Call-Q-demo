@@ -52,12 +52,13 @@
         }
 
         function showSplash(){
-            $(".main").hide()
-            $(".splashScreen").addClass('show')
+            $(".main").hide();
+            $(".splashScreen").show();
             setTimeout(function(){
-                $(".splashScreenDiv").removeClass('show')
-                $(".main").show()
-            }, 10000);
+                $(".splashScreenDiv").hide();
+                $(".main").show();
+            }, 8000);
+            console.log("splashCall finished")
         }
         
 
