@@ -85,6 +85,7 @@
         socket.on('call', function (data) {
             console.log('call')
             getVisits();
+            showSplash();
             var visit = JSON.parse(data).visit
             var callItem = JSON.parse(data).visit
             lastCalled(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id);
