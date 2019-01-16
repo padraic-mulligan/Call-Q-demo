@@ -78,8 +78,8 @@
     </script>
     <script>
         $(document).ready(function(){
-          $("lastCalledList").change(function(){
-            console.log("The Div has been changed.");
+            $("body").on('DOMSubtreeModified', "lastCalledList", function() {
+            alert('changed');
           });
         });
     </script>
