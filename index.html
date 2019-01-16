@@ -55,7 +55,8 @@
             $(".main").hide();
             $(".splashScreen").show();
             setTimeout(function(){
-                emptySplash = "";
+                var emptySplash = '<div>\n' +
+                '            </div>';
                 $(".splashScreen").prepend(emptySplash);
                 $(".splashScreen").hide();
                 $(".main").show();
