@@ -86,12 +86,12 @@
             });
 
             stompClient.subscribe('/topic/add', function (data) {
-                add(data);
+                add(data.body);
             });
 
 
             stompClient.subscribe(callText, function (data) {
-                call(data);
+                call(data.body);
             });
 
         });
