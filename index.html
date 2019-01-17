@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,13 +11,14 @@
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script>
         debugger;
+
         function getVisits() {
             $.get('/rest/quickServe/branch/1/current', function (data) {
                     console.log(data)
                     $(".waiting-grid").html("");
                     data.forEach(visit => {
                         console.log(visit.customer)
-                        
+
                         drawTicket(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id)
 
                     })
@@ -34,8 +35,8 @@
 
         function lastCalled(ticket, invoice) {
             var lastCalled = '<div class="border-grey">\n' +
-                '                <p>Ticket Number: <br><p class="plarge">'+ticket+'</p></p>\n' +
-                '                <p>Invoice Number: <br>'+invoice+'</p>\n' +
+                '                <p>Ticket Number: <br><p class="plarge">' + ticket + '</p></p>\n' +
+                '                <p>Invoice Number: <br>' + invoice + '</p>\n' +
                 '            </div>';
 
             $("#lastCalledList").prepend(lastCalled);
@@ -44,24 +45,24 @@
 
         function splashCall(ticket, invoice) {
             var splashCall = '<div>\n' +
-                '                <p>Ticket Number: <br><p class="plarge">'+ticket+'</p></p>\n' +
-                '                <p>Invoice Number: <br>'+invoice+'</p>\n' +
+                '                <p>Ticket Number: <br><p class="plarge">' + ticket + '</p></p>\n' +
+                '                <p>Invoice Number: <br>' + invoice + '</p>\n' +
                 '            </div>';
 
             $(".splashScreen").prepend(splashCall);
 
         }
 
-        function showSplash(){
+        function showSplash() {
             $(".main").hide();
             $(".splashScreen").show();
-            setTimeout(function(){
+            setTimeout(function () {
                 $(".splashScreen").hide();
                 $(".main").show();
             }, 8000);
             console.log("splashCall finished")
         }
-        
+
 
     </script>
     <script>
@@ -89,7 +90,6 @@
                 add(data.body);
             });
 
-
             stompClient.subscribe(callText, function (data) {
                 call(data.body);
             });
@@ -107,7 +107,7 @@
             splashCall(callItem.ticket, callItem.parsedJson.notes ? callItem.parsedJson.notes : callItem.id);
         }
 
-        function add(data){
+        function add(data) {
             console.log('Added')
             getVisits();
         }
@@ -120,289 +120,334 @@
 
 </head>
 <body>
-    <style>
-             div.scrolling-limit {
-            overflow: hidden;
-            white-space: nowrap;
-            width: 100%
+<style>
+    div.scrolling-limit {
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%
+    }
+
+    div.scrolling {
+        position: relative;
+        -webkit-animation: scroll 20s infinite linear;;
+        -moz-animation: scroll 20s infinite linear;
+        -o-animation: scroll 20s infinite linear;
+        animation: scroll 20s infinite linear;
+    }
+
+    @keyframes scroll {
+        0% {
+            left: 100%;
         }
-
-        div.scrolling {
-            position: relative;
-            -webkit-animation: scroll 20s infinite linear;;
-            -moz-animation: scroll 20s infinite linear;
-            -o-animation: scroll 20s infinite linear;
-            animation: scroll 20s infinite linear;
+        100% {
+            left: -80%;
         }
+    }
 
-        @keyframes scroll {
-            0% {
-                left: 100%;
-            }
-            100% {
-                left: -80%;
-            }
+    @-webkit-keyframes scroll {
+        0% {
+            left: 100%;
         }
-
-        @-webkit-keyframes scroll {
-            0% {
-                left: 100%;
-            }
-            100% {
-                left: -80%;
-            }
+        100% {
+            left: -80%;
         }
-        
-  :root {
-    --main-bg-color: #a80532;
-    --border-color: rgb(212, 212, 212);
-    --font-color: rgb(255, 255, 255);
-    --ticket-font-color: rgb(0, 0, 0);
-    --font-family: "Arial Black", Gadget, sans-serif;
-      /*
-        This is the image opened in a new tab and the data copied in, this needs to be moved to the proper URL
-      */
-    --ticket-bg-image: none;
-    --p-font-size: 1.5rem;
-    --plarge-font-size: 3rem;
-    --h1-font-size: 1rem;
-    --h2-font-size: 2rem;
-  }
+    }
+
+    :root {
+        --main-bg-color: #a80532;
+        --border-color: rgb(212, 212, 212);
+        --font-color: rgb(255, 255, 255);
+        --ticket-font-color: rgb(0, 0, 0);
+        --font-family: "Arial Black", Gadget, sans-serif;
+        /*
+          This is the image opened in a new tab and the data copied in, this needs to be moved to the proper URL
+        */
+        --ticket-bg-image: none;
+        --p-font-size: 1.5rem;
+        --plarge-font-size: 3rem;
+        --h1-font-size: 1rem;
+        --h2-font-size: 2rem;
+    }
 
 
-body {
-    height: 100vh;
-    overflow: hidden;
-    margin: 0;
-    font-family: var(--font-family);
-    color: var(--font-color);
-}
-p {
-    font-size: var(--p-font-size);
-    font-weight: 900;
-    padding: 0px;
-    margin: 0px;
-}
-.plarge {
-    font-size: var(--plarge-font-size);
-    font-weight: bolder;
-}
-h1 {
-    margin: 0 0 0 0;
-    padding: 0px;
-}
-h2 {
-    margin: 0.2rem 0 0 0;
-    margin-bottom: 0;
-    font-size: var(--h2-font-size);
-}
-.grid-container {
-    display: grid;
-    grid-template-areas:
-    'header header header header header header'
-    'main main main main main right'
-    'footer footer footer footer footer footer';
-    grid-gap: 0.2em;
-    padding: 0.2em;
-    background-color: var(--main-bg-color);
-}
-.grid-container > div {
-    text-align: center;
-    padding: 1em;
-    font-size: 1em;
-}
-.border-grey {
-    border-style: solid;
-    border-color: var(--border-color);
-    border-radius: 10px;
-}
-.main {
-    grid-area: main;
-    height: 72vh;
-    width: 80vw;
-    margin: 1rem;
-}
-.header {
-    grid-area: header;
-    height: 7vh;
-    padding: -0.2rem;
-    margin: 1rem 1rem 0rem 1rem;
-}
-.right {
-    height: 75vh;
-    overflow: hidden;
-    grid-area: right;
-    margin: 1rem 1rem 0rem 0rem;
-    
-    padding-bottom: 1rem;
+    body {
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        font-family: var(--font-family);
+        color: var(--font-color);
+    }
 
-}
-.right > div > div{
-    text-align: center;
-    margin: 0.5rem;
-}
-.right > div > div >p{
-    font-size: var(--p-font-size);
-    text-align: center;
-    margin: 0.5rem 0 0.8rem 0;
-}
-.footer {
-    grid-area: footer;
-    text-align: center;
-    height: 8vh;
-    padding-top: -1rem;
-    margin: -1rem auto 0rem auto; 
-    width: 90%;
-}
-.waiting-grid {
-    overflow: hidden;
-    display: grid;
-    grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-.waiting-grid > div{
-    color: var(--ticket-font-color); 
-    text-align: center;
-    /* background-image: var(--ticket-bg-image); */
-    background-color: #ffff88;
-    border-style: solid;
-    border-color: #ffff88;
-    border-radius: 0 15px 0 30px;
-    border-bottom-right-radius: 60px 5px;
-    box-shadow: 5px 10px #292929;
-    background-repeat: no-repeat;
-    width: auto;
-    height: auto;
-    background-size: 22rem;
-    padding: 0.8rem 0 0.8rem 0;
-    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
-}
-.waiting-grid > div > p{
-    text-align: center;
-    /*font-size: var(--p-font-size);*/
-    padding: 0px;
-    margin: 0px;
-    margin-bottom: 0.6rem;
-}
+    p {
+        font-size: var(--p-font-size);
+        font-weight: 900;
+        padding: 0px;
+        margin: 0px;
+    }
 
-.splashScreen{
-    display: none;
-    grid-area: main;
-    height: 72vh;
-    width: 80vw;
-    margin: 1rem;
-    text-align: center;
-}
+    .plarge {
+        font-size: var(--plarge-font-size);
+        font-weight: bolder;
+    }
 
-.splashScreen > div{
-    margin-bottom: 100px;
-}
-.splashScreen > div > p{
-    font-size: 9rem;
-}
+    h1 {
+        margin: 0 0 0 0;
+        padding: 0px;
+    }
 
-.item-1, 
-.item-2, 
-.item-3 {
-	position: absolute;
-    display: block;
-    font-size: 2rem;
-    width: 50%;
-    top: 61rem;
-    text-align: center;
-    margin: 0 auto 0 auto;
+    h2 {
+        margin: 0.2rem 0 0 0;
+        margin-bottom: 0;
+        font-size: var(--h2-font-size);
+    }
 
-	animation-duration: 30s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
-}
-
-.item-1{
-	animation-name: anim-1;
-}
-
-.item-2{
-	animation-name: anim-2;
-}
-
-.item-3{
-	animation-name: anim-3;
-}
-
-@keyframes anim-1 {
-	0%, 8.3% { left: -100%; opacity: 0; }
-  8.3%,25% { left: 25%; opacity: 1; }
-  33.33%, 100% { left: 110%; opacity: 0; }
-}
-
-@keyframes anim-2 {
-	0%, 33.33% { left: -100%; opacity: 0; }
-  41.63%, 58.29% { left: 25%; opacity: 1; }
-  66.66%, 100% { left: 110%; opacity: 0; }
-}
-
-@keyframes anim-3 {
-	0%, 66.66% { left: -100%; opacity: 0; }
-  74.96%, 91.62% { left: 25%; opacity: 1; }
-  100% { left: 110%; opacity: 0; }
-}
-
-.show {
-    display: block;
-}
-
-
-@media only screen and (max-width: 1720px) {
-    body{
+    .grid-container {
+        display: grid;
+        grid-template-areas: 'header header header header header header' 'main main main main main right' 'footer footer footer footer footer footer';
+        grid-gap: 0.2em;
+        padding: 0.2em;
         background-color: var(--main-bg-color);
     }
-    h2 {
-        margin: 0rem;
-        padding: 0rem;
-    }
-    .main {
-        margin: auto;
-        width: auto;
-        height: auto;
-    }
-    .header {
-        grid-area: header;
-        margin: auto;
-        height: auto;
-        width: auto;
-        padding: 0.5rem 0rem 1rem 0rem;
-        margin: 0.5rem 0rem 0.8rem 1rem;
-    }
-    .right {
-        margin: auto;
-        width: auto;
 
-}
-    .grid-container {
-        grid-template-areas:
-        'header header header header header header'
-        'main main main main main main'
-        'footer footer footer footer footer footer';
-        padding: 0rem;
-    }
     .grid-container > div {
         text-align: center;
-        padding: 1rem 0rem 1.5rem 0;
-        margin-bottom: 1rem;
+        padding: 1em;
         font-size: 1em;
     }
+
+    .border-grey {
+        border-style: solid;
+        border-color: var(--border-color);
+        border-radius: 10px;
+    }
+
+    .main {
+        grid-area: main;
+        height: 72vh;
+        width: 80vw;
+        margin: 1rem;
+    }
+
+    .header {
+        grid-area: header;
+        height: 7vh;
+        padding: -0.2rem;
+        margin: 1rem 1rem 0rem 1rem;
+    }
+
+    .right {
+        height: 75vh;
+        overflow: hidden;
+        grid-area: right;
+        margin: 1rem 1rem 0rem 0rem;
+
+        padding-bottom: 1rem;
+
+    }
+
+    .right > div > div {
+        text-align: center;
+        margin: 0.5rem;
+    }
+
+    .right > div > div > p {
+        font-size: var(--p-font-size);
+        text-align: center;
+        margin: 0.5rem 0 0.8rem 0;
+    }
+
+    .footer {
+        grid-area: footer;
+        text-align: center;
+        height: 8vh;
+        padding-top: -1rem;
+        margin: -1rem auto 0rem auto;
+        width: 90%;
+    }
+
     .waiting-grid {
-        grid-template-columns:1fr 1fr 1fr 1fr ;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .waiting-grid > div {
+        color: var(--ticket-font-color);
+        text-align: center;
+        /* background-image: var(--ticket-bg-image); */
+        background-color: #ffff88;
+        border-style: solid;
+        border-color: #ffff88;
+        border-radius: 0 15px 0 30px;
+        border-bottom-right-radius: 60px 5px;
+        box-shadow: 5px 10px #292929;
+        background-repeat: no-repeat;
         width: auto;
         height: auto;
-        margin: 0 auto 0 auto; 
-        padding-right: 1rem;
+        background-size: 22rem;
+        padding: 0.8rem 0 0.8rem 0;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     }
-}  
-    </style>
+
+    .waiting-grid > div > p {
+        text-align: center;
+        /*font-size: var(--p-font-size);*/
+        padding: 0px;
+        margin: 0px;
+        margin-bottom: 0.6rem;
+    }
+
+    .splashScreen {
+        display: none;
+        grid-area: main;
+        height: 72vh;
+        width: 80vw;
+        margin: 1rem;
+        text-align: center;
+    }
+
+    .splashScreen > div {
+        margin-bottom: 100px;
+    }
+
+    .splashScreen > div > p {
+        font-size: 9rem;
+    }
+
+    .item-1,
+    .item-2,
+    .item-3 {
+        position: absolute;
+        display: block;
+        font-size: 2rem;
+        width: 50%;
+        top: 61rem;
+        text-align: center;
+        margin: 0 auto 0 auto;
+
+        animation-duration: 30s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+    }
+
+    .item-1 {
+        animation-name: anim-1;
+    }
+
+    .item-2 {
+        animation-name: anim-2;
+    }
+
+    .item-3 {
+        animation-name: anim-3;
+    }
+
+    @keyframes anim-1 {
+        0%, 8.3% {
+            left: -100%;
+            opacity: 0;
+        }
+        8.3%, 25% {
+            left: 25%;
+            opacity: 1;
+        }
+        33.33%, 100% {
+            left: 110%;
+            opacity: 0;
+        }
+    }
+
+    @keyframes anim-2 {
+        0%, 33.33% {
+            left: -100%;
+            opacity: 0;
+        }
+        41.63%, 58.29% {
+            left: 25%;
+            opacity: 1;
+        }
+        66.66%, 100% {
+            left: 110%;
+            opacity: 0;
+        }
+    }
+
+    @keyframes anim-3 {
+        0%, 66.66% {
+            left: -100%;
+            opacity: 0;
+        }
+        74.96%, 91.62% {
+            left: 25%;
+            opacity: 1;
+        }
+        100% {
+            left: 110%;
+            opacity: 0;
+        }
+    }
+
+    .show {
+        display: block;
+    }
+
+
+    @media only screen and (max-width: 1720px) {
+        body {
+            background-color: var(--main-bg-color);
+        }
+
+        h2 {
+            margin: 0rem;
+            padding: 0rem;
+        }
+
+        .main {
+            margin: auto;
+            width: auto;
+            height: auto;
+        }
+
+        .header {
+            grid-area: header;
+            margin: auto;
+            height: auto;
+            width: auto;
+            padding: 0.5rem 0rem 1rem 0rem;
+            margin: 0.5rem 0rem 0.8rem 1rem;
+        }
+
+        .right {
+            margin: auto;
+            width: auto;
+
+        }
+
+        .grid-container {
+            grid-template-areas: 'header header header header header header' 'main main main main main main' 'footer footer footer footer footer footer';
+            padding: 0rem;
+        }
+
+        .grid-container > div {
+            text-align: center;
+            padding: 1rem 0rem 1.5rem 0;
+            margin-bottom: 1rem;
+            font-size: 1em;
+        }
+
+        .waiting-grid {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            width: auto;
+            height: auto;
+            margin: 0 auto 0 auto;
+            padding-right: 1rem;
+        }
+    }
+</style>
 <div class="grid-container">
     <div class="header border-grey"><h2>Welcome to SIG Ireland</h2></div>
     <div class="splashScreen border-grey">
@@ -413,7 +458,7 @@ h2 {
         <div id='mainArea'>
             <h2>Customers Waiting</h2>
             <div class="waiting-grid">
-            
+
                 <!-- <div>
                     <p>Ticket Number: <br><p class="plarge" >001</p></p>
                     <p>Invoice Number: <br>This is to test the stretch capacity of the tickets</p>
@@ -450,12 +495,12 @@ h2 {
             <h2>Last Called</h2>
 
             <div id=lastCalledList>
-             <!--  
-                <div class="border-grey">
-                    <p>Ticket Number: <br><p class="plarge">001</p></p>
-                    <p>Invoice Number: <br>10001</p>
-                </div>
-            -->  
+                <!--
+                   <div class="border-grey">
+                       <p>Ticket Number: <br><p class="plarge">001</p></p>
+                       <p>Invoice Number: <br>10001</p>
+                   </div>
+               -->
             </div>
         </div>
     </div>
@@ -464,7 +509,7 @@ h2 {
             <p class="item-1">Welcome to SIG Ireland.</p>
 
             <p class="item-2">You will receive a confirmation text when you have placed your order</p>
-            
+
             <p class="item-3">When your order is ready you will receive a text to come back and collect your items</p>
         </div>
     </div>
