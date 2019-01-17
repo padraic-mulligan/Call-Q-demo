@@ -32,7 +32,7 @@
         }
 
         function lastCalled(ticket, invoice) {
-            var lastCalled = '<div class="border-grey">\n' +
+            var lastCalled = '<div class="border-grey lastTicketItem">\n' +
                 '                <p>Ticket Number: <br><p class="plarge">'+ticket+'</p></p>\n' +
                 '                <p>Invoice Number: <br>'+invoice+'</p>\n' +
                 '            </div>';
@@ -223,12 +223,16 @@ h2 {
 }
 .right > div > div{
     text-align: center;
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 0 3rem 0;
 }
 .right > div > div >p{
     font-size: var(--p-font-size);
     text-align: center;
     margin: 0.5rem 0 0.8rem 0;
+}
+
+.lastTicketItem {
+    margin-bottom: 2rem;
 }
 .footer {
     grid-area: footer;
