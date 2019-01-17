@@ -70,9 +70,9 @@
         var branchLogicId = urlParams.get('branchId');
         debugger
 
-        var callText = 'topic/call/' + branchLogicId;
+        var callText = '/topic/call/' + branchLogicId;
         if (branchLogicId == "") {
-            callText = "topic/call";
+            callText = "/topic/call";
         }
         console.log("subbing to " + callText);
 
