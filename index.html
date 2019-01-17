@@ -66,8 +66,12 @@
     </script>
     <script>
 
-        var callText = 'call_' + $('#branchLogicId').html();
-        if ($('#branchLogicId').html() === "") {
+        const urlParams = new URLSearchParams(window.location.search);
+        var branchLogicId = urlParams.get('branchLogicId');
+        debugger
+
+        var callText = 'call_' + branchLogicId;
+        if (branchLogicId == "") {
             callText = "call";
         }
         console.log("subbing to " + callText);
@@ -81,9 +85,10 @@
                 window.location.reload(true);
             });
 
-            stompClient.subscribe('/topic/call', function (data) {
-                call(data);
+            stompClient.subscribe('/topic/add', function (data) {
+                add(data);
             });
+
 
             stompClient.subscribe(callText, function (data) {
                 call(data);
@@ -92,6 +97,7 @@
         });
 
         function call(data) {
+            debugger
             console.log('call')
             getVisits();
             showSplash();
