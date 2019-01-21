@@ -103,8 +103,8 @@
             showSplash();
             var visit = JSON.parse(data).visit
             var callItem = JSON.parse(data).visit
-            lastCalled(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id);
-            splashCall(callItem.ticket, callItem.parsedJson.notes ? callItem.parsedJson.notes : callItem.id);
+            lastCalled(visit.ticket, visit.customer.lastName ? visit.customer.lastName : callItem.parsedJson.notes);
+            splashCall(callItem.ticket, visit.customer.lastName ? visit.customer.lastName : callItem.parsedJson.notes);
         }
 
         function add(data) {
