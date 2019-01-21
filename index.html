@@ -72,7 +72,7 @@
         debugger
 
         var callText = '/topic/call/' + branchLogicId;
-        if (branchLogicId == "") {
+		if (branchLogicId == "" || branchLogicId == null) {
             callText = "/topic/call";
         }
         console.log("subbing to " + callText);
