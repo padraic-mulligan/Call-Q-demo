@@ -9,115 +9,8 @@
     <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script>
-        debugger;
-
-        function getVisits() {
-            $.get('/rest/quickServe/branch/1/current', function (data) {
-                    console.log(data)
-                    $(".waiting-grid").html("");
-                    data.forEach(visit => {
-                        console.log(visit.customer)
-
-                        drawTicket(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id)
-
-                    })
-                }
-            );
-        }
-
-
-        function drawTicket(ticket, invoice) {
-            var postIt = ' <div><p>Ticket Number: <br><h2>' + ticket + '</h2></p>\<' +
-                'p>Invoice Number: <br>' + invoice + '</p></div>'
-            $('.waiting-grid').append(postIt)
-        }
-
-        function lastCalled(ticket, invoice) {
-            var lastCalled = '<div class="border-grey">\n' +
-                '                <p>Ticket Number: <br><p class="plarge">' + ticket + '</p></p>\n' +
-                '                <p>Invoice Number: <br>' + invoice + '</p>\n' +
-                '            </div>';
-
-            $("#lastCalledList").prepend(lastCalled);
-
-        }
-
-        function splashCall(ticket, invoice) {
-            var splashCall = '<div>\n' +
-                '                <p>Ticket Number: <br><p class="plarge">' + ticket + '</p></p>\n' +
-                '                <p>Invoice Number: <br>' + invoice + '</p>\n' +
-                '            </div>';
-
-            $(".splashScreen").prepend(splashCall);
-
-        }
-
-        function showSplash() {
-            $(".main").hide();
-            $(".splashScreen").show();
-            setTimeout(function () {
-                $(".splashScreen").hide();
-                $(".main").show();
-            }, 8000);
-            console.log("splashCall finished")
-        }
-
-
-    </script>
-    <script>
-
-        const urlParams = new URLSearchParams(window.location.search);
-        var branchLogicId = urlParams.get('branchId');
-        debugger
-
-        var callText = '/topic/call/' + branchLogicId;
-        if (branchLogicId == "") {
-            callText = "/topic/call";
-        }
-        console.log("subbing to " + callText);
-
-        var socket = new SockJS('/websocket');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, function (frame) {
-            console.log('Connected: ' + frame);
-
-            stompClient.subscribe('/topic/refresh', function (data) {
-                window.location.reload(true);
-            });
-
-            stompClient.subscribe('/topic/add', function (data) {
-                add(data.body);
-            });
-
-            stompClient.subscribe(callText, function (data) {
-                call(data.body);
-            });
-
-        });
-
-        function call(data) {
-            debugger
-            console.log('call')
-            getVisits();
-            showSplash();
-            var visit = JSON.parse(data).visit
-            var callItem = JSON.parse(data).visit
-            lastCalled(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id);
-            splashCall(callItem.ticket, callItem.parsedJson.notes ? callItem.parsedJson.notes : callItem.id);
-        }
-
-        function add(data) {
-            console.log('Added')
-            getVisits();
-        }
-
-
-        getVisits();
-
-    </script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <style>
@@ -301,7 +194,6 @@
     }
 
     .splashScreen {
-        display: none;
         grid-area: main;
         height: 72vh;
         width: 80vw;
@@ -448,45 +340,25 @@
         }
     }
 </style>
-<div class="grid-container">
-    <div class="header border-grey"><h2>Welcome to SIG Ireland</h2></div>
+<div class="grid-container" id="app">
+    <div class="header border-grey"><h2>Welcome to {{clientName}}</h2></div>
     <div class="splashScreen border-grey">
-        <!-- <p>Ticket Number: <br>25</p> -->
+        <div v-if="showSplash">
+            <p>Ticket Number: <br>
+            <p class="plarge">{{splashVisit.ticket}}</p>
+            <p>Invoice Number: <br>{{splashVisit.id}}</p>
+        </div>
     </div>
 
-    <div class="main border-grey">
+    <div class="main border-grey"  v-if="!showSplash">
         <div id='mainArea'>
-            <h2>Customers Waiting</h2>
+            <h2>{{visitsTotal}} Customers Waiting</h2>
             <div class="waiting-grid">
-
-                <!-- <div>
-                    <p>Ticket Number: <br><p class="plarge" >001</p></p>
-                    <p>Invoice Number: <br>This is to test the stretch capacity of the tickets</p>
+                <div v-for="item in visits">
+                    <p>Ticket Number: <br>
+                    <p class="plarge">{{item.ticket}}</p></p>
+                    <p>Invoice Number: <br>{{item.id}}</p>
                 </div>
-
-                <div>
-                    <p>Ticket Number: <br><p class="plarge" >999</p></p>
-                    <p>Invoice Number: <br>Testing 2</p>
-                </div>
-
-                <div>
-                    <p>Ticket Number: <br><p class="plarge" >20</p></p>
-                    <p>Invoice Number: <br>Testing 3</p>
-                </div>
-                <div>
-                    <p>Ticket Number: <br><p class="plarge" >001</p></p>
-                    <p>Invoice Number: <br>This is the limit for the ticket to stretch</p>
-                </div>
-
-                <div>
-                    <p>Ticket Number: <br><p class="plarge" >999</p></p>
-                    <p>Invoice Number: <br>Testing 2</p>
-                </div>
-
-                <div>
-                    <p>Ticket Number: <br><p class="plarge" >20</p></p>
-                    <p>Invoice Number: <br>Testing 3</p>
-                </div> -->
             </div>
         </div>
     </div>
@@ -495,18 +367,19 @@
             <h2>Last Called</h2>
 
             <div id=lastCalledList>
-                <!--
-                   <div class="border-grey">
-                       <p>Ticket Number: <br><p class="plarge">001</p></p>
-                       <p>Invoice Number: <br>10001</p>
-                   </div>
-               -->
+
+                <div class="border-grey" v-for="lastCall in lastCalled">
+                    <p>Ticket Number: <br>
+                    <p class="plarge">{{lastCall.ticket}}</p></p>
+                    <p>Invoice Number: <br>{{lastCall.id}}</p>
+                </div>
+
             </div>
         </div>
     </div>
     <div class="footer">
         <div>
-            <p class="item-1">Welcome to SIG Ireland.</p>
+            <p class="item-1">Welcome to {{clientName}}.</p>
 
             <p class="item-2">You will receive a confirmation text when you have placed your order</p>
 
@@ -514,5 +387,84 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            clientName : 'SIG Ireland',
+            visits: [{ticket: 'Loading', id: ''}],
+            lastCalled: [],
+            showSplash : false,
+            splashVisit : {},
+        },
+        computed: {
+            visitsTotal() {
+                return this.visits.length
+            }
+        },
+        methods: {
+            getVisits() {
+                axios.get('/rest/quickServe/branch/1/current').then(e => {
+                    //debugger;
+                    this.visits = e.data;
+                });
+            },
+            call(data) {
+                console.log('call')
+                this.updateSplash();
+                var visit = JSON.parse(data).visit;
+                this.splashVisit = visit;
+                this.lastCalled.push(visit);
+                this.getVisits();
+            },
+            add(data) {
+                console.log('Added')
+                this.getVisits();
+            },
+            updateSplash() {
+                this.showSplash = true
+                setTimeout(function () {
+                    debugger;
+                    app.showSplash = false;
+                }, 8000);
+            }
+        },
+        created() {
+            this.getVisits();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            var branchLogicId = urlParams.get('branchId');
+
+            var callText = '/topic/call/' + branchLogicId;
+            if (branchLogicId == "" || branchLogicId == null) {
+                callText = "/topic/call";
+            }
+            console.log("subbing to " + callText);
+            var socket = new SockJS('/websocket');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+
+                stompClient.subscribe('/topic/refresh', function (data) {
+                    window.location.reload(true);
+                });
+
+                stompClient.subscribe('/topic/add', function (data) {
+                    app.add(data.body);
+                });
+
+                stompClient.subscribe(callText, function (data) {
+                    app.call(data.body);
+                });
+
+            });
+
+        }
+    });
+
+</script>
+
 </body>
 </html>
