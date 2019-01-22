@@ -19,7 +19,7 @@
                     data.forEach(visit => {
                         console.log(visit.customer)
 
-                        drawTicket(visit.ticket, visit.parsedJson.notes ? visit.parsedJson.notes : visit.id)
+                        drawTicket(visit.ticket, visit.customer.lastName ? visit.customer.lastName : callItem.parsedJson.notes)
 
                     })
                 }
