@@ -406,8 +406,7 @@
         },
         methods: {
             getVisits() {
-                axios.get('/rest/quickServe/branch/1/current').then(e => {
-                    //debugger;
+                axios.get('/rest/media/branch/1/queue/-1').then(e => {
                     this.visits = e.data;
                 });
             },
@@ -426,7 +425,6 @@
             updateSplash() {
                 this.showSplash = true
                 setTimeout(function () {
-                    debugger;
                     app.showSplash = false;
                 }, 8000);
             }
