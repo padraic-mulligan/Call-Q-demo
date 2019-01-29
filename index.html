@@ -346,7 +346,7 @@
         <div v-if="showSplash">
             <p>Ticket Number: <br>
             <p class="plarge">{{splashVisit.ticket}}</p>
-            <p>Invoice Number: <br>{{splashVisit.id}}</p>
+            <p>Invoice Number: <br>{{splashVisit.customer.lastName}}</p>
         </div>
     </div>
 
@@ -357,7 +357,7 @@
                 <div v-for="item in visits">
                     <p>Ticket Number: <br>
                     <p class="plarge">{{item.ticket}}</p></p>
-                    <p>Invoice Number: <br>{{item.id}}</p>
+                    <p>Invoice Number: <br>{{item..customer.lastName}}</p>
                 </div>
             </div>
         </div>
@@ -371,7 +371,7 @@
                 <div class="border-grey" v-for="lastCall in lastCalled">
                     <p>Ticket Number: <br>
                     <p class="plarge">{{lastCall.ticket}}</p></p>
-                    <p>Invoice Number: <br>{{lastCall.id}}</p>
+                    <p>Invoice Number: <br>{{lastCall.customer.lastName}}</p>
                 </div>
 
             </div>
