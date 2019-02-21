@@ -14,17 +14,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"/>
 
-	<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
-	    <link
-	            type="text/css"
-	            rel="stylesheet"
-	            href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"
-	    />
-
-  <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
-  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
-
+    <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
 </head>
 
@@ -169,105 +163,115 @@
         <div v-if="selectedBranchId == -1 || selectedBranchId == ''">
             PLEASE SELECT A BRANCH BY ADDING THE QUERY PARAM
         </div>
+
+        <div v-if="selectedCreateStationId == -1 || selectedCreateStationId == ''">
+            PLEASE SELECT A CREATE STATION BY ADDING THE QUERY PARAM
+        </div>
     </div>
 </div>
 <script>
 
     var app = new Vue({
-            el: '#app',
-            data: {
-                dev: false,
-                clientName: 'Call-Q Demo',
-                showSplash: false,
-                branch: {branchName: 'loading....', queues: [{name: "loading"}]},
-                selectedBranchId: -1,
-                createdVisit: {left: {ticket: "loading"}},
+        el: '#app',
+        data: {
+            dev: false,
+            clientName: 'Call-Q Demo',
+            showSplash: false,
+            branch: {branchName: 'loading....', queues: [{name: "loading"}]},
+            selectedBranchId: -1,
+            selectedCreateStationId: -1,
+            createdVisit: {left: {ticket: "loading"}},
+        },
+        computed: {}
+        ,
+        methods: {
+            getQueues() {
+                axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
+                    this.branch = e.data;
+                });
             },
-            computed: {}
-            ,
-            methods: {
-                getQueues() {
-                    axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
-                        this.branch = e.data;
-                    });
-                },
-                queueSelected(queue) {
-                    let createStationLogicId = 1;
-                    let data = {};
+            queueSelected(queue) {
+                let data = {};
 
-                    //TODO customer
-                    // if (false) {
-                    //     data.customer = {
-                    //         firstName: this.saveCustomerCreate.firstName,
-                    //         lastName: this.saveCustomerCreate.lastName,
-                    //         notes: this.saveCustomerCreate.notes,
-                    //         phoneNumber: this.saveCustomerCreate.phoneNumber,
-                    //         emailAddress: this.saveCustomerCreate.emailAddress,
-                    //         customJsonProperties: JSON.stringify({
-                    //             accountNumber: this.saveCustomerCreate.accountNumber
-                    //         }),
-                    //
-                    //     }
-                    // }
+                //TODO customer
+                // if (false) {
+                //     data.customer = {
+                //         firstName: this.saveCustomerCreate.firstName,
+                //         lastName: this.saveCustomerCreate.lastName,
+                //         notes: this.saveCustomerCreate.notes,
+                //         phoneNumber: this.saveCustomerCreate.phoneNumber,
+                //         emailAddress: this.saveCustomerCreate.emailAddress,
+                //         customJsonProperties: JSON.stringify({
+                //             accountNumber: this.saveCustomerCreate.accountNumber
+                //         }),
+                //
+                //     }
+                // }
 
-                    axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + createStationLogicId + '/add', data).then(e => {
-                        this.createdVisit = e.data;
-                        this.updateSplash();
-                    });
-
-
-                },
-                updateSplash() {
-                    this.showSplash = true
-                    setTimeout(function () {
-                        app.showSplash = false;
-                    }, 8000);
-                }
-            }
-            ,
-            created() {
-
-                const urlParams = new URLSearchParams(window.location.search);
-                let branchLogicId = urlParams.get('branchId');
-                if (window.location.hostname.indexOf('localhost') >= 0) {
-                    this.dev = true;
-                }
-                if (this.dev)
-                    axios.defaults.baseURL = 'http://localhost:5000';
-                let callText = '/topic/call/' + branchLogicId;
-                if (branchLogicId == "" || branchLogicId == null) {
-                    callText = "/topic/call";
-                    branchLogicId = -1;
-                    console.error("please set a branch ID!")
-                }
-
-                this.selectedBranchId = branchLogicId;
-
-                this.getQueues();
-
-
-                console.log("subbing to " + callText);
-                let socket = new SockJS('/websocket');
-                stompClient = Stomp.over(socket);
-                stompClient.connect({}, function (frame) {
-                    console.log('Connected: ' + frame);
-
-                    stompClient.subscribe('/topic/refresh', function (data) {
-                        window.location.reload(true);
-                    });
-
-                    stompClient.subscribe('/topic/add', function (data) {
-                    });
-
-                    stompClient.subscribe(callText, function (data) {
-                    });
-
+                axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + this.selectedCreateStationId + '/add', data).then(e => {
+                    this.createdVisit = e.data;
+                    this.updateSplash();
                 });
 
-            }
-        })
-    ;
 
+            },
+            updateSplash() {
+                this.showSplash = true;
+                setTimeout(function () {
+                    app.showSplash = false;
+                }, 8000);
+            }
+        },
+        created() {
+
+            const urlParams = new URLSearchParams(window.location.search);
+            let branchLogicId = urlParams.get('branchId');
+            let selectedCreateStationId = urlParams.get('createStationId');
+
+            if (window.location.hostname.indexOf('localhost') >= 0) {
+                this.dev = true;
+            }
+            if (this.dev)
+                axios.defaults.baseURL = 'http://localhost:5000';
+            let callText = '/topic/call/' + branchLogicId;
+            if (branchLogicId == "" || branchLogicId == null) {
+                callText = "/topic/call";
+                branchLogicId = -1;
+                console.error("please set a branch ID!")
+            }
+
+            if (selectedCreateStationId == null || selectedCreateStationId == '') {
+                selectedCreateStationId = -1;
+                console.error("please select a branchId")
+            }
+
+            this.selectedCreateStationId = selectedCreateStationId;
+
+            this.selectedBranchId = branchLogicId;
+
+            this.getQueues();
+
+
+            console.log("subbing to " + callText);
+            let socket = new SockJS('/websocket');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+
+                stompClient.subscribe('/topic/refresh', function (data) {
+                    window.location.reload(true);
+                });
+
+                stompClient.subscribe('/topic/add', function (data) {
+                });
+
+                stompClient.subscribe(callText, function (data) {
+                });
+
+            });
+
+        }
+    });
 </script>
 
 </body>
