@@ -398,6 +398,7 @@
             lastCalled: [],
             showSplash : false,
             splashVisit : {},
+			selectedBranchId: -1,
         },
         computed: {
             visitsTotal() {
@@ -406,7 +407,7 @@
         },
         methods: {
             getVisits() {
-                axios.get('/rest/media/branch/1/current').then(e => {
+                axios.get('/rest/media/branch/'+this.selectedBranchId+'/queue/-1/current').then(e => {
                     //debugger;
                     this.visits = e.data;
                 });
@@ -441,6 +442,7 @@
             if (branchLogicId == "" || branchLogicId == null) {
                 callText = "/topic/call";
             }
+			this.selectedBranchId = branchLogicId;
             console.log("subbing to " + callText);
             var socket = new SockJS('/websocket');
             stompClient = Stomp.over(socket);
