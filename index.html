@@ -524,6 +524,10 @@
                     app.add(data.body);
                 });
 
+                stompClient.subscribe('/topic/end', function (data) {
+                    app.getVisits();
+                });
+
                 stompClient.subscribe(callText, function (data) {
                     app.call(data.body);
                 });
