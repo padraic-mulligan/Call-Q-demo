@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SIG Display</title>
+    <title>Media Display</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -350,30 +350,30 @@
         </div>
     </div>
 
-    <div class="main border-grey"  v-if="!showSplash">
+    <div class="main border-grey" v-if="!showSplash">
         <div id='mainArea'>
-            <h2>{{visitsTotal}} Customers Waiting</h2>
+            <h2>{{totalVisitsForQueue}} Customers Waiting {{getQueueName(currentQueueIdShowing)}}</h2>
             <div class="waiting-grid">
-                <div v-for="item in visits">
+                <div v-for="item in processMap">
                     <p>Ticket Number: <br>
                     <p class="plarge">{{item.ticket}}</p></p>
                     <p>Invoice Number: <br>{{item.id}}</p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="right">
-        <div id='ticketListContainer'>
-            <h2>Last Called</h2>
+        <div class="right">
+            <div id='ticketListContainer'>
+                <h2>Last Called</h2>
 
-            <div id=lastCalledList>
+                <div id=lastCalledList>
 
-                <div class="border-grey" v-for="lastCall in lastCalled">
-                    <p>Ticket Number: <br>
-                    <p class="plarge">{{lastCall.ticket}}</p></p>
-                    <p>Invoice Number: <br>{{lastCall.id}}</p>
+                    <div class="border-grey" v-for="lastCall in lastCalled">
+                        <p>Ticket Number: <br>
+                        <p class="plarge">{{lastCall.ticket}}</p></p>
+                        <p>Invoice Number: <br>{{lastCall.id}}</p>
+                    </div>
+
                 </div>
-
             </div>
         </div>
     </div>
@@ -383,7 +383,8 @@
 
             <p class="item-2">You will receive a confirmation text when you have placed your order</p>
 
-            <p class="item-3">When your order is ready you will receive a text to come back and collect your items</p>
+            <p class="item-3">When your order is ready you will receive a text to come back and collect your
+                items</p>
         </div>
     </div>
 </div>
@@ -393,23 +394,46 @@
     var app = new Vue({
         el: '#app',
         data: {
-            clientName : 'Call-Q Demo',
-            visits: [{ticket: 'Loading', id: ''}],
+            clientName: 'Call-Q Demo',
+            visits: [],
             lastCalled: [],
-            showSplash : false,
-            splashVisit : {},
-			selectedBranchId: -1,
+            showSplash: false,
+            splashVisit: {},
+            selectedBranchId: -1,
+            branch: {branchName: "loading", queues: []},
+            allQueuesId: [],
+            currentQueueIdShowing: null,
+            timeoutValue : null,
         },
         computed: {
-            visitsTotal() {
-                return this.visits.length
+
+            visitsToShow() {
+                let visits = this.visits;
+                if (this.currentQueueIdShowing === null) {
+                    return new Map();
+                } else {
+                    let map = new Map();
+                    map.set(this.currentQueueIdShowing, visits[this.currentQueueIdShowing]);
+                    return map;
+                }
+            },
+            processMap() {
+                let visitsToShow = this.visitsToShow;
+                return visitsToShow.get(this.currentQueueIdShowing);
+            },
+            totalVisitsForQueue() {
+                if(this.processMap === undefined)
+                    return 0;
+                return this.processMap.length;
             }
+
+
         },
         methods: {
             getVisits() {
-                axios.get('/rest/media/branch/'+this.selectedBranchId+'/queue/-1/current').then(e => {
-                    //debugger;
+                axios.get('/rest/media/branch/' + this.selectedBranchId + '/visits').then(e => {
                     this.visits = e.data;
+                    this.getBranch();
                 });
             },
             call(data) {
@@ -430,6 +454,46 @@
                     debugger;
                     app.showSplash = false;
                 }, 8000);
+            },
+            getBranch() {
+                axios.get('/rest/media/branch/' + this.selectedBranchId).then(r => {
+                    this.branch = r.data;
+                    this.allQueuesId = Object.keys(this.visits);
+                    this.currentQueueIdShowing = this.allQueuesId[0];
+                    this.timeouts()
+                });
+            },
+            getQueueName(queueId) {
+                if (queueId === 0)
+                    return '';
+
+                for (let i = 0; i < this.branch.queues.length; i++) {
+                    let queue = this.branch.queues[i];
+                    if (queue.logicId == queueId) {
+                        return ' In ' + queue.name;
+                    }
+                }
+                return '';
+            },
+            timeouts() {
+                this.iterateQueues();
+                this.timeoutValue = setTimeout(this.timeouts, 5000);
+            },
+            iterateQueues() {
+                let all = this.allQueuesId;
+                let current = this.currentQueueIdShowing;
+
+                let index = all.indexOf(current) + 1;
+                if (index >= all.length)
+                    index = 0;
+                let valueToSet = all[index];
+                if (valueToSet == undefined) {
+                    console.log('index' + index)
+                    this.currentQueueIdShowing = all[index + 1];
+                    this.iterateQueues()
+                }
+                this.currentQueueIdShowing = valueToSet;
+                console.log(this.currentQueueIdShowing);
             }
         },
         created() {
@@ -442,9 +506,8 @@
             if (branchLogicId == "" || branchLogicId == null) {
                 callText = "/topic/call";
             }
-			this.selectedBranchId = branchLogicId;
+            this.selectedBranchId = branchLogicId;
             console.log("subbing to " + callText);
-
 
             this.getVisits();
 
