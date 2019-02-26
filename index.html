@@ -433,7 +433,7 @@
             }
         },
         created() {
-            this.getVisits();
+
 
             const urlParams = new URLSearchParams(window.location.search);
             var branchLogicId = urlParams.get('branchId');
@@ -444,6 +444,10 @@
             }
 			this.selectedBranchId = branchLogicId;
             console.log("subbing to " + callText);
+
+
+            this.getVisits();
+
             var socket = new SockJS('/websocket');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function (frame) {
