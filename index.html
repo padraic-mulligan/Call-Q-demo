@@ -395,6 +395,7 @@
         el: '#app',
         data: {
             clientName: 'Call-Q Demo',
+            stompClient: null,
             visits: [],
             lastCalled: [],
             showSplash: false,
@@ -403,7 +404,7 @@
             branch: {branchName: "loading", queues: []},
             allQueuesId: [],
             currentQueueIdShowing: null,
-            timeoutValue : null,
+            timeoutValue: null,
         },
         computed: {
 
@@ -422,7 +423,7 @@
                 return visitsToShow.get(this.currentQueueIdShowing);
             },
             totalVisitsForQueue() {
-                if(this.processMap === undefined)
+                if (this.processMap === undefined)
                     return 0;
                 return this.processMap.length;
             }
@@ -494,6 +495,35 @@
                 }
                 this.currentQueueIdShowing = valueToSet;
                 console.log(this.currentQueueIdShowing);
+            },
+            connect() {
+                var socket = new SockJS('/websocket');
+                this.stompClient = Stomp.over(socket);
+                this.stompClient.connect({}, (frame) => {
+                    console.log('Connected: ' + frame);
+
+                    this.stompClient.subscribe('/topic/refresh', function (data) {
+                        window.location.reload(true);
+                    });
+
+                    this.stompClient.subscribe('/topic/add', function (data) {
+                        app.add(data.body);
+                    });
+
+                    this.stompClient.subscribe('/topic/end', function (data) {
+                        app.getVisits();
+                    });
+
+                    this.stompClient.subscribe('/topic/call/' + this.selectedBranchId, function (data) {
+                        app.call(data.body);
+                    });
+
+                }, () => {
+                    setTimeout(() => {
+                        this.connect();
+                    }, 5000);
+                });
+                this.stompClient.reconnect_delay = 5000;
             }
         },
         created() {
@@ -511,28 +541,7 @@
 
             this.getVisits();
 
-            var socket = new SockJS('/websocket');
-            stompClient = Stomp.over(socket);
-            stompClient.connect({}, function (frame) {
-                console.log('Connected: ' + frame);
-
-                stompClient.subscribe('/topic/refresh', function (data) {
-                    window.location.reload(true);
-                });
-
-                stompClient.subscribe('/topic/add', function (data) {
-                    app.add(data.body);
-                });
-
-                stompClient.subscribe('/topic/end', function (data) {
-                    app.getVisits();
-                });
-
-                stompClient.subscribe(callText, function (data) {
-                    app.call(data.body);
-                });
-
-            });
+            this.connect();
 
         }
     });

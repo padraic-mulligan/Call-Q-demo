@@ -162,6 +162,7 @@
         el: '#app',
         data: {
             dev: false,
+            stompClient: null,
             showSplash: false,
             branch: {branchName: 'loading....', queues: [{name: "loading"}]},
             callStation: {name: "loading"},
@@ -188,7 +189,7 @@
                 if (this.timesFlashed >= this.timesToFlash) {
                     clearTimeout(this.timeoutValue);
                     document.getElementById('callStationName').classList.remove('coloured')
-					this.timesFlashed = 0;
+                    this.timesFlashed = 0;
                     return;
                 }
                 this.timeoutValue = setTimeout(this.timeouts, this.flashInterval)
@@ -203,6 +204,28 @@
                 axios.get('/rest/media/branch/' + this.selectedBranchId + '/callStation/' + this.selectedCallStationId).then(e => {
                     this.callStation = e.data;
                 });
+            },
+            connect() {
+                let socket = new SockJS('/websocket');
+                this.stompClient = Stomp.over(socket);
+                this.stompClient.connect({}, (frame) => {
+                    console.log('Connected: ' + frame);
+
+                    this.stompClient.subscribe('/topic/refresh', function (data) {
+                        window.location.reload(true);
+                    });
+
+                    this.stompClient.subscribe('/topic/call/' + app.selectedBranchId + '/callStation/' + app.selectedCallStationId, function (data) {
+                        app.callEventForSelected(data);
+                    });
+
+                }, () => {
+                    setTimeout(() => {
+                        this.connect();
+                    }, 5000);
+                });
+                this.stompClient.reconnect_delay = 5000;
+
             },
         },
         created() {
@@ -238,22 +261,7 @@
 
             this.getBranch();
             this.getCallStation();
-
-            let socket = new SockJS('/websocket');
-            stompClient = Stomp.over(socket);
-            stompClient.connect({}, function (frame) {
-                console.log('Connected: ' + frame);
-
-                stompClient.subscribe('/topic/refresh', function (data) {
-                    window.location.reload(true);
-                });
-
-                stompClient.subscribe('/topic/call/' + app.selectedBranchId + '/callStation/' + app.selectedCallStationId, function (data) {
-                    app.callEventForSelected(data);
-                });
-
-            });
-
+            this.connect();
         }
     });
 </script>
