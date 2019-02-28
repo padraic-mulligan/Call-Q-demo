@@ -188,6 +188,7 @@
                 if (this.timesFlashed >= this.timesToFlash) {
                     clearTimeout(this.timeoutValue);
                     document.getElementById('callStationName').classList.remove('coloured')
+					this.timesFlashed = 0;
                     return;
                 }
                 this.timeoutValue = setTimeout(this.timeouts, this.flashInterval)
