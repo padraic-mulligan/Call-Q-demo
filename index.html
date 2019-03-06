@@ -346,7 +346,7 @@
         <div v-if="showSplash">
             <p>Ticket Number: <br>
             <p class="plarge">{{splashVisit.ticket}}</p>
-            <p>Invoice Number: <br>{{splashVisit.id}}</p>
+            <p>Order Number: <br>{{splashVisit.parsedJson.notes}}</p>
         </div>
     </div>
 
@@ -357,7 +357,7 @@
                 <div v-for="item in processMap">
                     <p>Ticket Number: <br>
                     <p class="plarge">{{item.ticket}}</p></p>
-                    <p>Invoice Number: <br>{{item.id}}</p>
+                    <p>Invoice Number: <br>{{item.parsedJson.notes}}</p>
                 </div>
             </div>
         </div>
