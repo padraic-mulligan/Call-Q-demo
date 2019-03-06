@@ -112,12 +112,11 @@
         color: white;
         z-index: 999 !important;
         opacity: 1 !important;
-        position: relative;
-        padding: 5px 5px 5px 5px;
+        position: absolute;
     }
 
     .pad {
-        padding-top: 10px;
+        padding-bottom: 10px;
     }
 </style>
 <body>
@@ -138,12 +137,12 @@
              style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
     </div>
 
-    <div class="grid-container" id="app">
+    <div class="grid-container" id="app" style="height: 80%; width: 100%;">
         <div class="header">
             <h1>Welcome to {{clientName}} - {{branch.branchName}}</h1>
             <h2></h2>
         </div>
-        <div class="splashScreen " style="text-align: center">
+        <div class="splashScreen container d-flex" style="text-align: center">
             <div v-if="showSplash" class="col-lg-9 ml-auto mr-auto " style="margin-top: 20%;">
                 <h1>Please wait while your ticket is been printed</h1>
                 <h1>Ticket: {{createdVisit.left.ticket}}</h1>
@@ -151,12 +150,46 @@
             </div>
         </div>
 
-        <div class="" v-if="!showSplash">
+        <div class="container h-100" v-if="!showSplash && !showCustomer">
             <h2>Please select a queue you wish to be entered into</h2>
             <div class="row pad" v-for="queue in branch.queues">
                 <b-button class="col-lg-9 ml-auto mr-auto " size="lg" variant="primary" block style="padding: 50px 0; "
-                          @click='queueSelected(queue)'>{{queue.name}}
+                          @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
+            </div>
+        </div>
+
+        <div class=" container d-flex " v-if="showCustomer">
+            <div class="row col-12 ml-auto mr-auto row">
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">First and last name</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="customer.firstName">
+                    <input type="text" class="form-control" v-model="customer.lastName">
+                </div>
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Phone Number</span>
+                    </div>
+                    <input type="tel" class="form-control" v-model="customer.phoneNumber">
+                </div>
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Order Number</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="customer.orderNum">
+                </div>
+
+                <b-button class="col-lg-9 ml-auto mr-auto row " size="lg" variant="primary" block
+                          style="padding: 50px 0; "
+                          @click='createVisit()'>Create Visit
+                </b-button>
+
+                <b-button class="col-lg-9 ml-auto mr-auto row " size="sm" variant="primary" block
+                          @click='goHome()'>Home
+                </b-button>
+
             </div>
         </div>
 
@@ -182,6 +215,14 @@
             selectedBranchId: -1,
             selectedCreateStationId: -1,
             createdVisit: {left: {ticket: "loading"}},
+            showCustomer: false,
+            selectedQueue: null,
+            customer: {
+                firstName: '',
+                lastName: '',
+                orderNum: '',
+                phoneNumber: ''
+            }
         },
         computed: {}
         ,
@@ -191,26 +232,32 @@
                     this.branch = e.data;
                 });
             },
-            queueSelected(queue) {
+            setSelectedQueue(queue) {
+                this.selectedQueue = queue;
+                this.showCustomer = true;
+            },
+            goHome() {
+                this.customer = {};
+                this.showCustomer = false
+                this.selectedQueue = {};
+            },
+            createVisit() {
+                debugger;
+                let queue = this.selectedQueue;
                 let data = {};
 
-                //TODO customer
-                // if (false) {
-                //     data.customer = {
-                //         firstName: this.saveCustomerCreate.firstName,
-                //         lastName: this.saveCustomerCreate.lastName,
-                //         notes: this.saveCustomerCreate.notes,
-                //         phoneNumber: this.saveCustomerCreate.phoneNumber,
-                //         emailAddress: this.saveCustomerCreate.emailAddress,
-                //         customJsonProperties: JSON.stringify({
-                //             accountNumber: this.saveCustomerCreate.accountNumber
-                //         }),
-                //
-                //     }
-                // }
+                data.customer = {
+                    firstName: this.customer.firstName,
+                    lastName: this.customer.lastName,
+                    notes: this.customer.orderNum,
+                    phoneNumber: this.customer.phoneNumber,
+                };
 
                 axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + this.selectedCreateStationId + '/add', data).then(e => {
                     this.createdVisit = e.data;
+                    this.customer = {};
+                    this.showCustomer = false
+                    this.selectedQueue = {};
                     this.updateSplash();
                 });
 
@@ -233,7 +280,7 @@
                     });
 
 
-                }, () =>{
+                }, () => {
                     setTimeout(() => {
                         this.connect();
                     }, 5000);
