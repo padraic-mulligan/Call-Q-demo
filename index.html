@@ -96,7 +96,7 @@
 
     .grid-container {
         display: grid;
-        grid-template-areas: 'header header header header header header' 'main main main main main right' 'footer footer footer footer footer footer';
+        grid-template-areas: 'header header header header header header' 'main main main main right right' 'footer footer footer footer footer footer';
         grid-gap: 0.2em;
         padding: 0.2em;
         background-color: var(--main-bg-color);
@@ -129,11 +129,10 @@
     }
 
     .right {
-        height: 75vh;
-        overflow: hidden;
         grid-area: right;
-        margin: 1rem 1rem 0rem 0rem;
-
+        height: 72vh;
+        overflow: hidden;
+        margin: 1rem 2rem 0rem 0rem;
         padding-bottom: 1rem;
 
     }
@@ -341,10 +340,12 @@
     }
 </style>
 <div class="grid-container" id="app">
-    <div class="header border-grey"><h2>Welcome to {{clientName}}</h2></div>
+    <div class="header border-grey">
+        <h2>Welcome to {{clientName}}</h2>
+    </div>
     <div class="splashScreen border-grey">
         <div v-if="showSplash">
-            <p>Ticket Number: <br>
+            <p>Ticket Number: </p><br>
             <p class="plarge">{{splashVisit.ticket}}</p>
             <p>Order Number: <br>{{splashVisit.parsedJson.notes}}</p>
         </div>
@@ -355,12 +356,13 @@
             <h2>{{totalVisitsForQueue}} Customers Waiting {{getQueueName(currentQueueIdShowing)}}</h2>
             <div class="waiting-grid">
                 <div v-for="item in processMap">
-                    <p>Ticket Number: <br>
-                    <p class="plarge">{{item.ticket}}</p></p>
+                    <p>Ticket Number: </p><br>
+                    <p class="plarge">{{item.ticket}}</p>
                     <p>Order Number: <br>{{item.parsedJson.notes}}</p>
                 </div>
             </div>
         </div>
+    </div>
         <div class="right">
             <div id='ticketListContainer'>
                 <h2>Last Called</h2>
@@ -368,15 +370,14 @@
                 <div id=lastCalledList>
 
                     <div class="border-grey" v-for="lastCall in lastCalled">
-                        <p>Ticket Number: <br>
-                        <p class="plarge">{{lastCall.ticket}}</p></p>
+                        <p>Ticket Number: </p><br>
+                        <p class="plarge">{{lastCall.ticket}}</p>
                         <p>Order Number: <br>{{lastCall.id}}</p>
                     </div>
 
                 </div>
             </div>
         </div>
-    </div>
     <div class="footer">
         <div>
             <p class="item-1">Welcome to {{clientName}}.</p>
