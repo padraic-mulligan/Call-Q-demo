@@ -140,6 +140,7 @@
     .right > div > div {
         text-align: center;
         margin: 0.5rem;
+        padding: 2rem;
     }
 
     .right > div > div > p {
@@ -341,13 +342,13 @@
 </style>
 <div class="grid-container" id="app">
     <div class="header border-grey">
-        <h2>Welcome to {{clientName}}</h2>
+        <h2>Welcome to J&amp;C Hendrick Ltd</h2>
     </div>
     <div class="splashScreen border-grey">
         <div v-if="showSplash">
             <p>Ticket Number: </p><br>
             <p class="plarge">{{splashVisit.ticket}}</p>
-            <p>Order Number: <br>{{splashVisit.parsedJson.notes}}</p>
+            <!-- <p>Order Number: <br>{{splashVisit.parsedJson.notes}}</p> --->
         </div>
     </div>
 
@@ -358,7 +359,7 @@
                 <div v-for="item in processMap">
                     <p>Ticket Number: </p><br>
                     <p class="plarge">{{item.ticket}}</p>
-                    <p>Order Number: <br>{{item.parsedJson.notes}}</p>
+                    <!--- <p>Order Number: <br>{{item.parsedJson.notes}}</p> --->
                 </div>
             </div>
         </div>
@@ -372,7 +373,7 @@
                     <div class="border-grey" v-for="lastCall in lastCalled">
                         <p>Ticket Number: </p><br>
                         <p class="plarge">{{lastCall.ticket}}</p>
-                        <p>Order Number: <br>{{lastCall.id}}</p>
+                      <!--  <p>Order Number: <br>{{lastCall.id}}</p> --->
                     </div>
 
                 </div>
@@ -380,7 +381,7 @@
         </div>
     <div class="footer">
         <div>
-            <p class="item-1">Welcome to {{clientName}}.</p>
+            <p class="item-1">Welcome to J&amp;C Hendrick Ltd</p>
 
             <p class="item-2">You will receive a confirmation text when you have placed your order</p>
 
