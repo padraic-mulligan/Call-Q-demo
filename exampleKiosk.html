@@ -26,8 +26,13 @@
     .centred{
         text-align: center;
     }
+    
     .large-tkt-num{
         font-size: 3rem;
+    }
+    
+    .h1-lrg{
+        font-size: 4rem;
     }
     
     @keyframes move_wave {
@@ -58,9 +63,14 @@
         overflow: hidden;
         height: 100%;
         bottom: -1px;
-        background-image: linear-gradient(to top, #68B5DF 20%, #47A5D8 80%);
+        background-image: linear-gradient(to top, #68B5DF 10%, #47A5D8 80%);
     }
 
+    .btn-div{
+        border-radius: 70px;
+        box-shadow: 10px 10px #7B7B7B;
+        
+    }
     .bgTop {
         z-index: 15;
         opacity: 0.5;
@@ -77,8 +87,8 @@
     .button-text{
         font-size: 5rem;
         color: #FFFFFF;
-        font-weight: 600;
-        background-image: linear-gradient(to top, #ef6e90 30%, #C45B76 70%);
+        font-weight: 700;
+        background-image: linear-gradient(to top, #E26C84 30%, #ECA1B0 70%);
         border: none;
     }
 
@@ -154,7 +164,9 @@
     <div class="grid-container centred" id="app" style="height: 80%; width: 100%;">
         <div class="header">
             <br>
-            <h1>Welcome to {{clientName}}</h1>
+            <!-- <h1>Welcome to {{clientName}}</h1> --->
+            <h1 class="h1-lrg">Welcome to J&amp;C Hendrick Ltd</h1>
+            <h1>Queue Management System</h1>
             <br>
             <h1>{{branch.branchName}}</h1>
             <br>
@@ -169,8 +181,8 @@
 
         <div class="container h-100 centred" v-if="!showSplash && !showCustomer">
             <h2>Please select a queue you wish to be entered into</h2>
-            <div class="row pad" v-for="queue in branch.queues">
-                <b-button class="col-lg-9 ml-auto mr-auto button-text " size="lg" block style="padding: 2px; margin: 30px;"
+            <div class="row pad " v-for="queue in branch.queues">
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div " size="lg" block style="padding: 2px; margin: 30px;"
                           @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
             </div>
