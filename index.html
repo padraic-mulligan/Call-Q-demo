@@ -47,7 +47,7 @@
     }
 
     :root {
-        --main-bg-color: #a80532;
+        --main-bg-color: #268BAD;
         --border-color: rgb(212, 212, 212);
         --font-color: rgb(255, 255, 255);
         --ticket-font-color: rgb(0, 0, 0);
@@ -100,7 +100,6 @@
         grid-gap: 0.2em;
         padding: 0.2em;
         background-color: var(--main-bg-color);
-        background-image: linear-gradient(to top, #1c4786 20%, #4bb5cd 80%);
     }
 
     .grid-container > div {
@@ -125,8 +124,12 @@
     .header {
         grid-area: header;
         height: 7vh;
-        padding: -0.2rem;
+        padding: -0.rem;
         margin: 1rem 1rem 0rem 1rem;
+    }
+    .header > h2 {
+        margin-top: -13px;
+        font-size: 4rem;
     }
 
     .right {
