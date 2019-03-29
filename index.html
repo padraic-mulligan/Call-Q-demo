@@ -360,7 +360,8 @@
 
     <div class="main border-grey" v-if="!showSplash">
         <div id='mainArea'>
-            <h2>{{totalVisitsForQueue}} Customers Waiting {{getQueueName(currentQueueIdShowing)}}</h2>
+            <h1>{{getQueueName(currentQueueIdShowing)}}</h1>
+            <h2>{{totalVisitsForQueue}} Customers Waiting</h2>
             <div class="waiting-grid">
                 <div v-for="item in processMap">
                     <p>Ticket Number: </p><br>
