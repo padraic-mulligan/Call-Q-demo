@@ -467,6 +467,7 @@
                     debugger;
                     app.showSplash = false;
                 }, 8000);
+                location.reload();
             },
             getBranch() {
                 axios.get('/rest/media/branch/' + this.selectedBranchId).then(r => {
@@ -507,7 +508,6 @@
                 }
                 this.currentQueueIdShowing = valueToSet;
                 console.log(this.currentQueueIdShowing);
-                return;
             },
             connect() {
                 var socket = new SockJS('/websocket');
