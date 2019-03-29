@@ -451,6 +451,7 @@
                 });
             },
             call(data) {
+                clearTimeout(this.timeouts);
                 console.log('call')
                 this.updateSplash();
                 var visit = JSON.parse(data).visit;
@@ -460,6 +461,7 @@
                 console.log("callCalled");
             },
             add(data) {
+                clearTimeout(this.timeouts);
                 console.log('Added')
                 this.getVisits();
                 console.log("addCalled");
