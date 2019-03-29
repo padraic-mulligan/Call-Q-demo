@@ -445,23 +445,25 @@
         methods: {
             getVisits() {
                 axios.get('/rest/media/branch/' + this.selectedBranchId + '/visits').then(e => {
+                    this.connect();
+                    clearTimeout(this.timeouts);
+                    console.log("cleared timeout");
                     this.visits = e.data;
                     this.getBranch();
                     console.log("getVisitsCalled");
                 });
             },
             call(data) {
-                clearTimeout(this.timeouts);
                 console.log('call')
                 this.updateSplash();
                 var visit = JSON.parse(data).visit;
                 this.splashVisit = visit;
                 this.lastCalled.push(visit);
                 this.getVisits();
-                console.log("callCalled");
+                
             },
             add(data) {
-                clearTimeout(this.timeouts);
+                console.log("cleared timeout");
                 console.log('Added')
                 this.getVisits();
                 console.log("addCalled");
@@ -560,7 +562,7 @@
 
             this.getVisits();
 
-            this.connect();
+          //  this.connect();
 
         }
     });
