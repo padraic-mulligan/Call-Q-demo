@@ -491,7 +491,6 @@
             timeouts() {
                 this.iterateQueues();
                 this.timeoutValue = setTimeout(this.timeouts, 10000);
-                break;
             },
             iterateQueues() {
                 let all = this.allQueuesId;
@@ -508,6 +507,7 @@
                 }
                 this.currentQueueIdShowing = valueToSet;
                 console.log(this.currentQueueIdShowing);
+                break;
             },
             connect() {
                 var socket = new SockJS('/websocket');
