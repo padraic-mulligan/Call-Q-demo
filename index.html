@@ -455,6 +455,7 @@
                 var visit = JSON.parse(data).visit;
                 this.splashVisit = visit;
                 this.lastCalled.push(visit);
+                this.timeouts();
                 this.getVisits();
             },
             add(data) {
@@ -462,7 +463,6 @@
                 this.getVisits();
             },
             updateSplash() {
-                this.timeoutValue = setTimeout(this.timeouts, 0);
                 this.showSplash = true;
                 setTimeout(function () {
                     debugger;
@@ -474,7 +474,7 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    this.timeouts()
+                    
                 });
             },
             getQueueName(queueId) {
