@@ -447,6 +447,7 @@
                 axios.get('/rest/media/branch/' + this.selectedBranchId + '/visits').then(e => {
                     this.visits = e.data;
                     this.getBranch();
+                    console.log("getVisitsCalled");
                 });
             },
             call(data) {
@@ -455,12 +456,13 @@
                 var visit = JSON.parse(data).visit;
                 this.splashVisit = visit;
                 this.lastCalled.push(visit);
-                this.timeouts();
                 this.getVisits();
+                console.log("callCalled");
             },
             add(data) {
                 console.log('Added')
                 this.getVisits();
+                console.log("addCalled");
             },
             updateSplash() {
                 this.showSplash = true;
@@ -474,7 +476,7 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    
+                    this.timeouts()
                 });
             },
             getQueueName(queueId) {
