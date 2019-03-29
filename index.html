@@ -507,7 +507,7 @@
                 }
                 this.currentQueueIdShowing = valueToSet;
                 console.log(this.currentQueueIdShowing);
-                break;
+                return;
             },
             connect() {
                 var socket = new SockJS('/websocket');
