@@ -491,6 +491,7 @@
             timeouts() {
                 this.iterateQueues();
                 this.timeoutValue = setTimeout(this.timeouts, 10000);
+                break;
             },
             iterateQueues() {
                 let all = this.allQueuesId;
