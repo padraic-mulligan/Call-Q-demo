@@ -76,7 +76,10 @@
     }
     .button-text{
         font-size: 5rem;
+        color: #FFFFFF;
         font-weight: 600;
+        background-image: linear-gradient(to top, #ef6e90 30%, #C45B76 70%);
+        border: none;
     }
 
     .wave {
@@ -167,7 +170,7 @@
         <div class="container h-100 centred" v-if="!showSplash && !showCustomer">
             <h2>Please select a queue you wish to be entered into</h2>
             <div class="row pad" v-for="queue in branch.queues">
-                <b-button class="col-lg-9 ml-auto mr-auto button-text " size="lg" variant="danger" block style="padding: 2px; margin: 30px;"
+                <b-button class="col-lg-9 ml-auto mr-auto button-text " size="lg" block style="padding: 2px; margin: 30px;"
                           @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
             </div>
