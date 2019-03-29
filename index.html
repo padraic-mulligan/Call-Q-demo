@@ -467,7 +467,7 @@
                     debugger;
                     app.showSplash = false;
                 }, 8000);
-                location.reload();
+                this.reloadMain();
             },
             getBranch() {
                 axios.get('/rest/media/branch/' + this.selectedBranchId).then(r => {
@@ -509,6 +509,16 @@
                 this.currentQueueIdShowing = valueToSet;
                 console.log(this.currentQueueIdShowing);
             },
+            
+            reloadMain(){
+                var container = document.getElementById("mainArea");
+                var content = container.innerHTML;
+                container.innerHTML= content; 
+
+               //this line is to watch the result in console , you can remove it later	
+                console.log("Refreshed Ticket Greid");
+            },
+            
             connect() {
                 var socket = new SockJS('/websocket');
                 this.stompClient = Stomp.over(socket);
