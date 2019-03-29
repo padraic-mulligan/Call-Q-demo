@@ -491,7 +491,7 @@
             },
             timeouts() {
                 this.iterateQueues();
-                this.timeoutValue = setTimeout(this.timeouts, 10000);
+                this.timeoutValue = setTimeout(this.timeouts, 8000);
             },
             iterateQueues() {
                 let all = this.allQueuesId;
@@ -516,7 +516,7 @@
                 container.innerHTML= content; 
 
                //this line is to watch the result in console , you can remove it later	
-                console.log("Refreshed Ticket Greid");
+                console.log("Refreshed Ticket Grid");
             },
             
             connect() {
@@ -544,9 +544,9 @@
                 }, () => {
                     setTimeout(() => {
                         this.connect();
-                    }, 5000);
+                    }, 8000);
                 });
-                this.stompClient.reconnect_delay = 5000;
+                this.stompClient.reconnect_delay = 8000;
             }
         },
         created() {
