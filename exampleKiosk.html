@@ -87,6 +87,8 @@
     .button-text{
         font-size: 5rem;
         color: #FFFFFF;
+    }
+    .button-style{
         font-weight: 700;
         background-image: linear-gradient(to top, #E26C84 30%, #ECA1B0 70%);
         border: none;
@@ -173,7 +175,7 @@
         </div>
         <div class="splashScreen container d-flex " style="text-align: center">
             <div v-if="showSplash" class="col-lg-9 ml-auto mr-auto " style="margin-top: 20%;">
-                <h1>Please wait while your ticket is been printed</h1>
+                <h1>Please wait while your ticket is printing</h1>
                 <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
                 <h1>You will be called shortly</h1>
             </div>
@@ -182,7 +184,7 @@
         <div class="container h-100 centred" v-if="!showSplash && !showCustomer">
             <h2>Please select a queue you wish to be entered into</h2>
             <div class="row pad " v-for="queue in branch.queues">
-                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div " size="lg" block style="padding: 2px; margin: 30px;"
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="padding: 2px; margin: 30px;"
                           @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
             </div>
@@ -192,30 +194,33 @@
             <div class="row col-12 ml-auto mr-auto row">
                 <div class="row input-group input-group-lg pad">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="">First and last name</span>
+                        <span class="input-group-text" id="">First Name</span>
                     </div>
-                    <input type="text" class="form-control" v-model="customer.firstName">
-                    <input type="text" class="form-control" v-model="customer.lastName">
+                    <input type="text" class="form-control" placeholder="John" v-model="customer.firstName">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Last Name</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Doe" v-model="customer.lastName">
                 </div>
                 <div class="row input-group input-group-lg pad">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone Number</span>
                     </div>
-                    <input type="tel" class="form-control" v-model="customer.phoneNumber">
+                    <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber">
                 </div>
                 <div class="row input-group input-group-lg pad">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Order Number</span>
                     </div>
-                    <input type="text" class="form-control" v-model="customer.orderNum">
+                    <input type="text" class="form-control" placeholder="123456" v-model="customer.orderNum">
                 </div>
 
-                <b-button class="col-lg-9 ml-auto mr-auto row " size="lg" variant="primary" block
-                          style="padding: 50px 0; "
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
+                          style="padding: 0px 0; "
                           @click='createVisit()'>Create Visit
                 </b-button>
 
-                <b-button class="col-lg-9 ml-auto mr-auto row " size="sm" variant="primary" block
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="margin: 30px;"
                           @click='goHome()'>Home
                 </b-button>
 
