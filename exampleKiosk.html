@@ -26,6 +26,9 @@
     .centred{
         text-align: center;
     }
+    .large-tkt-num{
+        font-size: 3rem;
+    }
     
     @keyframes move_wave {
         0% {
@@ -156,7 +159,7 @@
         <div class="splashScreen container d-flex " style="text-align: center">
             <div v-if="showSplash" class="col-lg-9 ml-auto mr-auto " style="margin-top: 20%;">
                 <h1>Please wait while your ticket is been printed</h1>
-                <h1>Ticket: {{createdVisit.left.ticket}}</h1>
+                <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
                 <h1>You will be called shortly</h1>
             </div>
         </div>
