@@ -445,9 +445,6 @@
         methods: {
             getVisits() {
                 axios.get('/rest/media/branch/' + this.selectedBranchId + '/visits').then(e => {
-                    this.connect();
-                    clearTimeout(this.timeouts);
-                    console.log("cleared timeout");
                     this.visits = e.data;
                     this.getBranch();
                     console.log("getVisitsCalled");
@@ -480,6 +477,8 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
+                    this.timeoutValue = clearTimeout(this.timeouts);
+                    console.log("cleared timeout");
                     this.timeouts()
                 });
             },
@@ -562,7 +561,7 @@
 
             this.getVisits();
 
-          //  this.connect();
+            this.connect();
 
         }
     });
