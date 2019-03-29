@@ -415,7 +415,7 @@
             selectedBranchId: -1,
             branch: {branchName: "loading", queues: []},
             allQueuesId: [],
-            currentQueueIdShowing: null,
+            currentQueueIdShowing: 0,
             timeoutValue: null,
         },
         computed: {
@@ -499,7 +499,7 @@
                 this.timeoutValue = setTimeout(this.timeouts, 8000);
                 console.log("Timer activated");
             },
-            iterateQueues() {
+   /*         iterateQueues() {
                 let all = this.allQueuesId;
                 let current = this.currentQueueIdShowing;
 
@@ -514,7 +514,7 @@
                 };
                 this.currentQueueIdShowing = valueToSet;
                 console.log(this.currentQueueIdShowing);
-            },
+            }, */
             
             connect() {
                 var socket = new SockJS('/websocket');
