@@ -462,6 +462,7 @@
                 this.getVisits();
             },
             updateSplash() {
+                window.clearTimeout(timeouts);
                 this.showSplash = true;
                 setTimeout(function () {
                     debugger;
