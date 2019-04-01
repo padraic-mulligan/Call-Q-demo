@@ -112,7 +112,6 @@
         border-style: solid;
         border-color: var(--border-color);
         border-radius: 10px;
-        padding: 10px;
     }
 
     .main {
@@ -144,7 +143,8 @@
 
     .right > div > div {
         text-align: center;
-        margin: 5px;
+        margin: 0.5rem;
+        padding: 2rem;
     }
 
     .right > div > div > p {
@@ -363,8 +363,8 @@
 
     <div class="main border-grey" v-if="!showSplash">
         <div id='mainArea'>
-            <h2>{{totalVisitsForQueue}} Customers Waiting</h2>
             <h1>{{getQueueName(currentQueueIdShowing)}}</h1>
+            <h2>{{totalVisitsForQueue}} Customers Waiting</h2>
             <div class="waiting-grid">
                 <div v-for="item in processMap">
                     <p>Ticket Number: </p><br>
@@ -380,7 +380,7 @@
 
                 <div id=lastCalledList>
 
-                    <div class="border-grey " v-for="lastCall in lastCalled">
+                    <div class="border-grey" v-for="lastCall in lastCalled">
                         <p>Ticket Number: </p><br>
                         <p class="plarge">{{lastCall.ticket}}</p>
                       <!--  <p>Order Number: <br>{{lastCall.id}}</p> --->
