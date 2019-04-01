@@ -415,7 +415,7 @@
             selectedBranchId: -1,
             branch: {branchName: "loading", queues: []},
             allQueuesId: [],
-            currentQueueIdShowing: 0,
+            currentQueueIdShowing: null,
             timeoutValue: null,
         },
         computed: {
@@ -447,7 +447,6 @@
                 axios.get('/rest/media/branch/' + this.selectedBranchId + '/visits').then(e => {
                     this.visits = e.data;
                     this.getBranch();
-                    console.log("getVisitsCalled");
                 });
             },
             call(data) {
@@ -460,10 +459,8 @@
                 
             },
             add(data) {
-                console.log("cleared timeout");
                 console.log('Added')
                 this.getVisits();
-                console.log("addCalled");
             },
             updateSplash() {
                 this.showSplash = true;
@@ -477,8 +474,6 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    this.timeoutValue = clearTimeout(this.timeouts);
-                    console.log("cleared timeout");
                     this.timeouts()
                 });
             },
@@ -497,7 +492,6 @@
             timeouts() {
                 this.iterateQueues();
                 this.timeoutValue = setTimeout(this.timeouts, 8000);
-                console.log("Timer activated");
             },
             iterateQueues() {
                 let all = this.allQueuesId;
