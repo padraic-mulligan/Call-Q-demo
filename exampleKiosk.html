@@ -197,7 +197,7 @@
         <div class="container h-100 centred" v-if="!showSplash && !showCustomer">
             <h2>Please select a queue</h2>
             <div class="row pad " v-for="queue in branch.queues">
-                <b-button v-if="selectedQueue == 'Retail'" class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="padding: 2px; margin: 30px;"
+                <b-button v-if="{{ queue.name }} == 'Retail'" class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="padding: 2px; margin: 30px;"
                           @click='setSelectedQueue(queue); createVisit()'>{{queue.name}}
                 </b-button>
                 <b-button v-else class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="padding: 2px; margin: 30px;"
