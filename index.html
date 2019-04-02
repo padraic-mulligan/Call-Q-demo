@@ -12,7 +12,11 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-<body>
+<body onload="load()">
+    <audio id="bell">
+        <source src="Bell.mp3" type="audio/mpeg">
+    </audio>
+
 <style>
     div.scrolling-limit {
         overflow: hidden;
@@ -451,6 +455,14 @@
                     this.getBranch();
                 });
             },
+            playAudio() {
+                "use strict";
+                    if(audio.readyState === 4){                       
+                    audio.pause(); // first pause        
+                    audio.currentTime = 0; // then reset           
+                    audio.play(); // then play
+                    }
+            },
             call(data) {
                 console.log('call')
                 this.updateSplash();
@@ -458,6 +470,7 @@
                 this.splashVisit = visit;
                 this.lastCalled.push(visit);
                 this.getVisits();
+                this.playAudio();
                 
             },
             add(data) {
