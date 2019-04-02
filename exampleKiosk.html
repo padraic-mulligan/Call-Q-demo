@@ -283,16 +283,16 @@
             setSelectedQueue(queue) {
                 this.selectedQueue = queue;
                 this.selectedQueueName = queue.name;
-
-                console.log(this.selectedQueueName);
+            /*
+            Add Queue Names here to show the details view
+            All other Queue's will print the ticket directly
+            */
                 if (this.selectedQueueName != "Retail "){
-                    console.log("createVisit called only");
                     this.showCustomer = false;
                     this.createVisit();
                 } else {
                     this.showCustomer = true;
-                    console.log("show customer");
-                }
+                };
             },
             goHome() {
                 this.customer = {};
