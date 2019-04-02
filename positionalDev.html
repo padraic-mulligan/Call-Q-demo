@@ -118,7 +118,11 @@
     }
 
     .hugeFont {
-        font-size: 300px;
+        font-size: 250px;
+        font-weight: bold;
+    }
+    .ticketFont{
+        font-size: 350px;
         font-weight: bold;
     }
 
@@ -126,7 +130,7 @@
         color: red;
     }
     .largeText{
-        font-size: 500px;
+        font-size: 600px;
         font-weight: bold;
     }
 </style>
@@ -164,9 +168,7 @@
 
         <div class="container d-flex flex-column">
             <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
-                <h1>Ticket number</h1>
-                <br>
-                <p id='ticketNumber' class="hugeFont">{{splashVisit.ticket}}</p>
+                <p id='ticketNumber' class="ticketFont">{{splashVisit.ticket}}</p>
             </div>
             <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
                 <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
