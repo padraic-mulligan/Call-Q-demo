@@ -144,20 +144,30 @@
 
     <div class="grid-container" id="app" style="height: 80%">
         <div class="header">
-            <h1>Welcome to {{properties.clientName}} - {{branch.branchName}}</h1>
+           <!-- <h1>Welcome to {{properties.clientName}} -</h1> -->
+            <h1>{{branch.branchName}}</h1>
         </div>
 
         <div class="container d-flex h-100">
             <div class="row justify-content-center align-self-center text-center mx-auto">
+                <p id='callStationName' class="hugeFont">{{splashVisit.ticket}}</p>
+        </div>
+        <div class="container d-flex h-100" v-if="showSplash">
+            <div class="row justify-content-center align-self-center text-center mx-auto">
+                <p id='callStationName' class="hugeFont coloured">{{splashVisit.ticket}}</p>
+        </div>
+        <div class="container d-flex h-100">
+            <div class="row justify-content-center align-self-center text-center mx-auto">
                 <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
-            </div>
+        </div>
 
-            <div class="row justify-content-center align-self-center text-center mx-auto" v-if="showSplash">          
+      <!--      <div class="row justify-content-center align-self-center text-center mx-auto" v-if="showSplash">          
                     <p id='ticketNumber' class="plarge">
                         Calling Ticket Number: {{splashVisit.ticket}}
                     </p>
-                    <!-- <p>Order Number: <br>{{splashVisit.parsedJson.notes}}</p> --->
+                    <!- <p>Order Number: <br>{{splashVisit.parsedJson.notes}}</p> ->
             </div>
+        --->
 
         </div>
         
