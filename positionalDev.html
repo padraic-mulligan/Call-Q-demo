@@ -131,8 +131,9 @@
         color: red;
     }
     .largeText{
-        font-size: 500px;
+        font-size: 650px;
         font-weight: bolder;
+        margin: -80px;
     }
 </style>
 <body>
@@ -155,8 +156,9 @@
 
     <div class="grid-container" id="app" style="height: 80%">
         <div class="header">
-          <!--  <h1>Welcome to {{properties.clientName}}</h1> -->
+          <!--  <h1>Welcome to {{properties.clientName}}</h1>
             <h1>{{branch.branchName}}</h1>
+          -->
         </div>
 
         
@@ -169,7 +171,7 @@
             <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
                 <p id='ticketNumber' class="ticketFont">{{splashVisit.ticket}}</p>
             </div>
-            <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
+            <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="1showSplash">
                 <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
             </div>
         </div>
@@ -201,7 +203,7 @@
             selectedCallStationId: null,
             properties: [{clientName: 'loading'}],
             timesFlashed: 0,
-            timesToFlash: 30,
+            timesToFlash: 10,
             flashInterval: 1500,
             timeoutValue: null,
         },
@@ -233,9 +235,8 @@
             updateSplash() {
                 this.showSplash = true;
                 setTimeout(function () {
-                    // debugger;
                     app.showSplash = false;
-                }, 8000);
+                }, 20000);
             },
             flashText() {
                 console.log('flashText!');
