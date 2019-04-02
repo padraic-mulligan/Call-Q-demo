@@ -281,11 +281,12 @@
             },
             setSelectedQueue(queue) {
                 this.selectedQueue = queue;
-                if (this.selectedQueue != "Retail"){
-                    this.showCustomer = true;
-                } else {
+                console.log(this.selectedQueue);
+                if (this.selectedQueue == "Retail"){
                     this.showCustomer = false;
                     createVisit();
+                } else {
+                    this.showCustomer = true;
                 }
                 
             },
