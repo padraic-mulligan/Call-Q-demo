@@ -149,13 +149,23 @@
 
         <div class="container d-flex h-100">
             <div class="row justify-content-center align-self-center text-center mx-auto">
+                <p id='ticketNumber' class="plarge coloured">
+                    Calling Ticket Number: {{splashVisit.ticket}}
+                </p>
+        </div>
+        <div class="container d-flex h-100">
+            <div class="row justify-content-center align-self-center text-center mx-auto" v-if="showSplash">
+                <p id='ticketNumber' class="plarge coloured">
+                    Calling Ticket Number: {{splashVisit.ticket}}
+                </p>
+        </div>
+        <div class="container d-flex h-100">
+            <div class="row justify-content-center align-self-center text-center mx-auto">
                 <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
-            </div>
+        </div>
 
             <div class="row justify-content-center align-self-center text-center mx-auto" v-if="showSplash">          
-                    <p id='ticketNumber' class="plarge">
-                        Calling Ticket Number: {{splashVisit.ticket}}
-                    </p>
+                    
                     <!-- <p>Order Number: <br>{{splashVisit.parsedJson.notes}}</p> --->
             </div>
 
