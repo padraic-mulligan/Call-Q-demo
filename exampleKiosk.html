@@ -198,12 +198,12 @@
             <h2>Please select a queue</h2>
             <div class="row pad " v-for="queue in branch.queues">
                 <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="padding: 2px; margin: 30px;"
-                          @click='setSelectedQueue(queue)'>{{queue.name}}
+                          @click='setSelectedQueue(queue); createVisit()'>{{queue.name}}
                 </b-button>
             </div>
         </div>
 
-        <div class=" container d-flex " v-if="showCustomer">
+<!--        <div class=" container d-flex " v-if="showCustomer">
             <div class="row col-12 ml-auto mr-auto row">
                 <div class="row input-group input-group-lg pad">
                     <div class="input-group-prepend">
@@ -238,7 +238,7 @@
                 </b-button>
 
             </div>
-        </div>
+        </div> -->
 
         <div v-if="selectedBranchId == -1 || selectedBranchId == ''">
             PLEASE SELECT A BRANCH BY ADDING THE QUERY PARAM
