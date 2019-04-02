@@ -264,6 +264,7 @@
             createdVisit: {left: {ticket: "loading"}},
             showCustomer: false,
             selectedQueue: null,
+            selectedQueueName: null,
             customer: {
                 firstName: '',
                 lastName: '',
@@ -281,14 +282,15 @@
             },
             setSelectedQueue(queue) {
                 this.selectedQueue = queue;
-                console.log(this.selectedQueue.name);
-                if (this.selectedQueue.name == "Retail"){
+                this.selectedQueueName = queue.name;
+
+                console.log(this.selectedQueueName);
+                if (this.selectedQueueName == "Retail"){
                     this.showCustomer = false;
                     createVisit();
                 } else {
                     this.showCustomer = true;
                 }
-                
             },
             goHome() {
                 this.customer = {};
