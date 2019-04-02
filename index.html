@@ -456,12 +456,13 @@
                 });
             },
             playAudio() {
-                "use strict";
-                    if(audio.readyState === 4){                       
-                    audio.pause(); // first pause        
-                    audio.currentTime = 0; // then reset           
-                    audio.play(); // then play
-                    }
+            "use strict";
+                if(audio.readyState === 4){                       
+                audio.pause(); // first pause        
+                audio.currentTime = 0; // then reset           
+                audio.play(); // then play
+                }
+            console.log("Bell called")
             },
             call(data) {
                 console.log('call')
