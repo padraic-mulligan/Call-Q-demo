@@ -101,7 +101,7 @@
 
     .grid-container {
         display: grid;
-        grid-template-areas: 'header header header header header header' 'main main main main main main' 'footer footer footer footer footer footer';
+        grid-template-areas: 'header header header header header header' 'main main main main right right' 'footer footer footer footer footer footer';
         grid-gap: 0.2em;
         padding: 0.2em;
         background-color: var(--main-bg-color);
@@ -122,7 +122,7 @@
     .main {
         grid-area: main;
         height: 72vh;
-        width: 97vw;
+        width: 80vw;
         margin: 1rem;
     }
 
@@ -137,14 +137,14 @@
         font-size: 4rem;
     }
 
-    /*.right {
+    .right {
         grid-area: right;
         height: 72vh;
         overflow: hidden;
         margin: 1rem 2rem 0rem 0rem;
         padding-bottom: 1rem;
 
-    } 
+    }
 
     .right > div > div {
         text-align: center;
@@ -157,7 +157,7 @@
         text-align: center;
         margin: 0.5rem 0 0.8rem 0;
     }
-*/
+
     .footer {
         grid-area: footer;
         position: relative;
@@ -190,7 +190,7 @@
         border-bottom-right-radius: 60px 5px;
         box-shadow: 5px 10px #686868;
         background-repeat: no-repeat;
-        width: 97vw;
+        width: auto;
         height: auto;
         background-size: 22rem;
         padding: 0.8rem 0 0.8rem 0;
@@ -327,13 +327,13 @@
             padding: 0.5rem 0rem 1rem 0rem;
             margin: 0.5rem 0rem 0.8rem 1rem;
         }
-/*
+
         .right {
             margin: auto;
             width: auto;
 
         }
-*/
+
         .grid-container {
             grid-template-areas: 'header header header header header header' 'main main main main main main' 'footer footer footer footer footer footer';
             padding: 0rem;
@@ -381,7 +381,7 @@
             </div>
         </div>
     </div>
-  <!--      <div class="right">
+        <div class="right">
             <div id='ticketListContainer'>
                 <h2>Last Called</h2>
 
@@ -390,12 +390,12 @@
                     <div class="border-grey" v-for="lastCall in lastCalled">
                         <p>Ticket Number: </p><br>
                         <p class="plarge">{{lastCall.ticket}}</p>
-                      <p>Order Number: <br>{{lastCall.id}}</p> 
+                      <!--  <p>Order Number: <br>{{lastCall.id}}</p> --->
                     </div>
 
                 </div>
             </div>
-        </div> -->
+        </div>
     <div class="footer">
         <div>
             <p class="item-1">Welcome to J&amp;C Hendrick Ltd</p>
