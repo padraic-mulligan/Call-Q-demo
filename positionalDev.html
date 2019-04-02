@@ -144,10 +144,14 @@
 
     <div class="grid-container" id="app" style="height: 80%">
         <div class="header">
-            <h1>Welcome to {{properties.clientName}} - {{branch.branchName}}</h1>
+        <!--    <h1>Welcome to {{properties.clientName}} - {{branch.branchName}}</h1> -->
+            <h1>{{branch.branchName}}</h1>
         </div>
 
         <div class="container d-flex h-100">
+            <div class="row justify-content-center align-self-center text-center mx-auto">
+                    <p id='callStationName' class="hugeFont">{{callStation.ticketNumber}}</p>
+            </div>
             <div class="row justify-content-center align-self-center text-center mx-auto">
                 <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
             </div>
@@ -165,12 +169,12 @@
             stompClient: null,
             showSplash: false,
             branch: {branchName: 'loading....', queues: [{name: "loading"}]},
-            callStation: {name: "loading"},
+            callStation: {name: "loading", ticketNumber: 001},
             selectedBranchId: null,
             selectedCallStationId: null,
             properties: [{clientName: 'loading'}],
             timesFlashed: 0,
-            timesToFlash: 5,
+            timesToFlash: 15,
             flashInterval: 1000,
             timeoutValue: null,
         },
