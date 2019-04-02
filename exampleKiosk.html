@@ -281,8 +281,8 @@
             },
             setSelectedQueue(queue) {
                 this.selectedQueue = queue;
-                console.log(this.selectedQueue);
-                if (this.selectedQueue == "Retail"){
+                console.log(this.selectedQueue.name);
+                if (this.selectedQueue.name == "Retail"){
                     this.showCustomer = false;
                     createVisit();
                 } else {
