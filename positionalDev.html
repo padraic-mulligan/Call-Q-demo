@@ -147,12 +147,7 @@
             <h1>Welcome to {{properties.clientName}} - {{branch.branchName}}</h1>
         </div>
 
-        <div class="container d-flex h-100">
-            <div class="row justify-content-center align-self-center text-center mx-auto">
-                <p id='ticketNumber' class="plarge coloured">
-                    Calling Ticket Number: {{splashVisit.ticket}}
-                </p>
-        </div>
+        
         <div class="container d-flex h-100">
             <div class="row justify-content-center align-self-center text-center mx-auto" v-if="showSplash">
                 <p id='ticketNumber' class="plarge coloured">
@@ -160,7 +155,9 @@
                 </p>
         </div>
         <div class="container d-flex h-100">
-            <div class="row justify-content-center align-self-center text-center mx-auto">
+            <div class="row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
+                <p id='ticketNumber' class="plarge">{{splashVisit.ticket}}</p>
+                <br>
                 <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
         </div>
 
