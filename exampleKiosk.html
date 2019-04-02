@@ -283,10 +283,12 @@
             setSelectedQueue(queue) {
                 this.selectedQueue = queue;
                 this.selectedQueueName = queue.name;
-            /*
-            Add Queue Names here to show the details view
-            All other Queue's will print the ticket directly
-            */
+                
+                /*
+                Add Queue Names as an or statement here to show the form view
+                e.g. if (this.selectedQueueName != "Retail " || this.selectedQueueName != "Some other Queue" )
+                All other Queue's will print the ticket directly
+                */
                 if (this.selectedQueueName != "Retail "){
                     this.showCustomer = false;
                     this.createVisit();
