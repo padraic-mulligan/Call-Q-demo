@@ -285,11 +285,13 @@
                 this.selectedQueueName = queue.name;
 
                 console.log(this.selectedQueueName);
-                if (this.selectedQueueName == Retail){
+                if (this.selectedQueueName == "Retail "){
+                    console.log("createVisit called only");
                     this.showCustomer = false;
                     createVisit();
                 } else {
                     this.showCustomer = true;
+                    console.log("show customer");
                 }
             },
             goHome() {
