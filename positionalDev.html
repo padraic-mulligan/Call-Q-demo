@@ -118,7 +118,7 @@
     }
 
     .hugeFont {
-        font-size: 200px;
+        font-size: 300px;
         font-weight: bold;
     }
 
@@ -126,7 +126,8 @@
         color: red;
     }
     .largeText{
-        font-size: 350px;
+        font-size: 500px;
+        font-weight: bold;
     }
 </style>
 <body>
@@ -154,19 +155,21 @@
         </div>
 
         
-        <div class="container d-flex h-100">
+        <div class="container d-flex flex-column">
             <div class="row justify-content-center align-self-center text-center mx-auto coloured" v-if="showSplash">
-                <p id='ticketNumber' class="hugeFont largeText">{{splashVisit.ticket}}</p>
+                <h1>Ticket number</h1>
+                <br>
+                <p id='ticketNumber' class="largeText">{{splashVisit.ticket}}</p>
         </div>
-
-
 
         <div class="container d-flex flex-column">
             <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
-                    <p id='ticketNumber' class="hugeFont">{{splashVisit.ticket}}</p>
+                <h1>Ticket number</h1>
+                <br>
+                <p id='ticketNumber' class="hugeFont">{{splashVisit.ticket}}</p>
             </div>
             <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
-                    <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
+                <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
             </div>
         </div>
     
