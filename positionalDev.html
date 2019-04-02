@@ -157,17 +157,17 @@
         </div>
 
 
-        <div class="container d-flex h-100" v-if="!showSplash">
-            <div class="row justify-content-center align-self-center text-center mx-auto">
-                <p id='ticketNumber' class="hugeFont">{{splashVisit.ticket}}</p>
-        </div>
 
-        <br>
-
-        <div class="container d-flex h-100" v-if="!showSplash">
-            <div class="row justify-content-center align-self-center text-center mx-auto">
-                <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
+        <div class="d-flex flex-column">
+            <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
+                    <p id='ticketNumber' class="hugeFont">{{splashVisit.ticket}}</p>
+            </div>
+            <div class="p-2 row justify-content-center align-self-center text-center mx-auto" v-if="!showSplash">
+                    <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
+            </div>
         </div>
+    
+      
 
          <!-- <div class="row justify-content-center align-self-center text-center mx-auto" v-if="showSplash">          
                     
