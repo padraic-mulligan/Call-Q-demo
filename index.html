@@ -423,7 +423,7 @@
             allQueuesId: [],
             currentQueueIdShowing: null,
             timeoutValue: null,
-            audio = document.getElementById("bell"),
+            audio: document.getElementById("bell"),
         },
         computed: {
 
@@ -458,10 +458,10 @@
             },
             playAudio() {
             "use strict";
-                if(audio.readyState === 4){                       
-                audio.pause(); // first pause        
-                audio.currentTime = 0; // then reset           
-                audio.play(); // then play
+                if(this.audio.readyState === 4){                       
+                this.audio.pause(); // first pause        
+                this.audio.currentTime = 0; // then reset           
+                this.audio.play(); // then play
                 }
                 console.log("Bell called");
             },
