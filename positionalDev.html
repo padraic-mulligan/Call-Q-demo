@@ -124,14 +124,15 @@
     .ticketFont{
         font-size: 350px;
         font-weight: bold;
+        margin: -130px;
     }
 
     .coloured {
         color: red;
     }
     .largeText{
-        font-size: 600px;
-        font-weight: bold;
+        font-size: 650px;
+        font-weight: bolder;
     }
 </style>
 <body>
@@ -161,8 +162,6 @@
         
         <div class="container d-flex flex-column">
             <div class="row justify-content-center align-self-center text-center mx-auto coloured" v-if="showSplash">
-                <h1>Ticket number</h1>
-                <br>
                 <p id='ticketNumber' class="largeText">{{splashVisit.ticket}}</p>
         </div>
 
