@@ -51,7 +51,7 @@
         overflow: hidden;
         height: 100%;
         bottom: -1px;
-        background-image: linear-gradient(to top, #86377b 20%, #27273c 80%);
+        background-image: linear-gradient(to top, #ffffff 20%, #c4c4c4 80%);
     }
 
     .bgTop {
@@ -109,7 +109,7 @@
 </style>
 <style>
     .grid-container {
-        color: white;
+        color: #233A51;
         z-index: 999 !important;
         opacity: 1 !important;
         position: relative;
@@ -151,7 +151,7 @@
 
         <div class="container d-flex h-100">
             <div class="row justify-content-center align-self-center text-center mx-auto">
-                    <p id='callStationName' class="hugeFont">{{callStation.ticketNumber}}</p>
+                    <p id='callTicketNumber' class="hugeFont">{{callStation.ticketNumber}}</p>
             </div>
             <div class="row justify-content-center align-self-center text-center mx-auto">
                 <p id='callStationName' class="hugeFont">{{callStation.name}}</p>
@@ -170,6 +170,7 @@
             stompClient: null,
             showSplash: false,
             branch: {branchName: 'loading....', queues: [{name: "loading"}]},
+            //Colin: I added the ticketnumber just to show on the display for css adjustment only
             callStation: {name: "loading", ticketNumber: "001"},
             selectedBranchId: null,
             selectedCallStationId: null,
@@ -187,6 +188,7 @@
             },
             flashText() {
                 document.getElementById('callStationName').classList.toggle('coloured')
+                document.getElementById('callTicketNumber').classList.toggle('coloured')
                 this.timesFlashed = ++this.timesFlashed;
             },
             timeouts() {
@@ -194,6 +196,7 @@
                 if (this.timesFlashed >= this.timesToFlash) {
                     clearTimeout(this.timeoutValue);
                     document.getElementById('callStationName').classList.remove('coloured')
+                    document.getElementById('callTicketNumber').classList.remove('coloured')
                     this.timesFlashed = 0;
                     return;
                 }
