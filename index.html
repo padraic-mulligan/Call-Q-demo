@@ -499,8 +499,8 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    this.timeouts()
                 });
+                this.timeouts();
             },
             getQueueName(queueId) {
                 if (queueId === 0)
