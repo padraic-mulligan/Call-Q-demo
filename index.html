@@ -468,7 +468,7 @@
                 console.log("Bell called");
             },
             clearTimeout() {
-                consol.log("clearTimout called")
+                console.log("clearTimout called")
                 while (this.timeouts--) {
                     this.clearTimeout(this.timeouts); // will do nothing if no timeout with id is present
                 }
