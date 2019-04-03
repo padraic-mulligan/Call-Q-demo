@@ -454,6 +454,7 @@
                 axios.get('/rest/media/branch/' + this.selectedBranchId + '/visits').then(e => {
                     this.visits = e.data;
                     this.getBranch();
+                    this.connect();
                 });
             },
             playAudio() {
