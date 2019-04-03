@@ -464,7 +464,7 @@
                 this.audio.pause(); // first pause        
                 this.audio.currentTime = 0; // then reset           
                 this.audio.play(); // then play
-                }
+                };
                 console.log("Bell called");
             },
             call(data) {
@@ -493,7 +493,7 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    //this.timeouts();
+                    this.timeouts();
                 });
             },
             getQueueName(queueId) {
@@ -511,8 +511,8 @@
             clearTimeout() {
                 console.log("clearTimout called")
                 while (this.timeouts--) {
-                    this.clearTimeout(this.timeouts); // will do nothing if no timeout with id is present
-                    this.timeoutValue = setTimeout(this.timeouts, 8000);
+                    //this.clearTimeout(this.timeouts); // will do nothing if no timeout with id is present
+                    this.timeoutValue = setTimeout(this.timeouts, 0);
                 }
             },
             timeouts() {
