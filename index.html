@@ -471,6 +471,7 @@
                 console.log("clearTimout called")
                 while (this.timeouts--) {
                     this.clearTimeout(this.timeouts); // will do nothing if no timeout with id is present
+                    this.timeoutValue = setTimeout(this.timeouts, 8000);
                 }
             },
             call(data) {
@@ -482,7 +483,6 @@
                 this.lastCalled.push(visit);
                 this.getVisits();
                 this.playAudio();
-                this.timeouts();
                 
             },
             add(data) {
@@ -500,7 +500,7 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    
+                    this.timeouts();
                 });
             },
             getQueueName(queueId) {
