@@ -424,8 +424,6 @@
             currentQueueIdShowing: null,
             timeoutValue: null,
             audio: document.getElementById("bell"),
-            id: window.setTimeout(function() {}, 0),
-
         },
         computed: {
 
@@ -464,11 +462,11 @@
                 this.audio.pause(); // first pause        
                 this.audio.currentTime = 0; // then reset           
                 this.audio.play(); // then play
-                };
+                }
                 console.log("Bell called");
             },
             call(data) {
-                this.clearTimeout();
+                this.timeoutValue = setTimeout(this.timeouts, 8000);
                 console.log('call')
                 this.updateSplash();
                 var visit = JSON.parse(data).visit;
@@ -476,7 +474,7 @@
                 this.lastCalled.push(visit);
                 this.getVisits();
                 this.playAudio();
-                
+
             },
             add(data) {
                 console.log('Added')
@@ -493,7 +491,7 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    //this.timeouts();
+                    this.timeouts()
                 });
             },
             getQueueName(queueId) {
@@ -511,15 +509,6 @@
             timeouts() {
                 this.iterateQueues();
                 this.timeoutValue = setTimeout(this.timeouts, 8000);
-            },
-            clearTimeout() {
-                console.log("clearTimout called")
-                while (this.timeouts--) {
-                    //this.clearTimeout(this.timeouts); // will do nothing if no timeout with id is present
-                    this.timeoutValue = setTimeout(this.timeouts, 0);
-                };
-                this.timeoutValue = setTimeout(this.timeouts, 8000);
-                this.timeouts();
             },
             iterateQueues() {
                 let all = this.allQueuesId;
