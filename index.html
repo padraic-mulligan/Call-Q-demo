@@ -456,6 +456,7 @@
                 axios.get('/rest/media/branch/' + this.selectedBranchId + '/visits').then(e => {
                     this.visits = e.data;
                     this.getBranch();
+                    this.timeouts();
                 });
             },
             playAudio() {
@@ -499,7 +500,7 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    this.timeouts();
+                    
                 });
             },
             getQueueName(queueId) {
