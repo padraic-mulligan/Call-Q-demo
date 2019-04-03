@@ -466,7 +466,7 @@
                 console.log("Bell called");
             },
             call(data) {
-                this.timeoutValue = setTimeout(this.timeouts, 0);
+                clearTimeout(this.timeouts());
                 console.log('call')
                 this.updateSplash();
                 var visit = JSON.parse(data).visit;
