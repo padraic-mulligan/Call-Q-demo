@@ -493,7 +493,7 @@
                     this.branch = r.data;
                     this.allQueuesId = Object.keys(this.visits);
                     this.currentQueueIdShowing = this.allQueuesId[0];
-                    this.timeouts();
+                    //this.timeouts();
                 });
             },
             getQueueName(queueId) {
@@ -508,6 +508,10 @@
                 }
                 return '';
             },
+            timeouts() {
+                this.iterateQueues();
+                this.timeoutValue = setTimeout(this.timeouts, 8000);
+            },
             clearTimeout() {
                 console.log("clearTimout called")
                 while (this.timeouts--) {
@@ -515,11 +519,7 @@
                     this.timeoutValue = setTimeout(this.timeouts, 0);
                 };
                 this.timeoutValue = setTimeout(this.timeouts, 8000);
-            },
-            
-            timeouts() {
-                this.iterateQueues();
-                this.timeoutValue = setTimeout(this.timeouts, 8000);
+                this.timeouts();
             },
             iterateQueues() {
                 let all = this.allQueuesId;
