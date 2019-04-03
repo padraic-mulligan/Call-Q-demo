@@ -424,6 +424,8 @@
             currentQueueIdShowing: null,
             timeoutValue: null,
             audio: document.getElementById("bell"),
+            id: window.setTimeout(function() {}, 0),
+
         },
         computed: {
 
@@ -465,7 +467,14 @@
                 }
                 console.log("Bell called");
             },
+            clearTimeout() {
+                consol.log("clearTimout called")
+                while (this.timeouts--) {
+                    this.clearTimeout(this.timeouts); // will do nothing if no timeout with id is present
+                }
+            },
             call(data) {
+                this.clearTimeout();
                 console.log('call')
                 this.updateSplash();
                 var visit = JSON.parse(data).visit;
@@ -473,6 +482,7 @@
                 this.lastCalled.push(visit);
                 this.getVisits();
                 this.playAudio();
+                
             },
             add(data) {
                 console.log('Added')
