@@ -162,14 +162,9 @@
         </div>
 
         <div v-if="selectedCallStationId == -1">
-            <h3>Welcome to {{properties.clientName}}</h1>	            
-            <div class="row justify-content-center align-self-center text-center mx-auto coloured">
-                <h1>{{branch.branchName}}</h1>          	                
-                <h1 class="ticketFont">{{branch.branchName}}</h1>          
-                <h1 class="ticketFont">test</h1>    
-            </div>	     
-            <h1>{{branch.branchName}}</h1>          	                
-            <h1 class="ticketFont">{{branch.branchName}}</h1>
+            <h2>Welcome to {{properties.clientName}}</h2>
+            <h3>{{branch.branchName}}</h3>
+            <h3>{{branch.branchName}}</h3>
         </div>  
         
         <div v-if="selectedCallStationId != -1" class="container d-flex flex-column">
