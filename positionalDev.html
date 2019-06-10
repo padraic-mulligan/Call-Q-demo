@@ -161,8 +161,12 @@
           -->
         </div>
 
+        <div v-if="selectedCallStationId == -1" class="col-lg-9 ml-auto mr-auto " style="margin-top: 20%;">
+            <h1>Welcome to {{properties.clientName}}</h1>
+            <h1>{{branch.branchName}}</h1>          
+        </div>
         
-        <div class="container d-flex flex-column">
+        <div v-if="selectedCallStationId != -1" class="container d-flex flex-column">
             <div class="row justify-content-center align-self-center text-center mx-auto coloured" v-if="showSplash">
                 <p id='ticketNumber' class="largeText">{{splashVisit.ticket}}</p>
         </div>
