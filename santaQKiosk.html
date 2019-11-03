@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>Kiosk</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"/>
+
+    <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+</head>
+
+<style>
+    .centred{
+        text-align: center;
+    }
+    
+    .large-tkt-num{
+        font-size: 3rem;
+    }
+    
+    .h1-lrg{
+        font-size: 4rem;
+    }
+    
+    @keyframes move_wave {
+        0% {
+            transform: translateX(0) translateZ(0) scaleY(1)
+        }
+        50% {
+            transform: translateX(-25%) translateZ(0) scaleY(0.55)
+        }
+        100% {
+            transform: translateX(-50%) translateZ(0) scaleY(1)
+        }
+    }
+
+    .waveWrapper {
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+    }
+
+    .waveWrapperInner {
+        position: absolute;
+        width: 100%;
+        overflow: hidden;
+        height: 100%;
+        bottom: -1px;
+        /*background-image: linear-gradient(to top, #68B5DF 10%, #47A5D8 80%); */
+        background-color: rgb(255, 255, 255);
+    }
+
+    .btn-div{
+        border-radius: 70px;
+        margin: 20px;
+        /* box-shadow: 10px 10px rgb(124, 124, 124); */
+        -webkit-box-shadow: 7px 7px 5px 0px rgba(130,130,130,1);
+        -moz-box-shadow: 7px 7px 5px 0px rgba(130,130,130,1);
+        box-shadow: 7px 7px 5px 0px rgba(130,130,130,1);
+        
+    }
+    .bgTop {
+        z-index: 15;
+        opacity: 0.5;
+    }
+
+    .bgMiddle {
+        z-index: 10;
+        opacity: 0.75;
+    }
+
+    .bgBottom {
+        z-index: 5;
+    }
+    .button-text{
+        font-size: 3rem;
+        color: #ffffff;
+    }
+    btn-green{
+       /* background-image: linear-gradient(to top, #4FCFE2 30%, #ECA1B0 70%); */
+       background-color: #233A51;
+    }
+    btn-red{
+        
+    }
+    .button-style{
+        font-weight: 700;
+        /* background-image: linear-gradient(to top, rgb(224, 106, 130) 30%, #ECA1B0 70%); */
+        background-color: #233A51;
+        border: none;
+    }
+    
+    .wave {
+        position: absolute;
+        left: 0;
+        width: 200%;
+        height: 100%;
+        background-repeat: repeat no-repeat;
+        background-position: 0 bottom;
+        transform-origin: center bottom;
+    }
+
+    .waveTop {
+        background-size: 50% 100px;
+    }
+
+    .waveAnimation .waveTop {
+        animation: move-wave 3s;
+        -webkit-animation: move-wave 3s;
+        -webkit-animation-delay: 1s;
+        animation-delay: 1s;
+    }
+
+    .waveMiddle {
+        background-size: 50% 120px;
+    }
+
+    .waveAnimation .waveMiddle {
+        animation: move_wave 10s linear infinite;
+    }
+
+    .waveBottom {
+        background-size: 50% 100px;
+    }
+
+    .waveAnimation .waveBottom {
+        animation: move_wave 15s linear infinite;
+    }
+
+
+</style>
+<style>
+    .grid-container {
+        color: #3E5D81;
+        z-index: 999 !important;
+        opacity: 1 !important;
+        position: absolute;
+    }
+
+    .pad {
+        padding-bottom: 10px;
+    }
+</style>
+<body>
+
+<div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop"
+             style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+
+
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle"
+             style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom"
+             style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+
+    <div class="grid-container centred" id="app" style="height: 80%; width: 100%;">
+        <div class="header">
+            <br>
+            <!-- <h1>Welcome to {{clientName}}</h1> --->
+            <h1 class="h1-lrg">Welcome to J&amp;C Hendrick Ltd</h1>
+            <h1>Queue Management System</h1>
+            <br>
+            <h1>{{branch.branchName}}</h1>
+            <br>
+        </div>
+        <div class="splashScreen container d-flex " style="text-align: center">
+            <div v-if="showSplash" class="col-lg-9 ml-auto mr-auto " style="margin-top: 20%;">
+                <h1>Please wait while your ticket is printing</h1>
+                <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
+                <h1>You will be called shortly</h1>
+            </div>
+        </div>
+
+        <div class="container h-100 centred" v-if="!showSplash && !showCustomer">
+            <h2>Please select a queue</h2>
+            <div class="row pad " v-for="queue in branch.queues">
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="padding: 2px; margin: 30px;"
+                          @click='setSelectedQueue(queue)'>{{queue.name}}
+                </b-button>
+            </div>
+        </div>
+
+        <div class=" container d-flex " v-if="showCustomer">
+            <div class="row col-12 ml-auto mr-auto row">
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">First Name</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="customer.firstName">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Last Name</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="customer.lastName">
+                </div>
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Phone Number</span>
+                    </div>
+                    <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber">
+                </div>
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Reference Number</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="customer.orderNum">
+                </div>
+
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
+                          style="padding: 0px 0; "
+                          @click='createVisit()'>Create Visit
+                </b-button>
+
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="margin: 30px;"
+                          @click='goHome()'>Home
+                </b-button>
+
+            </div>
+        </div> 
+
+        <div v-if="selectedBranchId == -1 || selectedBranchId == ''">
+            PLEASE SELECT A BRANCH BY ADDING THE QUERY PARAM
+        </div>
+
+        <div v-if="selectedCreateStationId == -1 || selectedCreateStationId == ''">
+            PLEASE SELECT A CREATE STATION BY ADDING THE QUERY PARAM
+        </div>
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            dev: false,
+            stompClient: null,
+            clientName: 'Call-Q Demo',
+            showSplash: false,
+            branch: {branchName: 'loading....', queues: [{name: "loading"}]},
+            selectedBranchId: -1,
+            selectedCreateStationId: -1,
+            createdVisit: {left: {ticket: "loading"}},
+            showCustomer: false,
+            selectedQueue: null,
+            selectedQueueName: null,
+            customer: {
+                firstName: '',
+                lastName: '',
+                orderNum: '',
+                phoneNumber: ''
+            }
+        },
+        computed: {}
+        ,
+        methods: {
+            getQueues() {
+                axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
+                    this.branch = e.data;
+                });
+            },
+            setSelectedQueue(queue) {
+                this.selectedQueue = queue;
+                this.selectedQueueName = queue.name;
+                
+                /*
+                Add Queue Names as an or statement here to show the form view
+                e.g. if (this.selectedQueueName != "Retail " || this.selectedQueueName != "Some other Queue" )
+                All other Queue's will print the ticket directly
+                */
+                if (this.selectedQueueName != "Retail "){
+                    this.showCustomer = false;
+                    this.createVisit();
+                } else {
+                    this.showCustomer = true;
+                };
+            },
+            goHome() {
+                this.customer = {};
+                this.showCustomer = false
+                this.selectedQueue = {};
+            },
+            createVisit() {
+                let queue = this.selectedQueue;
+                let data = {};
+
+                data.customer = {
+                    firstName: this.customer.firstName,
+                    lastName: this.customer.lastName,
+                    notes: this.customer.orderNum,
+                    phoneNumber: this.customer.phoneNumber,
+                };
+
+                axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + this.selectedCreateStationId + '/add', data).then(e => {
+                    this.createdVisit = e.data;
+                    this.customer = {};
+                    this.showCustomer = false
+                    this.selectedQueue = {};
+                    this.updateSplash();
+                });
+
+
+            },
+            updateSplash() {
+                this.showSplash = true;
+                setTimeout(function () {
+                    app.showSplash = false;
+                }, 8000);
+            },
+            connect() {
+                let socket = new SockJS('/websocket');
+                this.stompClient = Stomp.over(socket);
+                this.stompClient.connect({}, (frame) => {
+                    console.log('Connected: ' + frame);
+
+                    this.stompClient.subscribe('/topic/refresh', function (data) {
+                        window.location.reload(true);
+                    });
+
+
+                }, () => {
+                    setTimeout(() => {
+                        this.connect();
+                    }, 5000);
+                });
+            }
+        },
+        created() {
+            this.dev = true;
+            const urlParams = new URLSearchParams(window.location.search);
+            let branchLogicId = urlParams.get('branchId');
+            let selectedCreateStationId = urlParams.get('createStationId');
+
+            if (window.location.hostname.indexOf('localhost') >= 0) {
+                this.dev = true;
+            }
+            if (this.dev)
+                axios.defaults.baseURL = 'http://localhost:5000';
+            let callText = '/topic/call/' + branchLogicId;
+            if (branchLogicId == "" || branchLogicId == null) {
+                callText = "/topic/call";
+                branchLogicId = -1;
+                console.error("please set a branch ID!")
+            }
+
+            if (selectedCreateStationId == null || selectedCreateStationId == '') {
+                selectedCreateStationId = -1;
+                console.error("please select a branchId")
+            }
+
+            this.selectedCreateStationId = selectedCreateStationId;
+
+            this.selectedBranchId = branchLogicId;
+
+            this.getQueues();
+
+            this.connect();
+
+
+        }
+    });
+</script>
+
+</body>
+</html>
