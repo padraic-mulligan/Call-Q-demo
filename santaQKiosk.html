@@ -355,8 +355,7 @@
             if (window.location.hostname.indexOf('localhost') >= 0) {
                 this.dev = true;
             }
-            if (this.dev)
-                axios.defaults.baseURL = 'http://localhost:5000';
+          
             let callText = '/topic/call/' + branchLogicId;
             if (branchLogicId == "" || branchLogicId == null) {
                 callText = "/topic/call";
