@@ -4,7 +4,7 @@
 <!-- Head -->
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>Kiosk</title>
@@ -26,26 +26,47 @@
 
 <!-- Main Style -->
 <style>
+    :root{
+        --large-tkt-num: 3rem;
+        --h1-lrg: 4rem;
+        --button-font-size: 2rem;
+        --button-font-weight: 700;
+
+        --text-color: #fff;
+        --background-color:#e82729;
+        --button-font-color: #ffffff;
+        --button-border-color: rgb(187, 31, 34);
+
+        --background-image: url("ButtonImage.jpg");
+        --button-image-font-size: 10rem;
+        --button-image-font-color: #ffffff00;
+
+
+        /* Media Query */
+        --portrait-background-image: url("LandingPagePortrait.jpg");
+    }
+
+   
+
     body {
+        overflow: hidden;
         background-image: url("LandingPageLandscape.jpg");
         background-position: top;
         background-repeat: no-repeat;
         background-size: cover;
         /* background-color: #E82729; */
-        color: #fff;
+        color: var(--text-color);
     }
     .centred{
         text-align: center;
     }
     
     .large-tkt-num{
-        font-size: 3rem;
-        color: #fff;
+        font-size: var(--large-tkt-num);
     }
     
     .h1-lrg{
-        font-size: 4rem;
-        color: #fff;
+        font-size: var(--h1-lrg);
     }
     
 
@@ -66,12 +87,17 @@
         height: 100%;
         bottom: -1px;
         /*background-image: linear-gradient(to top, #68B5DF 10%, #47A5D8 80%); */
-        background-color: rgb(255, 255, 255);
+        background-color: var(--background-color);
+    }
+
+    button, select {
+        color: #ffffff !important;
+        text-transform: none !important;
     }
 
     .btn-div{
         border-radius: 70px;
-        margin: 20px;
+        margin: 0;
         /* box-shadow: 10px 10px rgb(124, 124, 124); */
         -webkit-box-shadow: 7px 7px 5px 0px rgba(130,130,130,1);
         -moz-box-shadow: 7px 7px 5px 0px rgba(130,130,130,1);
@@ -92,15 +118,23 @@
         z-index: 5;
     }
     .button-text{
-        font-size: 2rem;
-        color: #ffffff;
+        font-size: var(--button-font-size);
+        color: var(--button-font-color);
+        
+    }
+    .btn-image {
+        background-image: var(--background-image);
+        font-size: var( --button-image-font-size);
+        color: var(--button-image-font-color);
+    }
+    .btn-image, select {
+        color: #ffffff00 !important;
     }
     .button-style{
-        font-weight: 700;
-        /* background-image: linear-gradient(to top, rgb(224, 106, 130) 30%, #ECA1B0 70%); */
-        background-color: #E82729;
+        font-weight: var(--button-font-weight);
+        background-color: var(--background-color);
         border: solid;
-        border-color: rgb(187, 31, 34);
+        border-color: var(--button-border-color);
     }
     
     .grid-container {
@@ -108,11 +142,13 @@
         z-index: 999 !important;
         opacity: 1 !important;
         position: absolute;
+        max-width: auto;
+        float: right !important;
+        margin-left: 10rem;
     }
 
     .container-margin{
         margin: 9rem;
-        margin-right: 0;
     }
 
     .mySplash {
@@ -131,16 +167,91 @@
         padding-bottom: 10px;
     }
 
+    .portMargin {
+        margin-left: -4rem;
+    }
+    .portCustomerMargin{
+        margin-top: 0;
+    }
+
+    .col-lg-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .container-margin {
+        margin-top: 10rem;
+        margin-right: 10rem; 
+    }
+
+
+</style>
+
+<!-- Media Query / Portrait Mode-->
+<style>
+    @media only screen and (max-width: 1100px) {
+        body {
+            background-image: var(--portrait-background-image);
+            background-repeat: no-repeat;
+        }
+
+        .large-tkt-num {
+            text-align: center;
+        }
+        .float-right{
+            margin: auto;
+            float: none !important;
+        }
+        .grid-container{
+            max-width: 100%;
+            float: none !important;
+            margin-left: 0;
+        }
+        .col-lg-6 {
+            -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .ml-auto{
+            max-width: 60%;
+        }
+        .portMargin {
+            margin-left: 5rem !important;
+        }
+        .portCustomerMargin{
+            margin-top: 20rem !important;
+        }
+        .button-style{
+            text-align: center;
+            max-width: 63%;
+        }
+        div.row.pad {
+            margin: none;
+            width: 100%;
+        }
+        .mySplash {
+            margin-top: 50rem;
+        }
+        .buttons {
+            margin: 21rem 3rem 0 0;
+        }
+        .customer {
+            margin-top: 14rem;
+        }
+    }
+
+
 </style>
 
 
 <!-- Body -->
 <body>
 
+    <!-- Main Div -->
     <div class="grid-container centred " id="app" style="height: 80%; width: 100%;">
         <!-- Splash Screen / Ticket Printing -->
         <div class="splashScreen container d-flex float-right container-margin mySplash" style="text-align: center;">
-            <div v-if="showSplash" class="col-lg-6 ml-auto mr-auto float-right" style="margin-top: 30%;">
+            <div v-if="showSplash" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 30%;">
                 <h1>Please wait while your ticket is printing</h1>
                 <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
                 <br>
@@ -150,19 +261,20 @@
         </div>
 
         <!-- Main Screen -->
-        <div class="container h-100 float-right container-margin buttons" v-if="!showSplash && !showCustomer">
+        <div class="container h-100 float-right container-margin buttons portMargin" v-if="!showSplash && !showCustomer">
             <h2>Please press for Ticket</h2>
             <div class="row pad " v-for="queue in branch.queues">
-                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red" size="lg" block style="padding: 2px; margin: 30px;"
+                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image " size="lg" block style="padding: 2px; margin: 30px;"
                             @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
             </div>
         </div>
 
         <!-- Customer Input Screen -->
-        <div class=" container d-flex red-background float-right container-margin customer" v-if="showCustomer">
+        <div class=" container d-flex red-background float-right container-margin customer portCustomerMargin" v-if="showCustomer">
             <div class="row col-9 ml-auto mr-auto row">
                 <div class="row input-group input-group-lg pad">
+                    <!--
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="">First Name</span>
                     </div>
@@ -172,17 +284,12 @@
                     </div>
                     <input type="text" class="form-control" v-model="customer.lastName">
                 </div>
+                -->
                 <div class="row input-group input-group-lg pad">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone Number</span>
                     </div>
-                    <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber">
-                </div>
-                <div class="row input-group input-group-lg pad">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Reference Number</span>
-                    </div>
-                    <input type="text" class="form-control" v-model="customer.orderNum">
+                    <input type="tel" class="form-control" v-model="customer.phoneNumber">
                 </div>
 
                 <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
@@ -206,140 +313,140 @@
         <div v-if="selectedCreateStationId == -1 || selectedCreateStationId == ''">
             PLEASE SELECT A CREATE STATION BY ADDING THE QUERY PARAM
         </div>
-</div>
+    </div>
 
 <!-- Main Script VUE-->
-<script>
-    Vue.config.devtools = true
-    var app = new Vue({
-        el: '#app',
-        data: {
-            dev: false,
-            stompClient: null,
-            clientName: 'Arnotts',
-            showSplash: false,
-            branch: {branchName: 'loading....', queues: [{name: "loading"}]},
-            selectedBranchId: -1,
-            selectedCreateStationId: -1,
-            createdVisit: {left: {ticket: "loading"}},
-            showCustomer: false,
-            selectedQueue: null,
-            selectedQueueName: null,
-            customer: {
-                firstName: '',
-                lastName: '',
-                orderNum: '',
-                phoneNumber: ''
-            }
-        },
-        computed: {}
-        ,
-        methods: {
-            getQueues() {
-                axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
-                    this.branch = e.data;
-                });
+    <script>
+        Vue.config.devtools = true
+        var app = new Vue({
+            el: '#app',
+            data: {
+                dev: false,
+                stompClient: null,
+                clientName: 'Arnotts',
+                showSplash: false,
+                branch: {branchName: 'loading....', queues: [{name: "loading"}]},
+                selectedBranchId: -1,
+                selectedCreateStationId: -1,
+                createdVisit: {left: {ticket: "000"}},
+                showCustomer: false,
+                selectedQueue: null,
+                selectedQueueName: null,
+                customer: {
+                    firstName: 'A',
+                    lastName: '',
+                    orderNum: '',
+                    phoneNumber: '+353'
+                }
             },
-            setSelectedQueue(queue) {
-                this.selectedQueue = queue;
-                this.selectedQueueName = queue.name;
-                
-                /*
-                Add Queue Names as an or statement here to show the form view
-                e.g. if (this.selectedQueueName != "Retail " || this.selectedQueueName != "Some other Queue" )
-                All other Queue's will print the ticket directly
-                */
-                if (this.selectedQueueName != "SantaQ "){
-                    this.showCustomer = false;
-                    this.createVisit();
-                } else {
-                    this.showCustomer = true;
-                };
-            },
-            goHome() {
-                this.customer = {};
-                this.showCustomer = false
-                this.selectedQueue = {};
-            },
-            createVisit() {
-                let queue = this.selectedQueue;
-                let data = {};
-
-                data.customer = {
-                    firstName: this.customer.firstName,
-                    lastName: this.customer.lastName,
-                    notes: this.customer.orderNum,
-                    phoneNumber: this.customer.phoneNumber,
-                };
-
-                axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + this.selectedCreateStationId + '/add', data).then(e => {
-                    this.createdVisit = e.data;
+            computed: {}
+            ,
+            methods: {
+                getQueues() {
+                    axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
+                        this.branch = e.data;
+                    });
+                },
+                setSelectedQueue(queue) {
+                    this.selectedQueue = queue;
+                    this.selectedQueueName = queue.name;
+                    
+                    /*
+                    Add Queue Names as an or statement here to show the form view
+                    e.g. if (this.selectedQueueName != "Retail " || this.selectedQueueName != "Some other Queue" )
+                    All other Queue's will print the ticket directly
+                    */
+                    if (this.selectedQueueName != "SantaQ "){
+                        this.showCustomer = false;
+                        this.createVisit();
+                    } else {
+                        this.showCustomer = true;
+                    };
+                },
+                goHome() {
                     this.customer = {};
                     this.showCustomer = false
                     this.selectedQueue = {};
-                    this.updateSplash();
-                });
+                },
+                createVisit() {
+                    let queue = this.selectedQueue;
+                    let data = {};
 
+                    data.customer = {
+                        firstName: this.customer.firstName,
+                        lastName: this.customer.lastName,
+                        notes: this.customer.orderNum,
+                        phoneNumber: this.customer.phoneNumber,
+                    };
 
-            },
-            updateSplash() {
-                this.showSplash = true;
-                setTimeout(function () {
-                    app.showSplash = false;
-                }, 8000);
-            },
-            connect() {
-                let socket = new SockJS('/websocket');
-                this.stompClient = Stomp.over(socket);
-                this.stompClient.connect({}, (frame) => {
-                    console.log('Connected: ' + frame);
-
-                    this.stompClient.subscribe('/topic/refresh', function (data) {
-                        window.location.reload(true);
+                    axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + this.selectedCreateStationId + '/add', data).then(e => {
+                        this.createdVisit = e.data;
+                        this.customer = {};
+                        this.showCustomer = false
+                        this.selectedQueue = {};
+                        this.updateSplash();
                     });
 
 
-                }, () => {
-                    setTimeout(() => {
-                        this.connect();
-                    }, 5000);
-                });
-            }
-        },
-        created() {
-            this.dev = true;
-            const urlParams = new URLSearchParams(window.location.search);
-            let branchLogicId = urlParams.get('branchId');
-            let selectedCreateStationId = urlParams.get('createStationId');
+                },
+                updateSplash() {
+                    this.showSplash = true;
+                    setTimeout(function () {
+                        app.showSplash = false;
+                    }, 8000);
+                },
+                connect() {
+                    let socket = new SockJS('/websocket');
+                    this.stompClient = Stomp.over(socket);
+                    this.stompClient.connect({}, (frame) => {
+                        console.log('Connected: ' + frame);
 
-            if (window.location.hostname.indexOf('localhost') >= 0) {
+                        this.stompClient.subscribe('/topic/refresh', function (data) {
+                            window.location.reload(true);
+                        });
+
+
+                    }, () => {
+                        setTimeout(() => {
+                            this.connect();
+                        }, 5000);
+                    });
+                }
+            },
+            created() {
                 this.dev = true;
+                const urlParams = new URLSearchParams(window.location.search);
+                let branchLogicId = urlParams.get('branchId');
+                let selectedCreateStationId = urlParams.get('createStationId');
+
+                if (window.location.hostname.indexOf('localhost') >= 0) {
+                    this.dev = true;
+                }
+            
+                let callText = '/topic/call/' + branchLogicId;
+                if (branchLogicId == "" || branchLogicId == null) {
+                    callText = "/topic/call";
+                    branchLogicId = -1;
+                    console.error("please set a branch ID!")
+                }
+
+                if (selectedCreateStationId == null || selectedCreateStationId == '') {
+                    selectedCreateStationId = -1;
+                    console.error("please select a branchId")
+                }
+
+                this.selectedCreateStationId = selectedCreateStationId;
+
+                this.selectedBranchId = branchLogicId;
+
+                this.getQueues();
+
+                this.connect();
+
+
             }
-          
-            let callText = '/topic/call/' + branchLogicId;
-            if (branchLogicId == "" || branchLogicId == null) {
-                callText = "/topic/call";
-                branchLogicId = -1;
-                console.error("please set a branch ID!")
-            }
-
-            if (selectedCreateStationId == null || selectedCreateStationId == '') {
-                selectedCreateStationId = -1;
-                console.error("please select a branchId")
-            }
-
-            this.selectedCreateStationId = selectedCreateStationId;
-
-            this.selectedBranchId = branchLogicId;
-
-            this.getQueues();
-
-            this.connect();
-
-
-        }
-    });
-</script>
+        });
+    </script>
 
 </body>
 </html>
