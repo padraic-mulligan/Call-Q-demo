@@ -361,11 +361,14 @@
                     this.selectedQueue = queue;
                     this.selectedQueueName = queue.name;
                     
-                    if (this.selectedQueueName != "SantaQ "){
+                    if (this.id == 17){
+                        this.showButton = true;
+                    }
+                    /*if (this.selectedQueueName != "SantaQ "){
                         this.showButton = false;
                     } else {
                         this.showButton = true;
-                    };
+                    };*/
                 },
                 setSelectedQueue(queue) {
                     this.selectedQueue = queue;
