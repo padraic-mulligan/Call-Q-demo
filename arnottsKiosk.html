@@ -338,7 +338,7 @@
                 createdVisit: {left: {ticket: "000"}},
                 showCustomer: false,
                 showButton: true,
-                selectedQueue: 24,
+                selectedQueue: null,
                 selectedQueueName: null,
                 customer: {
                     firstName: 'A',
@@ -376,6 +376,7 @@
                     e.g. if (this.selectedQueueName != "Retail " || this.selectedQueueName != "Some other Queue" )
                     All other Queue's will print the ticket directly
                     */
+                    console.log(">" + this.selectedQueueName + "<")
                     if (this.selectedQueueName != "SantaQ "){
                         this.showCustomer = false;
                         this.createVisit();
