@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,13 +24,14 @@
 
 </head>
 
+<!-- Main Style -->
 <style>
     body {
-        /* background-image: url("C:/Users/Colin/Documents/GitHub/Call-Q-demo/img/kioskBackground.jpg");
+        background-image: url("LandingPageLandscape.jpg");
         background-position: top;
         background-repeat: no-repeat;
-        background-size: cover; */
-        background-color: #E82729;
+        background-size: cover;
+        /* background-color: #E82729; */
         color: #fff;
     }
     .centred{
@@ -89,7 +92,7 @@
         z-index: 5;
     }
     .button-text{
-        font-size: 3rem;
+        font-size: 2rem;
         color: #ffffff;
     }
     .button-style{
@@ -100,9 +103,6 @@
         border-color: rgb(187, 31, 34);
     }
     
-
-</style>
-<style>
     .grid-container {
         color: #fff;
         z-index: 999 !important;
@@ -111,88 +111,112 @@
     }
 
     .container-margin{
-        margin-right: 100px;
+        margin: 9rem;
+        margin-right: 0;
+    }
+
+    .mySplash {
+        margin-top: 7rem;
+    }
+
+    .buttons {
+        margin: 15rem auto;
+    }
+
+    .customer {
+        margin-top: 14rem;
     }
 
     .pad {
         padding-bottom: 10px;
     }
+
 </style>
+
+
+<!-- Body -->
 <body>
 
-<div class="grid-container centred " id="app" style="height: 80%; width: 100%;">
- 
-    <div class="splashScreen container d-flex float-right container-margin" style="text-align: center">
-        <div v-if="showSplash" class="col-lg-9 ml-auto mr-auto float-right " style="margin-top: 30%;">
-            <h1>Please wait while your ticket is printing</h1>
-            <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
-            <h1>Please ensure you have received a text with your ticket number</h1>
-        </div>
-    </div>
-
-    <div class="container h-100 float-right container-margin" v-if="!showSplash && !showCustomer">
-        <h2>Please press for Ticket</h2>
-        <div class="row pad " v-for="queue in branch.queues">
-            <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style btn-red" size="lg" block style="padding: 2px; margin: 30px;"
-                        @click='setSelectedQueue(queue)'>{{queue.name}}
-            </b-button>
-        </div>
-    </div>
-
-    <div class=" container d-flex red-background float-right container-margin" v-if="showCustomer">
-        <div class="row col-12 ml-auto mr-auto row">
-            <div class="row input-group input-group-lg pad">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="">First Name</span>
-                </div>
-                <input type="text" class="form-control" v-model="customer.firstName">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="">Last Name</span>
-                </div>
-                <input type="text" class="form-control" v-model="customer.lastName">
+    <div class="grid-container centred " id="app" style="height: 80%; width: 100%;">
+        <!-- Splash Screen / Ticket Printing -->
+        <div class="splashScreen container d-flex float-right container-margin mySplash" style="text-align: center;">
+            <div v-if="showSplash" class="col-lg-6 ml-auto mr-auto float-right" style="margin-top: 30%;">
+                <h1>Please wait while your ticket is printing</h1>
+                <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
+                <br>
+                <br>
+                <h1>Please ensure you have received a text with your ticket number</h1>
             </div>
-            <div class="row input-group input-group-lg pad">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Phone Number</span>
-                </div>
-                <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber">
-            </div>
-            <div class="row input-group input-group-lg pad">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Reference Number</span>
-                </div>
-                <input type="text" class="form-control" v-model="customer.orderNum">
-            </div>
-
-            <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
-                        style="padding: 0px 0; "
-                        @click='createVisit()'>Create Visit
-            </b-button>
-
-            <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="margin: 30px;"
-                        @click='goHome()'>Home
-            </b-button>
-
         </div>
-    </div> 
 
-    <div v-if="selectedBranchId == -1 || selectedBranchId == ''">
-        PLEASE SELECT A BRANCH BY ADDING THE QUERY PARAM
-    </div>
+        <!-- Main Screen -->
+        <div class="container h-100 float-right container-margin buttons" v-if="!showSplash && !showCustomer">
+            <h2>Please press for Ticket</h2>
+            <div class="row pad " v-for="queue in branch.queues">
+                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red" size="lg" block style="padding: 2px; margin: 30px;"
+                            @click='setSelectedQueue(queue)'>{{queue.name}}
+                </b-button>
+            </div>
+        </div>
 
-    <div v-if="selectedCreateStationId == -1 || selectedCreateStationId == ''">
-        PLEASE SELECT A CREATE STATION BY ADDING THE QUERY PARAM
-    </div>
+        <!-- Customer Input Screen -->
+        <div class=" container d-flex red-background float-right container-margin customer" v-if="showCustomer">
+            <div class="row col-9 ml-auto mr-auto row">
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">First Name</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="customer.firstName">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Last Name</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="customer.lastName">
+                </div>
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Phone Number</span>
+                    </div>
+                    <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber">
+                </div>
+                <div class="row input-group input-group-lg pad">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Reference Number</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="customer.orderNum">
+                </div>
+
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
+                            style="padding: 0px 0; "
+                            @click='createVisit()'>Create Visit
+                </b-button>
+
+                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="margin: 30px;"
+                            @click='goHome()'>Home
+                </b-button>
+
+            </div>
+        </div> 
+
+        <!-- Query Reminders / Branch -->
+        <div v-if="selectedBranchId == -1 || selectedBranchId == ''">
+            PLEASE SELECT A BRANCH BY ADDING THE QUERY PARAM
+        </div>
+
+        <!-- Query Reminders / Station -->
+        <div v-if="selectedCreateStationId == -1 || selectedCreateStationId == ''">
+            PLEASE SELECT A CREATE STATION BY ADDING THE QUERY PARAM
+        </div>
 </div>
+
+<!-- Main Script VUE-->
 <script>
     Vue.config.devtools = true
     var app = new Vue({
-        config.devtools: true,
         el: '#app',
         data: {
             dev: false,
             stompClient: null,
-            clientName: 'Call-Q Demo',
+            clientName: 'Arnotts',
             showSplash: false,
             branch: {branchName: 'loading....', queues: [{name: "loading"}]},
             selectedBranchId: -1,
