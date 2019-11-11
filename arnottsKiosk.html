@@ -361,7 +361,8 @@
                     this.selectedQueue = queue;
                     this.selectedQueueName = queue.name;
                     
-                    if (this.selectedQueueName != "SantaQ "){
+                    console.log(">" + queue.name + "<")
+                    if (this.selectedQueueName != "SantaQ"){
                         this.showButton = false;
                     } else {
                         this.showButton = true;
@@ -376,6 +377,7 @@
                     e.g. if (this.selectedQueueName != "Retail " || this.selectedQueueName != "Some other Queue" )
                     All other Queue's will print the ticket directly
                     */
+                    console.log(">" + this.selectedQueueName + "<")
                     if (this.selectedQueueName != "SantaQ "){
                         this.showCustomer = false;
                         this.createVisit();
