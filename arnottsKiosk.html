@@ -30,6 +30,7 @@
         --large-tkt-num: 3rem;
         --h1-lrg: 4rem;
         --button-font-size: 2rem;
+        --button-font-size-small: 1rem;
         --button-font-weight: 700;
 
         --text-color: #fff;
@@ -129,6 +130,9 @@
     .button-text-santa{
         color: var(--button-font-color-santa) !important;
         z-index: -1;
+    }
+    .button-text-small{
+        font-size: var(--button-font-size-small);
     }
     .btn-image {
         background-image: var(--background-image);
@@ -372,17 +376,17 @@
                                     <tr>
                                         <td onclick="addCode('+');">+</td>
                                         <td onclick="addCode('0');">0</td>
-                                        <td onclick="removeCode();">&#171;</td>
+                                        <td onclick="emptyCode();">&#171;</td>
                                     </tr>
                                 </table>
                                 <br>
                                 <br>
                                 <div class="row col-lg-9 ml-auto mr-auto">
-                                    <b-button class="col-lg-5 ml-auto mr-auto button-text btn-div button-style" size="lg" block
+                                    <b-button class="col-lg-5 ml-auto mr-auto button-text-small btn-div button-style" size="lg" block
                                                 style="padding: 0px 0; "
                                                 @click='createVisit()'>Create Visit
                                     </b-button>
-                                    <b-button class="col-lg-4 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="margin: 30px;"
+                                    <b-button class="col-lg-4 ml-auto mr-auto button-text-small btn-div button-style" size="lg" block style="margin: 30px;"
                                                 @click='goHome()'>Home
                                     </b-button>
                                 </div>
@@ -414,10 +418,6 @@
                 document.getElementById("message").style.display = "block";
                 setTimeout(emptyCode,1000);	
             }
-        }
-        function removeCode(){
-            var code = document.forms[0].code;
-            var code = '';
         }
         
         function submitForm(){
