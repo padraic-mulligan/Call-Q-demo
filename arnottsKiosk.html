@@ -34,7 +34,8 @@
 
         --text-color: #fff;
         --background-color:#e82729;
-        --button-font-color: #fcc5c500;
+        --button-font-color: #fff;
+        --button-font-color-santa: #ffffff00 !important;
         --button-border-color: rgb(187, 31, 34);
 
         --background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ButtonImage.jpg");
@@ -121,8 +122,10 @@
     }
     .button-text{
         font-size: var(--button-font-size);
-        color: var(--button-font-color) !important;
-        
+        color: var(--button-font-color);
+    }
+    .button-text-santa{
+        color: var(--button-font-color-santa) !important;
     }
     .btn-image {
         background-image: var(--background-image);
@@ -315,7 +318,7 @@
         <div class="container h-100 float-right container-margin buttons portMargin" v-if="!showSplash && !showCustomer">
             <h2>Please press for Ticket</h2>
             <div class="row pad " v-for="queue in branch.queues" v-if="queue.name === 'SantaQ'">
-                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image " size="lg" block style="padding: 2px; margin: 30px;"       
+                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa " size="lg" block style="padding: 2px; margin: 30px;"       
                     @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
             </div>
@@ -336,35 +339,36 @@
                     <input type="text" class="form-control" v-model="customer.lastName">
                 </div>
                 -->
-                <form>
-                        <table id="keypad" cellpadding="5" cellspacing="3">
-                            <tr>
-                                <td onclick="addCode('1');">1</td>
-                                <td onclick="addCode('2');">2</td>
-                                <td onclick="addCode('3');">3</td>
-                            </tr>
-                            <tr>
-                                <td onclick="addCode('4');">4</td>
-                                <td onclick="addCode('5');">5</td>
-                                <td onclick="addCode('6');">6</td>
-                            </tr>
-                            <tr>
-                                <td onclick="addCode('7');">7</td>
-                                <td onclick="addCode('8');">8</td>
-                                <td onclick="addCode('9');">9</td>
-                            </tr>
-                            <tr>
-                                <td onclick="addCode('+');">+</td>
-                                <td onclick="addCode('0');">0</td>
-                                <td onclick="addCode('#');">#</td>
-                            </tr>
-                        </table>
-                        <input type="tel" class="form-control" v-model="customer.phoneNumber" name="code" value="+" maxlength="16" class="display" readonly="readonly">
-                        <p id="message">ACCESSIGN...</p>
-                </form>
+
                 <div class="row input-group input-group-lg pad">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone Number</span>
+                        <form>
+                                <table id="keypad" cellpadding="5" cellspacing="3">
+                                    <tr>
+                                        <td onclick="addCode('1');">1</td>
+                                        <td onclick="addCode('2');">2</td>
+                                        <td onclick="addCode('3');">3</td>
+                                    </tr>
+                                    <tr>
+                                        <td onclick="addCode('4');">4</td>
+                                        <td onclick="addCode('5');">5</td>
+                                        <td onclick="addCode('6');">6</td>
+                                    </tr>
+                                    <tr>
+                                        <td onclick="addCode('7');">7</td>
+                                        <td onclick="addCode('8');">8</td>
+                                        <td onclick="addCode('9');">9</td>
+                                    </tr>
+                                    <tr>
+                                        <td onclick="addCode('+');">+</td>
+                                        <td onclick="addCode('0');">0</td>
+                                        <td onclick="addCode('#');">#</td>
+                                    </tr>
+                                </table>
+                                <input type="tel" class="form-control" v-model="customer.phoneNumber" name="code" value="+" maxlength="16" class="display" readonly="readonly">
+                                <p id="message">ACCESSIGN...</p>
+                        </form>
                     </div>
                     
                 </div>
