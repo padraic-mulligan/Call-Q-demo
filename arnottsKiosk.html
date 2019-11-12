@@ -385,7 +385,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone Number</span>
                     </div>
-                    <input type="number" id="demo-numpad-2" class="form-control" v-model="customer.phoneNumber">
+                    <input type="number" class="form-control" v-model="customer.phoneNumber">
+                    <input type="text" id="demo-numpad-1"/>
+                    <input type="number" id="demo-numpad-2"/>
                 </div>
 
                 <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
@@ -745,7 +747,8 @@ var numpad = {
 /* [INIT] */
 window.addEventListener("load", numpad.init);
 </script>
-<!-- [3 : ATTACH THE NUMPAD TO THE HTML FIELDS] -->
+
+<!-- ATTACH THE NUMPAD TO THE HTML FIELDS] -->
 <script>
         window.addEventListener("load", function(){
           // Bare minimum - provide the ID
