@@ -121,7 +121,7 @@
     }
     .button-text{
         font-size: var(--button-font-size);
-        color: var(--button-font-color);
+        color: var(--button-font-color) !important;
         
     }
     .btn-image {
@@ -435,7 +435,7 @@
                     firstName: 'A',
                     lastName: '',
                     orderNum: '',
-                    phoneNumber: '+353'
+                    phoneNumber: '+'
                 }
             },
             computed: {}
@@ -496,7 +496,6 @@
                     this.showSplash = true;
                     setTimeout(function () {
                         app.showSplash = false;
-                        location.reload();
                     }, 8000);
                 },
                 connect() {
