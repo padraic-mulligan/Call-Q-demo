@@ -311,7 +311,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone Number</span>
                     </div>
-                    <input type="tel" class="form-control" onload= "numpad()"; v-model="customer.phoneNumber">
+                    <input type="tel" class="form-control" id="myPhone" v-model="customer.phoneNumber">
                 </div>
 
                 <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
@@ -785,6 +785,10 @@
         onChange: false
     };
     })(jQuery);
+
+    function($){
+	$('myPhone').numpad();
+}
     </script>
 </body>
 </html>
