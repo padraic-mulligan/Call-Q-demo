@@ -276,7 +276,7 @@
         <div class="container h-100 float-right container-margin buttons portMargin" v-if="!showSplash && !showCustomer">
             <h2>Please press for Ticket</h2>
             <div class="row pad " v-for="queue in branch.queues">
-                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image " id= "myButton" size="lg" block style="padding: 2px; margin: 30px;"
+                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image " size="lg" block style="padding: 2px; margin: 30px;"
                     v-if="showButton"       
                     @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
@@ -366,16 +366,30 @@
                 displayButton(){
                     axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
                         this.branch = e.data;
-                        this.queueName = document.getElementById("myButton").innerHTML;
 
                         for (var i = 0; i < this.branch.queues.length; i++){
-                            if (this.queueName != "SantaQ"){
+                            this.qName = this.branch.queues[i].name
+                            switch (this.branch.queues[i].name) {
+                                case "Quick Serve":
+                                    this.showButton = false;
+                                    break;
+                                case "Santa Queue OnHold":
+                                    this.showButton = false;
+                                    break;
+                                case "SantaQ":
+                                    this.showButton = true;
+                                    break;
+                                    default:
+                                        this.showButton = false;
+                              
+                                }
+                            /*if (this.branch.queues[i].name != "SantaQ"){
                                 this.showButton = false;
                                 console.log("false should have run");
                               } else {
                                 this.showButton = true;
                                 console.log("true should have run");
-                            }
+                            }*/
                         } 
                         
                     });
