@@ -371,10 +371,13 @@
                     All other Queue's will print the ticket directly
                     */
                     console.log(">" + this.selectedQueueName + "<")
-                    if (this.selectedQueueName != "SantaQ"){
+                    /*if (this.selectedQueueName != "SantaQ"){
                         this.showCustomer = false;
                         this.createVisit();
                     } else {
+                        this.showCustomer = true;
+                    };*/ 
+                    if (this.selectedQueueName == "SantaQ"){
                         this.showCustomer = true;
                     };
                 },
