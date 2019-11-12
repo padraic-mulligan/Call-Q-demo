@@ -396,9 +396,9 @@
                                 </table>
                                 <br>
                                 <br>
-                                    <b-button class="col-5 ml-auto mr-auto button-text-small btn-div btn-lg btn-block btn btn-success" size="sm" block
+                                    <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block
                                                 style="padding: 0px 0; "
-                                                @click='createVisit()'>Create Visit
+                                                @click='createVisit()'>Print Ticket
                                     </b-button>
                                     <b-button class="col-4 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin: 30px;"
                                                 @click='goHome()'>Home
@@ -505,11 +505,7 @@
                 createVisit() {
                     let queue = this.selectedQueue;
                     let data = {};
-                    console.log(">" + this.customer.firstName + "<")
-                    console.log(">" + this.customer.lastName + "<")
-                    console.log(">" + this.customer.orderNum + "<")
-                    console.log(">" + this.customer.phoneNumber + "<")
-                    
+
                     data.customer = {
                         firstName: this.customer.firstName,
                         lastName: this.customer.lastName,
