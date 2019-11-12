@@ -336,7 +336,7 @@
                     <input type="text" class="form-control" v-model="customer.lastName">
                 </div>
                 -->
-                <form action="code.htm" method="get">
+                <form>
                         <table id="keypad" cellpadding="5" cellspacing="3">
                             <tr>
                                 <td onclick="addCode('1');">1</td>
@@ -359,14 +359,13 @@
                                 <td onclick="addCode('#');">#</td>
                             </tr>
                         </table>
-                        <input type="text" name="code" value="+353" maxlength="16" class="display" readonly="readonly" />
                         <p id="message">ACCESSIGN...</p>
                 </form>
                 <div class="row input-group input-group-lg pad">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone Number</span>
                     </div>
-                    <input type="tel" class="form-control" v-model="customer.phoneNumber">
+                    <input type="tel" class="form-control" v-model="customer.phoneNumber" name="code" value="+353" maxlength="16" class="display" readonly="readonly">
                 </div>
 
                 <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
