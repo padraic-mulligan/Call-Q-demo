@@ -427,6 +427,7 @@
             var code = document.forms[0].code;
             if(code.value.length < 16){
                 code.value = code.value + key;
+                document.forms[0].code.dispatchEvent(new Event('input'))
             }
             if(code.value.length == 16){
                 document.getElementById("message").style.display = "block";
