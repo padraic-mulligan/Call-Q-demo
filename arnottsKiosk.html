@@ -342,7 +342,7 @@
                 selectedCreateStationId: -1,
                 createdVisit: {left: {ticket: "000"}},
                 showCustomer: false,
-                showButton: true,
+                showButton: false,
                 selectedQueue: null,
                 selectedQueueName: null,
                 customer: {
@@ -363,15 +363,17 @@
 
                 /* Padraic can you complete this function to only allow SantaQ button to appear please */
                 displayButton(){
-                    this.selectedQueue = queue;
-                    this.selectedQueueName = queue.name;
+                    axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
+                        this.branch = e.data;
+
+                        if (this.queues.name != "SantaQ"){
+                            this.showButton = false;
+                        } else {
+                            this.showButton = true;
+                         }
+                    });
                     
-                    console.log(">" + queue.name + "<")
-                    if (this.selectedQueueName != "SantaQ"){
-                        this.showButton = false;
-                    } else {
-                        this.showButton = true;
-                    };
+                    
                 },
                 setSelectedQueue(queue) {
                     this.selectedQueue = queue;
@@ -468,7 +470,7 @@
 
                 this.getQueues();
 
-                this.displayButton(queue)
+                this.displayButton();
 
                 this.connect();
 
