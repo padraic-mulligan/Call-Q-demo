@@ -342,7 +342,6 @@
 
                 <div class="row input-group input-group-lg pad">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Phone Number</span>
                         <form>
                                 <table id="keypad" cellpadding="5" cellspacing="3">
                                     <tr>
@@ -367,20 +366,22 @@
                                     </tr>
                                 </table>
                                 <input type="tel" class="form-control" v-model="customer.phoneNumber" name="code" value="+" maxlength="16" class="display" readonly="readonly">
+                                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
+                                            style="padding: 0px 0; "
+                                            @click='createVisit()'>Create Visit
+                                </b-button>
+                                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="margin: 30px;"
+                                            @click='goHome()'>Home
+                                </b-button>
                                 <p id="message">ACCESSIGN...</p>
                         </form>
                     </div>
                     
                 </div>
 
-                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
-                            style="padding: 0px 0; "
-                            @click='createVisit()'>Create Visit
-                </b-button>
+                
 
-                <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block style="margin: 30px;"
-                            @click='goHome()'>Home
-                </b-button>
+                
 
             </div>
         </div> 
