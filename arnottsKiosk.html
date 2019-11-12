@@ -366,13 +366,16 @@
                     axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
                         this.branch = e.data;
 
-                        if (this.queues[name] != "SantaQ"){
-                            this.showButton = false;
-                            console.log("false should have run");
-                        } else {
-                            this.showButton = true;
-                            console.log("true should have run");
-                         }
+                        for (var i = 0; i < this.queues.length; i++){
+                            if (this.queues[i].name != "SantaQ"){
+                                this.showButton = false;
+                                console.log("false should have run");
+                              } else {
+                                this.showButton = true;
+                                console.log("true should have run");
+                            }
+                        } 
+                        
                     });
                     
                     
