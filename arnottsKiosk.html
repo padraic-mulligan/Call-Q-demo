@@ -366,8 +366,8 @@
                     axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
                         this.branch = e.data;
 
-                        for (var i = 0; i < this.queues.length; i++){
-                            if (this.queues[i].name != "SantaQ"){
+                        for (var i = 0; i < this.branch.queues.length; i++){
+                            if (this.branch.queues[i].name != "SantaQ"){
                                 this.showButton = false;
                                 console.log("false should have run");
                               } else {
