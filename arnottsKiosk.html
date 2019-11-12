@@ -354,12 +354,12 @@
                                 <td onclick="addCode('9');">9</td>
                             </tr>
                             <tr>
-                                <td onclick="addCode('*');">*</td>
+                                <td onclick="addCode('+');">+</td>
                                 <td onclick="addCode('0');">0</td>
                                 <td onclick="addCode('#');">#</td>
                             </tr>
                         </table>
-                        <input type="text" name="code" value="" maxlength="4" class="display" readonly="readonly" />
+                        <input type="text" name="code" value="+353" maxlength="16" class="display" readonly="readonly" />
                         <p id="message">ACCESSIGN...</p>
                 </form>
                 <div class="row input-group input-group-lg pad">
@@ -395,10 +395,10 @@
     <script type="text/javascript">
         function addCode(key){
             var code = document.forms[0].code;
-            if(code.value.length < 4){
+            if(code.value.length < 16){
                 code.value = code.value + key;
             }
-            if(code.value.length == 4){
+            if(code.value.length == 16){
                 document.getElementById("message").style.display = "block";
                 setTimeout(submitForm,1000);	
             }
