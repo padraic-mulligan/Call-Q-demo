@@ -275,9 +275,10 @@
         <!-- Main Screen -->
         <div class="container h-100 float-right container-margin buttons portMargin" v-if="!showSplash && !showCustomer">
             <h2>Please press for Ticket</h2>
-            <div class="row pad " v-for="queue in branch.queues" v-if="showButton">
+            <div class="row pad " v-for="queue in branch.queues">
                 <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image " size="lg" block style="padding: 2px; margin: 30px;"
-                            @click='setSelectedQueue(queue)'>{{queue.name}}
+                    v-if="showButton"       
+                    @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
             </div>
         </div>
