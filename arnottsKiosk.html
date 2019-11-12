@@ -19,9 +19,6 @@
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"/>
 
-    <link type="text/css" rel="stylesheet" href="https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/numpad.css">
-    <script src="https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/numpad.js"></script>
-
     <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
@@ -304,9 +301,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone Number</span>
                     </div>
-                    <input type="number" class="form-control" v-model="customer.phoneNumber">
-                    <input type="text" id="demo-numpad-1"/>
-                    <input type="number" id="demo-numpad-2"/>
+                    <input type="tel" class="form-control" v-model="customer.phoneNumber">
                 </div>
 
                 <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
@@ -331,8 +326,6 @@
             PLEASE SELECT A CREATE STATION BY ADDING THE QUERY PARAM
         </div>
     </div>
-
-    <script src="https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/numpad.js"></script>
 
 <!-- Main Script VUE-->
     <script>
