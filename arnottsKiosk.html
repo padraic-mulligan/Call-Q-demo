@@ -502,6 +502,9 @@
                     this.showCustomer = false
                     this.selectedQueue = {};
                 },
+                addDigit(digit) {
+                    this.customer.phoneNumber = this.customer.phoneNumber + digit
+                },
                 createVisit() {
                     let queue = this.selectedQueue;
                     let data = {};
@@ -509,9 +512,9 @@
                     console.log(">" + this.customer.lastName + "<")
                     console.log(">" + this.customer.orderNum + "<")
                     console.log(">" + this.customer.phoneNumber + "<")
-                    console.log(">" + this.tel+ "<")
+                    console.log(">" + document.forms[0].code.dispatchEvent(new Event('input')) "<")
                     console.log(">" + customer.phoneNumber + "<")
-                    
+                    this.customer.phoneNumber = document.forms[0].code.dispatchEvent(new Event('input'))
                     data.customer = {
                         firstName: this.customer.firstName,
                         lastName: this.customer.lastName,
