@@ -366,7 +366,7 @@
                     axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
                         this.branch = e.data;
 
-                        if (this.queues.name != "SantaQ"){
+                        if (this.queues != "SantaQ"){
                             this.showButton = false;
                         } else {
                             this.showButton = true;
