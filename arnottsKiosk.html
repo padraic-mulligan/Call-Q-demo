@@ -130,7 +130,7 @@
         background-repeat: no-repeat;
         background-size: 90%;
         font-size: var( --button-image-font-size);
-        color: var(--button-image-font-color);
+        color: var(--button-image-font-color) !important;
     }
     .btn-image, select {
         color: #ffffff00 !important;
@@ -384,7 +384,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone Number</span>
                     </div>
-                    <input type="tel" class="form-control" id="numpad" v-model="customer.phoneNumber">
+                    <input type="number" class="form-control" id="numpad" v-model="customer.phoneNumber">
                 </div>
 
                 <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
