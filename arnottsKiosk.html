@@ -27,7 +27,7 @@
 <!-- Main Style -->
 <style>
     :root{
-        --arge-tkt-num: 3rem;
+        --large-tkt-num: 3rem;
         --h1-lrg: 4rem;
         --button-font-size: 2rem;
         --button-font-weight: 700;
@@ -191,8 +191,8 @@
         margin-left: 6rem !important;
     }
     .container-margin {
-        margin-top: 10rem;
-        margin-right: 10rem; 
+        margin-top: 7rem;
+        margin-right: 4rem; 
     }
 
 
@@ -205,23 +205,27 @@
             background-color:#333333; 
             font-family:Verdana, Arial, Helvetica, sans-serif;
         }	
-        #keypad {margin:auto; margin-top:20px;}
+        #keypad {
+            margin:auto; 
+            margin-top:0px;
+            width: 100%;
+            }
         
         #keypad tr td {
             vertical-align:middle; 
             text-align:center; 
             border:1px solid #000000; 
-            font-size:40px; 
+            font-size:3rem; 
             font-weight:bold; 
-            width:60px; 
-            height:40px; 
+            width:9rem; 
+            height:5rem; 
             cursor:pointer; 
             background-color:#666666; 
             color:#CCCCCC;}
         #keypad tr td:hover {background-color:#999999; color:#FFFF00;}
         
         .display {
-            width:130px; 
+            width:100%; 
             margin:10px auto auto auto; 
             background-color:#000000; 
             color:#00FF00; 
@@ -340,7 +344,7 @@
                 </div>
                 -->
 
-                <div class="row input-group input-group-lg pad">
+                <div class="row col-9 ml-auto mr-auto input-group input-group-lg pad">
                     <div class="input-group-prepend">
                         <form>
                                 <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber" name="code">
@@ -427,7 +431,7 @@
                 selectedBranchId: -1,
                 selectedCreateStationId: -1,
                 createdVisit: {left: {ticket: "000"}},
-                showCustomer: false,
+                showCustomer: true,
                 showButton: true,
                 selectedQueue: null,
                 selectedQueueName: null,
