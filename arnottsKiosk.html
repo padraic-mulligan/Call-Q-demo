@@ -505,7 +505,11 @@
                 createVisit() {
                     let queue = this.selectedQueue;
                     let data = {};
-
+                    console.log(">" + this.customer.firstName + "<")
+                    console.log(">" + this.customer.lastName + "<")
+                    console.log(">" + this.customer.orderNum + "<")
+                    console.log(">" + this.customer.phoneNumber + "<")
+                    
                     data.customer = {
                         firstName: this.customer.firstName,
                         lastName: this.customer.lastName,
