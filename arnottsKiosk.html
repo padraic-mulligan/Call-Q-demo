@@ -551,25 +551,6 @@
         });
     </script>
 
-<!-- Number Pad Call js -->
-<script>
-      window.addEventListener("load", function(){
-        // The options
-        numpad.attach({
-          id : "numpad",
-          // The target field will be set to "readonly" by default
-          // This is to prevent the default onscreen keyboard from showing up on mobiles
-          // Use this with extra care
-          readonly : false, 
-          // Allow decimal points? True by default
-          decimal : false,
-          // Maximum allowed characters, 16 by default
-          // Feel free to modify the script to set a maximum allowed number instead
-          max : 16
-        });
-      });
-</script>
-
 <!-- Number Pad Main js -->
 <script>
 var numpad = {
@@ -763,5 +744,24 @@ var numpad = {
 window.addEventListener("load", numpad.init);
 
 </script>
+
+<!-- Number Pad Call js -->
+<script>
+        window.addEventListener("load", function(){
+          // The options
+          numpad.attach({
+            id : "numpad",
+            // The target field will be set to "readonly" by default
+            // This is to prevent the default onscreen keyboard from showing up on mobiles
+            // Use this with extra care
+            readonly : false, 
+            // Allow decimal points? True by default
+            decimal : false,
+            // Maximum allowed characters, 16 by default
+            // Feel free to modify the script to set a maximum allowed number instead
+            max : 16
+          });
+        });
+  </script>
 </body>
 </html>
