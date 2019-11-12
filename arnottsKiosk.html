@@ -34,7 +34,7 @@
 
         --text-color: #fff;
         --background-color:#e82729;
-        --button-font-color: #ffffff;
+        --button-font-color: #fcc5c500;
         --button-border-color: rgb(187, 31, 34);
 
         --background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ButtonImage.jpg");
@@ -411,6 +411,7 @@
                     this.showSplash = true;
                     setTimeout(function () {
                         app.showSplash = false;
+                        location.reload();
                     }, 8000);
                 },
                 connect() {
