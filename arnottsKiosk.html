@@ -360,41 +360,6 @@
                         this.branch = e.data;
                     });
                 },
-
-                /* Padraic can you complete this function to only allow SantaQ button to appear please */
-                /*displayButton(){
-                    axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
-                        this.branch = e.data;
-
-                        for (var i = 0; i < this.branch.queues.length; i++){
-                            this.qName = this.branch.queues[i].name
-                            switch (this.branch.queues[i].name) {
-                                case "Quick Serve":
-                                    this.showButton = false;
-                                    break;
-                                case "Santa Queue OnHold":
-                                    this.showButton = false;
-                                    break;
-                                case "SantaQ":
-                                    this.showButton = true;
-                                    break;
-                                    default:
-                                        this.showButton = false;
-                              
-                                }
-                            if (this.branch.queues[i].name != "SantaQ"){
-                                this.showButton = false;
-                                console.log("false should have run");
-                              } else {
-                                this.showButton = true;
-                                console.log("true should have run");
-                            }
-                        } 
-                        
-                    });
-                    
-                    
-                },*/
                 setSelectedQueue(queue) {
                     this.selectedQueue = queue;
                     this.selectedQueueName = queue.name;
