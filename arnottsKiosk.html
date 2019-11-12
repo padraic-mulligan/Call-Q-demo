@@ -48,7 +48,9 @@
         --portrait-background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/LandingPagePortrait.jpg");
     }
 
-   
+    body,html{
+        overflow:hidden
+    }
 
     body {
         overflow: hidden;
@@ -135,6 +137,7 @@
         background-size: 90%;
         font-size: var( --button-image-font-size);
         color: var(--button-image-font-color);
+        z-index: 2;
     }
     .btn-image, select {
         color: #ffffff00 !important;
@@ -144,6 +147,7 @@
         background-color: var(--background-color);
         border: solid;
         border-color: var(--button-border-color);
+        z-index: 3;
     }
     
     .grid-container {
