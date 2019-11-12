@@ -275,7 +275,7 @@
         <!-- Main Screen -->
         <div class="container h-100 float-right container-margin buttons portMargin" v-if="!showSplash && !showCustomer">
             <h2>Please press for Ticket</h2>
-            <div class="row pad " v-for="queue in branch.queues">
+            <div class="row pad " v-for="queue in branch.queues" v-if="queue.name === 'SantaQ'">
                 <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image " size="lg" block style="padding: 2px; margin: 30px;"
                     v-if="showButton"       
                     @click='setSelectedQueue(queue)'>{{queue.name}}
@@ -363,7 +363,7 @@
                 },
 
                 /* Padraic can you complete this function to only allow SantaQ button to appear please */
-                displayButton(){
+                /*displayButton(){
                     axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
                         this.branch = e.data;
 
@@ -383,7 +383,7 @@
                                         this.showButton = false;
                               
                                 }
-                            /*if (this.branch.queues[i].name != "SantaQ"){
+                            if (this.branch.queues[i].name != "SantaQ"){
                                 this.showButton = false;
                                 console.log("false should have run");
                               } else {
@@ -491,7 +491,7 @@
 
                 this.getQueues();
 
-                this.displayButton();
+                /* this.displayButton(); */
 
                 this.connect();
 
