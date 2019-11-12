@@ -427,6 +427,7 @@
             var code = document.forms[0].code;
             if(code.value.length < 16){
                 code.value = code.value + key;
+                document.forms[0].code.dispatchEvent(new Event('input'))
             }
             if(code.value.length == 16){
                 document.getElementById("message").style.display = "block";
@@ -512,9 +513,6 @@
                     console.log(">" + this.customer.lastName + "<")
                     console.log(">" + this.customer.orderNum + "<")
                     console.log(">" + this.customer.phoneNumber + "<")
-                    console.log(">" + document.forms[0].code.dispatchEvent(new Event('input')) "<")
-                    console.log(">" + customer.phoneNumber + "<")
-                    this.customer.phoneNumber = document.forms[0].code.dispatchEvent(new Event('input'))
                     data.customer = {
                         firstName: this.customer.firstName,
                         lastName: this.customer.lastName,
