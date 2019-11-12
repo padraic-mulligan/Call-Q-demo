@@ -35,7 +35,7 @@
         --text-color: #fff;
         --background-color:#e82729;
         --button-font-color: #fff;
-        --button-font-color-santa: #ffffff00 !important;
+        --button-font-color-santa: rgba(255, 255, 255, 0) !important;
         --button-border-color: rgb(187, 31, 34);
 
         --background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ButtonImage.jpg");
@@ -126,6 +126,7 @@
     }
     .button-text-santa{
         color: var(--button-font-color-santa) !important;
+        z-index: -1;
     }
     .btn-image {
         background-image: var(--background-image);
@@ -370,7 +371,8 @@
                                         <td onclick="addCode('#');">#</td>
                                     </tr>
                                 </table>
-                                
+                                <br>
+                                <br>
                                 <b-button class="col-lg-9 ml-auto mr-auto button-text btn-div button-style" size="lg" block
                                             style="padding: 0px 0; "
                                             @click='createVisit()'>Create Visit
