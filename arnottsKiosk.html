@@ -633,13 +633,14 @@
                 },
                 createVisit() {
                     let queue = this.selectedQueue;
+                    let intCodeNum = this.selectedInternationalNum;
                     let data = {};
 
                     data.customer = {
                         firstName: this.customer.firstName,
                         lastName: this.customer.lastName,
                         notes: this.customer.orderNum,
-                        phoneNumber: this.customer.phoneNumber.replace(/^0+/, this.selectedInternationalNum),
+                        phoneNumber: this.customer.phoneNumber.replace(/^0+/, this.intCodeNum),
                     };
 
 
