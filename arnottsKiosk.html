@@ -481,7 +481,7 @@
                                                 >Print Ticket
                                     </b-button>
                                     <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin-bottom: 60px;"
-                                                style="padding: 6px; margin-bottom: 30px;;"
+                                                style="padding: 6px; margin-bottom: 60px;;"
                                                 @click='goHome()'>Home
                                     </b-button>
                                 <p id="message">Wrong Number Entered...</p>
@@ -604,8 +604,9 @@
 
                     if (!this.customer.phoneNumber) {
                         this.errors.push('Phone Number required');
+                    } else {
+                        break;
                     }
-
                     e.preventDefault();
                 },
                 createVisit() {
