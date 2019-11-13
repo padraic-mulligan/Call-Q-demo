@@ -204,7 +204,9 @@
     .pad {
         padding-bottom: 0;
     }
-
+    .topMargin {
+        margin-top: 30rem;
+    }
     .portMargin {
         margin-left: 0;
     }
@@ -243,7 +245,7 @@
             margin-top: -8rem;
         }
         #keypad {
-            margin-top:0px;
+            margin: 0 auto 0 38rem;
             width: 100%;
             }
         
@@ -375,7 +377,7 @@
 
         <!-- Main Screen -->
         <div class="container h-100 float-right container-margin buttons portMargin" v-if="!showSplash && !showCustomer">
-            <h2>Please press for Ticket</h2>
+            <h2 class="topMargin">Please press for Ticket</h2>
             <div class="row pad " v-for="queue in branch.queues" v-if="queue.name === 'SantaQ'">
                 <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa " size="lg"        
                     @click='setSelectedQueue(queue)'>{{queue.name}}
@@ -401,7 +403,7 @@
 
                 <div >
                     <div>
-                        <form class="col-12 ml-auto mr-auto red-background" style="padding-top: 10rem;">
+                        <form class="col-12 ml-auto mr-auto red-background" style="padding-top: 10rem; text-align: center;">
                                 <h1>Enter your mobile in international format (+3538--------) so we cna text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
                                 <br>
                                 <br>
