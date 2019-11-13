@@ -448,7 +448,6 @@
                                 <br>
                                 <br>
                                 <input type="tel" id="tel" class="form-control tel" placeholder="Select Country" v-model="customer.phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
-                                <input type="tel" id="intTel" name="intCode" v-model="selectedInternationalNum" >
                                 <div class="form-group">
                                     
                                   </div>
@@ -461,9 +460,9 @@
 
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
                                     <tr>
-                                        <td onclick="addIntcode('+353')" class="irl" style="background-color: green; font-size: 1.5rem; height: 60px;">IRL</td>
-                                        <td onclick="addIntcode('+44')" style="background-color: Blue; font-size: 1.5rem; height: 60px;">UK</td>
-                                        <td onclick="addIntcode('+1')" style="background-color: rgb(216, 0, 0); font-size: 1.5rem; height: 60px;">USA</td>
+                                        <td onclick="addCode('+353');" class="irl" style="background-color: green; font-size: 1.5rem; height: 60px;">IRL</td>
+                                        <td onclick="addCode('+44');" style="background-color: Blue; font-size: 1.5rem; height: 60px;">UK</td>
+                                        <td onclick="addCode('+1');" style="background-color: rgb(216, 0, 0); font-size: 1.5rem; height: 60px;">USA</td>
 
                                     </tr>
                                     <tr>
@@ -530,14 +529,6 @@
                 setTimeout(emptyCode,1000);	
             }
         }
-
-        function addIntcode(key){
-            var intCode = document.forms[0].intCode;
-            if(intCode.value.length < 16){
-                intCode.value = intCode.value + key;
-                document.forms[0].intCode.dispatchEvent(new Event('intCode'))
-            }
-        }
         
         function submitForm(){
             document.forms[0].submit();
@@ -575,7 +566,6 @@
                 showButton: true,
                 selectedQueue: null,
                 selectedQueueName: null,
-                selectedInternationalNum: null,
                 customer: {
                     firstName: 'A',
                     lastName: '',
@@ -633,14 +623,13 @@
                 },
                 createVisit() {
                     let queue = this.selectedQueue;
-                    let intCodeNum = this.selectedInternationalNum;
                     let data = {};
 
                     data.customer = {
                         firstName: this.customer.firstName,
                         lastName: this.customer.lastName,
                         notes: this.customer.orderNum,
-                        phoneNumber: this.customer.phoneNumber.replace(/^0+/, this.intCodeNum),
+                        phoneNumber: this.customer.phoneNumber.replace(/^0+/,''),
                     };
 
 
