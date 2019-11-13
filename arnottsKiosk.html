@@ -294,12 +294,14 @@
         }
         .closedButton1 {
             border: none;
+            position: fixed;
             background-color: #fff;
             color: #fff;
             font-size:0px;
         }
         .closedButton2 {
             border: none;
+            position: fixed;
             background-color: #e82729;
             color: #e82729;
             width:10px;
@@ -435,12 +437,19 @@
 
                 <div >
                     <div>
-                        <form class="col-12 ml-auto mr-auto red-background" style="padding-top: 1rem; text-align: center;">
-                                <h1>Enter your mobile in international format (+3538xxxxxxxx) so we can text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
+                        <form   id="app" @submit="checkForm" method="post"class="col-12 ml-auto mr-auto red-background" style="padding-top: 1rem; text-align: center;">
+                                  
+                                <h1>
+                                    Enter your mobile in international format (+3538xxxxxxxx) so we can text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
                                 <br>
                                 <br>
                                 <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
                                 <br>
+                                    <p v-if="errors.length">
+                                        <ul>
+                                            <li v-for="error in errors">{{ error }}</li>
+                                        </ul>
+                                    </p>  
                                 <br>
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
                                     <tr>
@@ -466,11 +475,12 @@
                                 </table>
                                 <br>
                                 <br>
-                                    <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block 
+                                    <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block  type="submit"
+                                    value="Submit"
                                                 style="padding: 20px; margin: 10px; background-color: rgb(10, 158, 10);"
                                                 @click='createVisit()'>Print Ticket
                                     </b-button>
-                                    <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block 
+                                    <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin-bottom: 60px;"
                                                 @click='goHome()'>Home
                                     </b-button>
                                 <p id="message">Wrong Number Entered...</p>
@@ -539,7 +549,8 @@
                 selectedBranchId: -1,
                 selectedCreateStationId: -1,
                 createdVisit: {left: {ticket: "000"}},
-                showCustomer: false,
+                errors: [],
+                showCustomer: true,
                 showButton: true,
                 selectedQueue: null,
                 selectedQueueName: null,
@@ -582,6 +593,19 @@
                     this.customer = {};
                     this.showCustomer = false
                     this.selectedQueue = {};
+                },
+                checkForm: function (e) {
+                    if (this.customer.phoneNumber) {
+                        return true;
+                    }
+
+                    this.errors = [];
+
+                    if (!this.customer.phoneNumber) {
+                        this.errors.push('Phone Number required');
+                    }
+
+                    e.preventDefault();
                 },
                 createVisit() {
                     let queue = this.selectedQueue;
