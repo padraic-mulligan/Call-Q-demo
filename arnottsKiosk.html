@@ -57,11 +57,17 @@
     body {
         overflow: hidden;
         background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/LandingPageLandscape.jpg");
-        background-position: top;
+        background-position: top left;
         background-repeat: no-repeat;
-        background-size: cover;
-        /* background-color: #E82729; */
         color: var(--text-color);
+        background-size: 100vw;
+    }
+    
+    .foreGround {
+        background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ClosedLandscape.jpg");
+        z-index: 20;
+        background-position: top left;
+        background-repeat: no-repeat;
     }
     .centred{
         text-align: center;
@@ -328,9 +334,10 @@
 
 <!-- Body -->
 <body>
+    <div class="backGround">
 
     <!-- Main Div -->
-    <div class="grid-container centred " id="app" style="height: 80%; width: 100%;">
+    <div class="grid-container centred  " id="app" style="height: 80%; width: 100%;">
         <!-- Splash Screen / Ticket Printing -->
         <div class="splashScreen container d-flex float-right container-margin mySplash" style="text-align: center;">
             <div v-if="showSplash" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 30%;">
@@ -421,6 +428,7 @@
         </div>
         --->
     </div>
+</div>
 
     <script type="text/javascript">
         function addCode(key){
