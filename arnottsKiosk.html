@@ -60,14 +60,23 @@
         background-position: top left;
         background-repeat: no-repeat;
         color: var(--text-color);
-        background-size: 100vw;
+        background-size: cover;
+        z-index: 0;
     }
     
-    .foreGround {
-        background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ClosedLandscape.jpg");
-        z-index: 20;
+    #closedImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        color: #FFF;
+        z-index: 5;
+        background-color: #ffffff;
         background-position: top left;
         background-repeat: no-repeat;
+        background-size: cover;
     }
     .centred{
         text-align: center;
@@ -75,10 +84,12 @@
     
     .large-tkt-num{
         font-size: var(--large-tkt-num);
+        z-index: 1;
     }
     
     .h1-lrg{
         font-size: var(--h1-lrg);
+        z-index: 1;
     }
     
 
@@ -163,7 +174,7 @@
     
     .grid-container {
         color: #fff;
-        z-index: 999 !important;
+        z-index: 1 !important;
         opacity: 1 !important;
         position: absolute;
         max-width: auto;
@@ -334,8 +345,10 @@
 
 <!-- Body -->
 <body>
-    <div class="backGround">
 
+    <div id="closedImage">
+        <img src="https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ClosedLandscape.jpg"/>
+    </div>
     <!-- Main Div -->
     <div class="grid-container centred  " id="app" style="height: 80%; width: 100%;">
         <!-- Splash Screen / Ticket Printing -->
@@ -428,7 +441,6 @@
         </div>
         --->
     </div>
-</div>
 
     <script type="text/javascript">
         function addCode(key){
