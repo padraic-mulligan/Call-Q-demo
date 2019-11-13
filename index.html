@@ -640,7 +640,7 @@
                 this.updateSplash();
                 var visit = JSON.parse(data).visit;
                 this.splashVisit = visit;
-                this.lastCalled.push(visit);
+                this.lastCalled.unshift(visit);
                 this.getVisits();
                 
             },
