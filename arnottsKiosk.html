@@ -295,18 +295,22 @@
         .closedButton1 {
             border: none;
             position: fixed;
-            background-color: #fff;
-            color: #fff;
+            background-color: #ffffff00;
+            color: #ffffff00;
             font-size:0px;
+            width:30px;
+            height: 10px;
+            z-index: 10;
         }
         .closedButton2 {
             border: none;
             position: fixed;
-            background-color: #e82729;
-            color: #e82729;
-            width:10px;
+            background-color: #e8272900;
+            color: #e8272900;
+            width:30px;
             height: 10px;
             font-size:0px;
+            z-index:11;
         }
 </style>
 
@@ -393,7 +397,7 @@
 <body>
         <button class="closedButton1" onclick="toggle_visibility('closedImage');">Closed</button>
     <div id="closedImage">
-        <button class="closedButton2" onclick="toggle_visibility('closedImage');">Closed</button>
+        <button class="closedButton2" onclick="toggle_visibility('closedImage');">Open</button>
        
     </div>
     <!-- Main Div -->
