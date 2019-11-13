@@ -448,7 +448,7 @@
                                 <br>
                                 <br>
                                 <input type="tel" id="tel" class="form-control tel" placeholder="Select Country" v-model="customer.phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
-                                <input type="tel" id="intTel" v-model="selectedInternationalNum" >
+                                <input type="tel" id="intTel" name="intCode" v-model="selectedInternationalNum" >
                                 <div class="form-group">
                                     
                                   </div>
@@ -532,10 +532,10 @@
         }
 
         function addIntcode(key){
-            var code = document.forms[0].code;
-            if(code.value.length < 16){
-                code.value = code.value + key;
-                document.forms[0].code.dispatchEvent(new Event('intCode'))
+            var intCode = document.forms[0].intCode;
+            if(intCode.value.length < 16){
+                intCode.value = intCode.value + key;
+                document.forms[0].intCode.dispatchEvent(new Event('intCode'))
             }
         }
         
