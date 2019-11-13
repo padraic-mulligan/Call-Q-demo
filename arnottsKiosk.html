@@ -462,8 +462,8 @@
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
                                     <tr>
                                         <td onclick="addIntcode('+353')" class="irl" style="background-color: green; font-size: 1.5rem; height: 60px;">IRL</td>
-                                        <td v-model="selectedInternationalNum" style="background-color: Blue; font-size: 1.5rem; height: 60px;">UK</td>
-                                        <td v-model="selectedInternationalNum" style="background-color: rgb(216, 0, 0); font-size: 1.5rem; height: 60px;">USA</td>
+                                        <td onclick="addIntcode('+44')" style="background-color: Blue; font-size: 1.5rem; height: 60px;">UK</td>
+                                        <td onclick="addIntcode('+1')" style="background-color: rgb(216, 0, 0); font-size: 1.5rem; height: 60px;">USA</td>
 
                                     </tr>
                                     <tr>
@@ -571,7 +571,7 @@
                 selectedBranchId: -1,
                 selectedCreateStationId: -1,
                 createdVisit: {left: {ticket: "000"}},
-                showCustomer: false,
+                showCustomer: true,
                 showButton: true,
                 selectedQueue: null,
                 selectedQueueName: null,
