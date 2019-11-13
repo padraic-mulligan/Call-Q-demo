@@ -292,6 +292,12 @@
             font-weight:bold; 
             display:none;
         }
+        .closedButton {
+            border: none;;
+            background-color: #ffffff00;
+            color: #ffffff00;
+            margin-left:150px;
+        }
 </style>
 
 <!-- Media Query / Portrait Mode-->
@@ -375,9 +381,10 @@
 
 <!-- Body -->
 <body>
-
+        <button class="closedButton" onclick="toggle_visibility('closedImage');">Closed</button>
     <div id="closedImage">
-        <!-- <img src="https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ClosedLandscape.jpg"/> -->
+        <button class="closedButton" onclick="toggle_visibility('closedImage');">Closed</button>
+       
     </div>
     <!-- Main Div -->
     <div class="grid-container centred  " id="app" style="height: 100%; width: 100%;">
@@ -452,7 +459,7 @@
                                 <br>
                                 <br>
                                     <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block 
-                                                style="padding: 20px; margin: 5px; background-color: rgb(10, 158, 10);"
+                                                style="padding: 20px; margin: 10px; background-color: rgb(10, 158, 10);"
                                                 @click='createVisit()'>Print Ticket
                                     </b-button>
                                     <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block 
@@ -501,7 +508,15 @@
         }
         </script>
 
-
+<script type="text/javascript">
+        function toggle_visibility(id) {
+           var e = document.getElementById(id);
+           if(e.style.display == 'block')
+              e.style.display = 'none';
+           else
+              e.style.display = 'block';
+        }
+    </script>
 <!-- Main Script VUE-->
     <script>
         Vue.config.devtools = true
@@ -516,7 +531,7 @@
                 selectedBranchId: -1,
                 selectedCreateStationId: -1,
                 createdVisit: {left: {ticket: "000"}},
-                showCustomer: true,
+                showCustomer: false,
                 showButton: true,
                 selectedQueue: null,
                 selectedQueueName: null,
