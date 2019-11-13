@@ -63,7 +63,7 @@
         background-size: cover;
         z-index: 0;
     }
-    
+
     #closedImage {
         position: absolute;
         top: 0;
@@ -81,6 +81,9 @@
     }
     .centred{
         text-align: center;
+    }
+    .red-background {
+        background-color: var(--background-color) ;
     }
     
     .large-tkt-num{
@@ -179,12 +182,11 @@
         opacity: 1 !important;
         position: absolute;
         max-width: auto;
-        float: right !important;
-        margin-left: 10rem;
+        margin-left: 0;
     }
 
     .container-margin{
-        margin: 9rem;
+        margin: 0;
     }
 
     .mySplash {
@@ -192,19 +194,19 @@
     }
 
     .buttons {
-        margin: 15rem auto;
+        margin: 0;
     }
 
     .customer {
-        margin-top: 14rem;
+        margin-top: 0;
     }
 
     .pad {
-        padding-bottom: 10px;
+        padding-bottom: 0;
     }
 
     .portMargin {
-        margin-left: -4rem;
+        margin-left: 0;
     }
     .portCustomerMargin{
         margin-top: 0;
@@ -216,11 +218,11 @@
         max-width: 50%;
     }
     .col-9 {
-        margin-left: 6rem !important;
+        margin-left: 0 !important;
     }
     .container-margin {
-        margin-top: 7rem;
-        margin-right: 4rem; 
+        margin-top: 0;
+        margin-right: 0; 
     }
 
 
@@ -233,12 +235,14 @@
             background-color:#333333; 
             font-family:Verdana, Arial, Helvetica, sans-serif;
         }	
+        table {
+            border-spacing: 10px;
+        }
         form {
             margin-left: 10rem;
             margin-top: -8rem;
         }
         #keypad {
-            margin:auto; 
             margin-top:0px;
             width: 100%;
             }
@@ -246,15 +250,19 @@
         #keypad tr td {
             vertical-align:middle; 
             text-align:center; 
-            border:1px solid #000000; 
-            margin:2px;
-            font-size:3rem; 
+            border: 2px solid #ffffff00;
+            border-radius: 70px;
+            margin:10px;
+            font-size:2.8rem; 
             font-weight:bold; 
-            width:9rem; 
-            height:5rem; 
+            width:12rem; 
+            height:6rem; 
             cursor:pointer; 
-            background-color:#666666; 
-            color:#CCCCCC;}
+            display: inline-block;
+            background-color:#666666;
+            box-shadow: 10px 10px #333333;
+            color:#CCCCCC;
+            }
         #keypad tr td:hover {background-color:#999999; color:#FFFF00;}
         
         .display {
@@ -284,8 +292,8 @@
             background-size: cover;
         }
         #closedImage {
-        background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ClosedPortrait.jpg");
-    }
+            background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ClosedPortrait.jpg");
+        }
         .large-tkt-num {
             text-align: center;
         }
@@ -353,7 +361,7 @@
         <!-- <img src="https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/ClosedLandscape.jpg"/> -->
     </div>
     <!-- Main Div -->
-    <div class="grid-container centred  " id="app" style="height: 80%; width: 100%;">
+    <div class="grid-container centred  " id="app" style="height: 100%; width: 100%;">
         <!-- Splash Screen / Ticket Printing -->
         <div class="splashScreen container d-flex float-right container-margin mySplash" style="text-align: center;">
             <div v-if="showSplash" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 30%;">
@@ -369,16 +377,16 @@
         <div class="container h-100 float-right container-margin buttons portMargin" v-if="!showSplash && !showCustomer">
             <h2>Please press for Ticket</h2>
             <div class="row pad " v-for="queue in branch.queues" v-if="queue.name === 'SantaQ'">
-                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa " size="lg" block style="padding: 2px; margin: 30px;"       
+                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa " size="lg"        
                     @click='setSelectedQueue(queue)'>{{queue.name}}
                 </b-button>
             </div>
         </div>
 
         <!-- Customer Input Screen -->
-        <div class=" container d-flex red-background float-right container-margin customer portCustomerMargin" v-if="showCustomer">
-            <div class="row col-9 ml-auto mr-auto row">
-                <div class="row input-group input-group-lg pad">
+        <div  v-if="showCustomer" style="max-width: 100%;max-height: 100%;">
+            <div>
+                <div>
                     <!--
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="">First Name</span>
@@ -391,11 +399,16 @@
                 </div>
                 -->
 
-                <div class="row col-9 ml-auto mr-auto input-group input-group-lg pad">
-                    <div class="input-group-prepend">
-                        <form>
-                                <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber" name="code" style="font-size: 1.5rem;">
-                                <table id="keypad" cellpadding="5" cellspacing="3">
+                <div >
+                    <div>
+                        <form class="col-12 ml-auto mr-auto red-background" style="padding-top: 10rem;">
+                                <h1>Enter your mobile in international format (+3538--------) so we cna text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
+                                <br>
+                                <br>
+                                <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber" name="code" style="font-size: 3rem;">
+                                <br>
+                                <br>
+                                <table  id="keypad" cellpadding="18" cellspacing="50">
                                     <tr>
                                         <td onclick="addCode('1');">1</td>
                                         <td onclick="addCode('2');">2</td>
@@ -423,10 +436,12 @@
                                                 style="padding: 0px 0; "
                                                 @click='createVisit()'>Print Ticket
                                     </b-button>
-                                    <b-button class="col-4 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin: 30px;"
+                                    <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin: 30px;"
                                                 @click='goHome()'>Home
                                     </b-button>
                                 <p id="message">Wrong Number Entered...</p>
+                                <br style="margin-top: 30rem;">
+                                <br style="margin-top: 30rem;">
                         </form>
                     </div>
                 </div>
