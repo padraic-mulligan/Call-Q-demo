@@ -457,11 +457,19 @@
                                         </ul>
                                     </p>  
                                 <br>
-                                <select v-model="intNumber">
-                                        <option value="+353" style="color: black; font-size: 2rem;">Ireland</option>
-                                        <option value="+44" style="color: black; font-size: 2rem;">UK</option>
-                                        <option value="+1" style="color: black; font-size: 2rem;">USA</option>
-                                      </select>
+                                
+
+                                      <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                            <span class="caret"></span></button>
+                                            <select class="dropdown-menu" v-model="intNumber">
+                                                <option value="+353">Ireland</option>
+                                                <option value="+44">UK</option>
+                                                <option value="+1">USA</option>
+                                                </select>
+                                          </div>
+
+                                          
                                         
 
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
