@@ -268,7 +268,7 @@
             font-size:2.8rem; 
             font-weight:bold; 
             width:12rem; 
-            height:6rem; 
+            height:5rem; 
             cursor:pointer; 
             display: inline-block;
             background-color:#666666;
@@ -444,7 +444,7 @@
                         <form   id="app" @submit="checkForm" class="col-12 ml-auto mr-auto red-background" style="padding-top: 1rem; text-align: center; top: -100px; height: 120%;">
                                   
                                 <h1>
-                                    Enter your mobile in international format (+3538xxxxxxxx) so we can text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
+                                    Select a Country code and enter your mobile number so we can text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
                                 <br>
                                 <br>
                                 <input type="tel" id="tel" class="form-control tel" placeholder="Select Country" v-model="customer.phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
@@ -457,10 +457,13 @@
                                         </ul>
                                     </p>  
                                 <br>
+
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
                                     <tr>
-                                        <td onclick="addCode('+353');" style="background-color: green; font-size: 1.5rem; height: 60px;">IRL</td>
+                                        <td onclick="addCode('+353');" class="irl" style="background-color: green; font-size: 1.5rem; height: 60px;">IRL</td>
                                         <td onclick="addCode('+44');" style="background-color: Blue; font-size: 1.5rem; height: 60px;">UK</td>
+                                        <td onclick="addCode('+1');" style="background-color: rgb(216, 0, 0); font-size: 1.5rem; height: 60px;">USA</td>
+
                                     </tr>
                                     <tr>
                                         <td onclick="addCode('1');">1</td>
@@ -480,7 +483,7 @@
                                     <tr>
                                         <td onclick="addCode('+');">+</td>
                                         <td onclick="addCode('0');">0</td>
-                                        <td onclick="emptyCode();">&#171;</td>
+                                        <td onclick="emptyCode();">Clear</td>
                                     </tr>
                                     
                                 </table>
@@ -626,8 +629,9 @@
                         firstName: this.customer.firstName,
                         lastName: this.customer.lastName,
                         notes: this.customer.orderNum,
-                        phoneNumber: this.customer.phoneNumber,
+                        phoneNumber: this.customer.phoneNumber.replace(/^0+/,'+353'),
                     };
+
 
                     axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + this.selectedCreateStationId + '/add', data).then(e => {
                         this.createdVisit = e.data;
