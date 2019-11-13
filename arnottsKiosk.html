@@ -424,7 +424,7 @@
                                 <h1>Enter your mobile in international format (+3538xxxxxxxx) so we can text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
                                 <br>
                                 <br>
-                                <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber" name="code" style="font-size: 3rem;">
+                                <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
                                 <br>
                                 <br>
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
@@ -452,7 +452,7 @@
                                 <br>
                                 <br>
                                     <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block 
-                                                style="padding: 0px 0; margin: 30px; background-color: rgb(10, 158, 10);"
+                                                style="padding: 20px; margin: 5px; background-color: rgb(10, 158, 10);"
                                                 @click='createVisit()'>Print Ticket
                                     </b-button>
                                     <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block 
@@ -516,7 +516,7 @@
                 selectedBranchId: -1,
                 selectedCreateStationId: -1,
                 createdVisit: {left: {ticket: "000"}},
-                showCustomer: false,
+                showCustomer: true,
                 showButton: true,
                 selectedQueue: null,
                 selectedQueueName: null,
