@@ -457,12 +457,19 @@
                                         </ul>
                                     </p>  
                                 <br>
+                                <select v-model="intNumber">
+                                        <option value="+353">+353</option>
+                                        <option value="+44">+44</option>
+                                        <option value="+1">+1</option>
+                                      </select>
+                                        
 
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
+
                                     <tr>
-                                        <td onclick="addIntCode('+353');" class="irl" style="background-color: green; font-size: 1.5rem; height: 60px;">IRL</td>
-                                        <td onclick="addIntCode('+44');" style="background-color: Blue; font-size: 1.5rem; height: 60px;">UK</td>
-                                        <td onclick="addIntCode('+1');" style="background-color: rgb(216, 0, 0); font-size: 1.5rem; height: 60px;">USA</td>
+                                        <td onclick="addCode('+353');" class="irl" style="background-color: green; font-size: 1.5rem; height: 60px;">IRL</td>
+                                        <td onclick="addCode('+44');" style="background-color: Blue; font-size: 1.5rem; height: 60px;">UK</td>
+                                        <td onclick="addCode('+1');" style="background-color: rgb(216, 0, 0); font-size: 1.5rem; height: 60px;">USA</td>
 
                                     </tr>
                                     <tr>
@@ -530,7 +537,6 @@
             }
         }
         
-        
         function submitForm(){
             document.forms[0].submit();
         }
@@ -567,7 +573,7 @@
                 showButton: true,
                 selectedQueue: null,
                 selectedQueueName: null,
-                internationCode: null,
+                intNumber: null,
                 customer: {
                     firstName: 'A',
                     lastName: '',
@@ -579,9 +585,6 @@
             computed: {}
             ,
             methods: {
-                addIntCode(key){
-                    this.internationCode = key;
-                },
                 getQueues() {
                     axios.get('/rest/kiosk/branch/' + this.selectedBranchId).then(e => {
                         this.branch = e.data;
@@ -634,7 +637,7 @@
                         firstName: this.customer.firstName,
                         lastName: this.customer.lastName,
                         notes: this.customer.orderNum,
-                        phoneNumber: this.customer.phoneNumber.replace(/^0+/,this.internationCode),
+                        phoneNumber: this.customer.phoneNumber.replace(/.+?(?=86|77)/,this.intNumber)
                     };
 
 
