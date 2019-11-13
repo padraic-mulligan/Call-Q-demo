@@ -127,7 +127,7 @@
     .btn-div{
         border-radius: 70px;
         margin: 0;
-        padding: 1rem;
+        padding: 0;
         /* box-shadow: 10px 10px rgb(124, 124, 124); */
         -webkit-box-shadow: 7px 7px 5px 0px rgba(130,130,130,1);
         -moz-box-shadow: 7px 7px 5px 0px rgba(130,130,130,1);
@@ -445,9 +445,9 @@
                                 <br>
                                 <input type="tel" class="form-control" placeholder="e.g. +353" v-model="customer.phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
                                 <br>
-                                    <p v-if="errors.length">
+                                    <p v-if="errors.length" >
                                         <ul>
-                                            <li v-for="error in errors">{{ error }}</li>
+                                            <li v-for="error in errors" style="font-size:1.8rem; color:Black; margin: 0; font-weight: bolder; list-style-type: none;">{{ error }}</li>
                                         </ul>
                                     </p>  
                                 <br>
@@ -477,10 +477,11 @@
                                 <br>
                                     <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block  type="submit"
                                     value="Submit"
-                                                style="padding: 20px; margin: 10px; background-color: rgb(10, 158, 10);"
+                                                style="padding: 6px; margin: 0; background-color: rgb(10, 158, 10);"
                                                 @click='createVisit()'>Print Ticket
                                     </b-button>
                                     <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin-bottom: 60px;"
+                                                style="padding: 6px; margin: 0;"
                                                 @click='goHome()'>Home
                                     </b-button>
                                 <p id="message">Wrong Number Entered...</p>
