@@ -312,6 +312,12 @@
             font-size:0px;
             z-index:11;
         }
+        .selections{
+            width: 300px;
+            height: 50px;
+            border-radius: 50px;
+            color: black;
+        }
 </style>
 
 <!-- Media Query / Portrait Mode-->
@@ -447,6 +453,7 @@
                                     Select a Country and enter your mobile number so we can text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
                                 <br>
                                 <br>
+                               
                                 <input type="tel" id="tel" class="form-control tel" placeholder="e.g. 086 / 079" v-model="customer.phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
                                 <div class="form-group">
                                     
@@ -457,12 +464,12 @@
                                         </ul>
                                     </p>  
                                 <br>
-                                <select v-model="intNumber">
-                                        <option value="+353" style="color: black; font-size: 2rem;">Ireland</option>
-                                        <option value="+44" style="color: black; font-size: 2rem;">UK</option>
-                                        <option value="+1" style="color: black; font-size: 2rem;">USA</option>
-                                </select>
-                                        
+                                <h3>Click to select country</h3>
+                                        <input type="text" placeholder="Country">
+                                            <option value="+353" style="color: black; font-size: 1rem;">Ireland</option>
+                                            <option value="+44" style="color: black; font-size: 1rem;">UK</option>
+                                            <option value="+1" style="color: black; font-size: 1rem;">USA</option>
+                                    </select>
 
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
                                     <tr>
@@ -562,7 +569,7 @@
                 selectedBranchId: -1,
                 selectedCreateStationId: -1,
                 createdVisit: {left: {ticket: "000"}},
-                showCustomer: false,
+                showCustomer: true,
                 showButton: true,
                 selectedQueue: null,
                 selectedQueueName: null,
