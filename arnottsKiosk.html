@@ -458,20 +458,13 @@
                                     </p>  
                                 <br>
                                 <select v-model="intNumber">
-                                        <option value="+353">+353</option>
-                                        <option value="+44">+44</option>
-                                        <option value="+1">+1</option>
+                                        <option value="+353" style="background-color: blue;">Ireland</option>
+                                        <option value="+44" style="background-color: blue;">UK</option>
+                                        <option value="+1" style="background-color: blue;">USA</option>
                                       </select>
                                         
 
                                 <table  id="keypad" cellpadding="18" cellspacing="50">
-
-                                    <tr>
-                                        <td onclick="addCode('+353');" class="irl" style="background-color: green; font-size: 1.5rem; height: 60px;">IRL</td>
-                                        <td onclick="addCode('+44');" style="background-color: Blue; font-size: 1.5rem; height: 60px;">UK</td>
-                                        <td onclick="addCode('+1');" style="background-color: rgb(216, 0, 0); font-size: 1.5rem; height: 60px;">USA</td>
-
-                                    </tr>
                                     <tr>
                                         <td onclick="addCode('1');">1</td>
                                         <td onclick="addCode('2');">2</td>
