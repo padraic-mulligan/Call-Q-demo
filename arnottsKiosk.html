@@ -227,11 +227,8 @@
         margin-left: 0 !important;
     }
     .container-margin {
-        margin-top: 0;
+        margin-top: 6rem;
         margin-right: 0; 
-    }
-    .splashText {
-        margin-top:6rem;
     }
 
 
@@ -402,8 +399,8 @@
     <!-- Main Div -->
     <div class="grid-container centred  " id="app" style="height: 100%; width: 100%;">
         <!-- Splash Screen / Ticket Printing -->
-        <div class="splashScreen container d-flex float-right container-margin mySplash splashText" style="text-align: center;">
-            <div v-if="showSplash" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 30%;">
+        <div class="splashScreen container d-flex float-right container-margin mySplash" style="text-align: center;">
+            <div v-if="showSplash" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 32%;">
                 <h1>Please wait while your ticket is printing</h1>
                 <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
                 <br>
