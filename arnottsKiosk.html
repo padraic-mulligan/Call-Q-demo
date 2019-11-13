@@ -488,8 +488,7 @@
                                                 @click='goHome()'>Home
                                     </b-button>
                                 <p id="message">Wrong Number Entered...</p>
-                                <br style="margin-top: 30rem;">
-                                <br style="margin-top: 30rem;">
+                                <br style="margin-top: 40rem;">
                         </form>
                     </div>
                 </div>
@@ -591,6 +590,9 @@
                     };*/ 
                     if (this.selectedQueueName == "SantaQ"){
                         this.showCustomer = true;
+                        setTimeout(function () {
+                        app.showCustomer = false;
+                    }, 60000);
                     };
                 },
                 goHome() {
