@@ -9,17 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>Kiosk</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <script src="https://santaq.call-q.solutions/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="https://santaq.call-q.solutions/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    <!-- <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" /> -->
 
     <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <!-- <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script> -->
 </head>
 
 <!-- Main Style -->
@@ -449,7 +446,7 @@
     <div class="grid-container centred  " id="app" style="height: 100%; width: 100%;">
         <!-- Splash Screen / Ticket Printing -->
         <div class="splashScreen container d-flex float-right container-margin mySplash" style="text-align: center;">
-            <div v-if="showSplash" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 32%;">
+            <div id="printingTickets" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 32%;">
                 <h1>Please wait while your ticket is printing</h1>
                 <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
                 <br>
@@ -459,31 +456,23 @@
         </div>
 
         <!-- Main Screen -->
-        <div class="container h-100 float-right container-margin buttons portMargin" v-if="!showSplash && !showCustomerForm">
+        <div id="queueSelection" class="container h-100 float-right container-margin buttons portMargin" >
             <h2 class="topMargin">Please press for Ticket</h2>
-            <div class="row pad " v-for="queue in branch.queues" v-if="queue.name === 'SantaQ'">
-                <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa " size="lg" @click='setSelectedQueue(queue)'>{{queue.name}}</b-button>
+            <div id="queueList" class="row pad ">
+                <!-- <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa " size="lg" onclick="setSelectedQueue(queue)">{{queue.name}}</b-button> -->
             </div>
         </div>
 
         <!-- Customer Input Screen -->
-        <div v-if="showCustomerForm" style="max-width: 100%;max-height: 100%;">
-            <!--
-                <div class="input-group-prepend"><span class="input-group-text" id="">First Name</span></div>
-                <input type="text" class="form-control" v-model="customer.firstName">
-
-                <div class="input-group-prepend"><span class="input-group-text" id="">Last Name</span></div>
-                <input type="text" class="form-control" v-model="customer.lastName">
-            </div>
-            -->
-
-            <form id="app" class="col-12 ml-auto mr-auto red-background" style="padding-top: 1rem; text-align: center; top: -100px; height: 120%;">
+        <div id="customerForm" style="max-width: 100%;max-height: 100%;">
+            <form class="col-12 ml-auto mr-auto red-background" style="padding-top: 1rem; text-align: center; top: -100px; height: 120%;">
                 <h1>Select a Country and enter your mobile number so we can text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
                 <br>
                 <br>
 
                 <h3>Select country</h3>
-                <select class="selections" v-model="phonePrefix" @change="resetPhoneNumber()">
+                <select id="phonePrefix" class="selections" v-model="phonePrefix" onchange="resetPhoneNumber()">
+                    <option value="" style="color: black; font-size: 1rem;">Select country</option>
                     <option value="+353" style="color: black; font-size: 1rem;">Ireland</option>
                     <option value="+44" style="color: black; font-size: 1rem;">UK</option>
                     <option value="+1" style="color: black; font-size: 1rem;">USA</option>
@@ -491,7 +480,7 @@
                 <br>
                 <br>
 
-                <input type="tel" id="tel" class="form-control tel" placeholder="e.g. 086xxxxxx" v-model="phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
+                <input type="tel" id="phoneNumber" class="form-control tel" placeholder="e.g. 086xxxxxx" v-model="phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
 
                 <ul>
                     <li v-for="error in errors" style="font-size:1.8rem; color:Black; margin: 0; font-weight: bolder; list-style-type: none;">{{ error }}</li>
@@ -500,31 +489,31 @@
 
                 <table id="keypad" cellpadding="18" cellspacing="50">
                     <tr>
-                        <td><button type="button" @click="onDigit('1')" style="width:100%; height:100%;">1</button></td>
-                        <td><button type="button" @click="onDigit('2')">2</button></td>
-                        <td><button type="button" @click="onDigit('3')">3</button></td>
+                        <td><button type="button" onclick="onDigit('1')">1</button></td>
+                        <td><button type="button" onclick="onDigit('2')">2</button></td>
+                        <td><button type="button" onclick="onDigit('3')">3</button></td>
                     </tr>
                     <tr>
-                        <td><button type="button" @click="onDigit('4')">4</button></td>
-                        <td><button type="button" @click="onDigit('5')">5</button></td>
-                        <td><button type="button" @click="onDigit('6')">6</button></td>
+                        <td><button type="button" onclick="onDigit('4')">4</button></td>
+                        <td><button type="button" onclick="onDigit('5')">5</button></td>
+                        <td><button type="button" onclick="onDigit('6')">6</button></td>
                     </tr>
                     <tr>
-                        <td><button type="button" @click="onDigit('7')">7</button></td>
-                        <td><button type="button" @click="onDigit('8')">8</button></td>
-                        <td><button type="button" @click="onDigit('9')">9</button></td>
+                        <td><button type="button" onclick="onDigit('7')">7</button></td>
+                        <td><button type="button" onclick="onDigit('8')">8</button></td>
+                        <td><button type="button" onclick="onDigit('9')">9</button></td>
                     </tr>
                     <tr>
-                        <td><button type="button" @click="onDigit('-')">&lt;</button></td>
-                        <td><button type="button" @click="onDigit('0')">0</button></td>
-                        <td><button type="button" @click="resetForm()">Clear</button></td>
+                        <td><button type="button" onclick="onDigit('-')">&lt;</button></td>
+                        <td><button type="button" onclick="onDigit('0')">0</button></td>
+                        <td><button type="button" onclick="resetForm()">Clear</button></td>
                     </tr>
                 </table>
 
                 <br>
                 <br>
-                <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block @click='createVisit()' style="padding: 6px; margin: 10px; background-color: rgb(10, 158, 10);">Print Ticket</b-button>
-                <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin-bottom: 60px;" style="padding: 6px; margin-bottom: 100px;;" @click='goHome()'>Home</b-button>
+                <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block onclick='createVisit()' style="padding: 6px; margin: 10px; background-color: rgb(10, 158, 10);">Print Ticket</b-button>
+                <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin-bottom: 60px;" style="padding: 6px; margin-bottom: 100px;;" onclick="goHome()"">Home</b-button>
                 <br style="margin-top: 40rem;">
             </form>
 
@@ -550,180 +539,189 @@
     <script>
         var HOST = 'https://santaq.call-q.solutions'
 
-        Vue.config.devtools = false
+        var data = {
+            stompClient: null,
+            // clientName: 'Arnotts',
 
-        var app = new Vue({
-            el: '#app',
-            data: {
-                stompClient: null,
-                // clientName: 'Arnotts',
+            showSplash: false,
 
-                showSplash: false,
-
-                branch: {
-                    branchName: 'loading....',
-                    queues: [{
-                        name: "loading"
-                    }]
-                },
-
-                selectedBranchId: -1,
-                selectedCreateStationId: -1,
-
-                createdVisit: {
-                    left: {
-                        ticket: "000"
-                    }
-                },
-
-                selectedQueue: null,
-
-                phonePrefix: null,
-                phoneNumber: '',
-
-                errors: []
+            branch: {
+                branchName: 'loading....',
+                queues: [{
+                    name: "loading"
+                }]
             },
-            computed: {
-                showCustomerForm: function () {
-                    return this.selectedQueue && this.selectedQueue.name == "SantaQ"
+
+            selectedBranchId: -1,
+            selectedCreateStationId: -1,
+
+            createdVisit: {
+                left: {
+                    ticket: "000"
                 }
             },
-            methods: {
-                // Clear the entered phone number leaving just the country prefix.
-                resetPhoneNumber: function () {
-                    this.phoneNumber = this.phonePrefix
-                },
 
-                // Reset all aspects of the form, selected country prefix, customer details, errors etc.
-                resetForm: function () {
-                    this.phonePrefix = ''
-                    this.phoneNumber = ''
-                    this.errors = []
-                },
+            selectedQueue: null,
 
-                // Called when a user clicks on a digit in the keypad.
-                onDigit: function (key) {
-                    if (key == '-') { // Remove last digit from the phone number.
-                        this.phoneNumber = this.phoneNumber.substring(0, this.phoneNumber.length - 1);
+            phonePrefix: null,
+            phoneNumber: '',
 
-                    } else if (this.phoneNumber.length < 16) {
-                        this.phoneNumber = this.phoneNumber + key
-                    }
-                },
+            errors: []
+        };
 
-                // Call the backend to populate the different queues (branches).
-                getQueues: function () {
-                    axios.get(HOST + '/rest/kiosk/branch/' + this.selectedBranchId)
-                        .then(e => { this.branch = e.data })
-                },
+            
+        var showCustomerForm = function () {
+            return data.selectedQueue && data.selectedQueue.name == "SantaQ"
+        }
 
-                setSelectedQueue: function (queue) {
-                    this.selectedQueue = queue
-                    console.log(">" + this.selectedQueue.name + "<")
+        // Clear the entered phone number leaving just the country prefix.
+        var resetPhoneNumber = function () {
+            console.log("resetPhoneNumber()")
+            data.phonePrefix = document.getElementById("phonePrefix").value
+            data.phoneNumber = data.phonePrefix
+            updateUi()
+        }
 
-                    /*
-                    Add Queue Names as an or statement here to show the form view
-                    e.g. if (this.selectedQueue.name != "Retail " || this.selectedQueue.name != "Some other Queue" )
-                    All other Queue's will print the ticket directly
-                    */
-                        /*if (this.selectedQueue.name != "SantaQ"){
-                            this.createVisit()
-                        }*/
-                },
+        // Reset all aspects of the form, selected country prefix, customer details, errors etc.
+        var resetForm = function () {
+            console.log("resetForm()")
+            data.phonePrefix = ''
+            data.phoneNumber = ''
+            data.errors = []
+            updateUi()
+        }
 
-                // Navigate to the landing screen.
-                goHome: function () {
-                    this.resetForm()
-                    this.selectedQueue = {}
-                },
+        // Called when a user clicks on a digit in the keypad.
+        var onDigit = function (key) {
+            console.log("onDigit(" + key + ")")
+            if (key == '-') { // Remove last digit from the phone number.
+                data.phoneNumber = data.phoneNumber.substring(0, data.phoneNumber.length - 1);
 
-                // Before submitting a form, ensure that the information entered is valid.
-                isFormValid: function () {
-                    if (this.phoneNumber) {
-                        return true
-                    }
-
-                    this.errors = []
-                    this.errors.push('Phone Number required')
-                    return false
-                },
-
-                createVisit: function () {
-                    if (!this.isFormValid()) {
-                        return // Do not submit the form if not valid.
-                    }
-
-                    let pNumber = this.phoneNumber.replace(/.+?(?=8|77)/, this.phonePrefix)
-                    let data = {
-                        customer: {
-                            firstName: 'A',
-                            lastName: '',
-                            notes: '',
-                            phoneNumber: pNumber
-                        }
-                    }
-
-                    let queue = this.selectedQueue
-                    axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + this.selectedCreateStationId + '/add', data)
-                        .then(e => {
-                            this.createdVisit = e.data
-                            this.phoneNumber = ''
-                            this.selectedQueue = {}
-                            this.updateSplash()
-                        })
-                },
-
-                updateSplash: function () {
-                    this.showSplash = true
-                    setTimeout(function () { app.showSplash = false }, 8000)
-                },
-
-                connect: function () {
-                    var that = this
-
-                    // let socket = new SockJS(HOST + '/websocket')
-                    // this.stompClient = Stomp.over(socket)
-                    // this.stompClient.connect({},
-                    //     function (frame) {
-                    //         console.log('Connected: ' + frame)
-                    //         this.stompClient.subscribe('/topic/refresh', function data) {
-                    //             window.location.reload(true)
-                    //         })
-                    //     },
-                    //     function () { setTimeout(function () { that.connect() }, 15000) }
-                    // )
-                }
-            },
-            created: function () {
-                // this.dev = true
-                const urlParams = new URLSearchParams(window.location.search)
-
-                // if (window.location.hostname.indexOf('localhost') >= 0) {
-                //     this.dev = true
-                // }
-
-                // let callText = '/topic/call/' + branchLogicId
-
-                let branchLogicId = urlParams.get('branchId')
-                if (branchLogicId == "" || branchLogicId == null) {
-                    // callText = "/topic/call"
-                    branchLogicId = -1
-                    console.error("please set a branch ID!")
-                }
-                this.selectedBranchId = branchLogicId
-
-                let selectedCreateStationId = urlParams.get('createStationId')
-                if (selectedCreateStationId == null || selectedCreateStationId == '') {
-                    selectedCreateStationId = -1
-                    console.error("please select a branchId")
-                }
-                this.selectedCreateStationId = selectedCreateStationId
-
-                this.getQueues()
-                    /* this.displayButton() */
-                this.connect()
+            } else if (data.phoneNumber.length < 16) {
+                data.phoneNumber = data.phoneNumber + key
             }
-        });
+            updateUi()
+        }
+
+        // Call the backend to populate the different queues (branches).
+        var getQueues = function () {
+            console.log("getQueues()")
+            axios.get(HOST + '/rest/kiosk/branch/' + data.selectedBranchId)
+                .then(e => { data.branch = e.data; updateQueueList(); })
+        }
+
+        var setSelectedQueue = function (index) {
+            data.selectedQueue = data.branch.queues[index]
+            console.log(">" + data.selectedQueue.name + "<")
+            updateUi()
+        }
+
+        // Navigate to the landing screen.
+        var goHome = function () {
+            console.log("goHome()")
+            data.selectedQueue = {}
+            resetForm()
+        }
+
+        // Before submitting a form, ensure that the information entered is valid.
+        var isFormValid  = function () {
+            console.log("isFormValid()")
+            if (data.phoneNumber) {
+                return true
+            }
+
+            data.errors = []
+            data.errors.push('Phone Number required')
+            return false
+        }
+
+        var createVisit = function () {
+            console.log("createVisit()")
+            if (!isFormValid()) {
+                updateUi()
+                return // Do not submit the form if not valid.
+            }
+
+            var pNumber = data.phoneNumber.replace(/.+?(?=8|77)/, data.phonePrefix)
+            var postData = {
+                customer: {
+                    firstName: 'A',
+                    lastName: '',
+                    notes: '',
+                    phoneNumber: pNumber
+                }
+            }
+
+            var queue = data.selectedQueue
+            axios.post('/rest/kiosk/branch/' + data.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + data.selectedCreateStationId + '/add', postData)
+                .then(e => {
+                    data.createdVisit = e.data
+                    data.phoneNumber = ''
+                    data.selectedQueue = {}
+                    updateSplash()
+                })
+            updateUi()
+        }
+
+        var updateSplash = function () {
+            console.log("updateSplash()")
+            data.showSplash = true
+            setTimeout(function () { data.showSplash = false }, 8000)
+        }
+
+        var created = function () {
+            console.log("created()")
+            var urlParams = new URLSearchParams(window.location.search)
+
+            var branchLogicId = urlParams.get('branchId')
+            if (branchLogicId == "" || branchLogicId == null) {
+                branchLogicId = -1
+                console.error("please set a branch ID!")
+            }
+            data.selectedBranchId = branchLogicId
+
+            var selectedCreateStationId = urlParams.get('createStationId')
+            if (selectedCreateStationId == null || selectedCreateStationId == '') {
+                selectedCreateStationId = -1
+                console.error("please select a branchId")
+            }
+            data.selectedCreateStationId = selectedCreateStationId
+
+            getQueues()
+            //connect()
+        }
+
+        var updateQueueList = function() {
+            var html = ""
+            for (var i = 0; i < data.branch.queues.length; i++) {
+                var queue = data.branch.queues[i]
+                if (queue.name == "SantaQ") {
+                    html += "<b-button class='col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa' size='lg' onclick='setSelectedQueue(" + i + ")'>" + queue.name + "</b-button>";
+                }
+            }
+            console.log(html)
+            document.getElementById("queueList").innerHTML = html;
+        }
+
+        var display = function(element, display) {
+            document.getElementById(element).style.display = display ? "block" : "none";
+        }
+
+
+        var updateUi = function () {
+            var xShowSplash = data.showSplash
+            var xShowCustomerForm = showCustomerForm()
+
+            display("queueSelection", !xShowSplash && !xShowCustomerForm)
+            display("customerForm", xShowCustomerForm)
+            display("printingTickets", xShowSplash)
+
+            document.getElementById("phoneNumber").value = data.phoneNumber
+        }
+
+
+        created();
+        updateUi();
     </script>
 </body>
 
