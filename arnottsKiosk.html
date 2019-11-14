@@ -501,7 +501,6 @@
                 <br>
                 <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block @click='createVisit()' style="padding: 6px; margin: 10px; background-color: rgb(10, 158, 10);">Print Ticket</b-button>
                 <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin-bottom: 60px;" style="padding: 6px; margin-bottom: 100px;;" @click='goHome()'>Home</b-button>
-                <p id="message">Wrong Number Entered...</p>
                 <br style="margin-top: 40rem;">
             </form>
 
@@ -536,7 +535,6 @@
                 // clientName: 'Arnotts',
 
                 showSplash: false,
-                showCustomerForm: false,
 
                 branch: {
                     branchName: 'loading....',
@@ -561,6 +559,11 @@
 
                 errors: []
             },
+            computed: {
+                showCustomerForm: function () {
+                    return this.selectedQueue && this.selectedQueue.name == "SantaQ"
+                }
+            },
             methods: {
                 // Clear the entered phone number leaving just the country prefix.
                 resetPhoneNumber: function () {
@@ -582,13 +585,7 @@
                     } else if (this.phoneNumber.length < 16) {
                         this.phoneNumber = this.phoneNumber + key
                     }
-
-                    // if (this.phoneNumber.length == 16) {
-                    //     document.getElementById("message").style.display = "block"
-                    //     setTimeout(this.resetPhoneNumber, 5000)
-                    // }
                 },
-
 
                 // Call the backend to populate the different queues (branches).
                 getQueues: function () {
@@ -598,29 +595,21 @@
 
                 setSelectedQueue: function (queue) {
                     this.selectedQueue = queue
+                    console.log(">" + this.selectedQueue.name + "<")
 
                     /*
                     Add Queue Names as an or statement here to show the form view
                     e.g. if (this.selectedQueue.name != "Retail " || this.selectedQueue.name != "Some other Queue" )
                     All other Queue's will print the ticket directly
                     */
-                    console.log(">" + this.selectedQueue.name + "<")
                         /*if (this.selectedQueue.name != "SantaQ"){
-                            this.showCustomerForm = false
                             this.createVisit()
-                        } else {
-                            this.showCustomerForm = true
                         }*/
-
-                    if (this.selectedQueue.name == "SantaQ") {
-                        this.showCustomerForm = true
-                    }
                 },
 
                 // Navigate to the landing screen.
                 goHome: function () {
                     this.resetForm()
-                    this.showCustomerForm = false
                     this.selectedQueue = {}
                 },
 
@@ -637,24 +626,24 @@
 
                 createVisit: function () {
                     if (!this.isFormValid()) {
-                        return // form is not valid
+                        return // Do not submit the form if not valid.
                     }
 
-                    let queue = this.selectedQueue
+                    let pNumber = this.phoneNumber.replace(/.+?(?=8|77)/, this.phonePrefix)
                     let data = {
                         customer: {
                             firstName: 'A',
                             lastName: '',
                             notes: '',
-                            phoneNumber: this.phoneNumber.replace(/.+?(?=8|77)/, this.phonePrefix)
+                            phoneNumber: pNumber
                         }
                     }
 
+                    let queue = this.selectedQueue
                     axios.post('/rest/kiosk/branch/' + this.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + this.selectedCreateStationId + '/add', data)
                         .then(e => {
                             this.createdVisit = e.data
-                            this.customer = {}
-                            this.showCustomerForm = false
+                            this.phoneNumber = ''
                             this.selectedQueue = {}
                             this.updateSplash()
                         })
