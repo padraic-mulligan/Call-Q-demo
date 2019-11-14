@@ -491,7 +491,7 @@
                         <td @click="onDigit('9')">9</td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td @click="onDigit('-')">&lt;</td>
                         <td @click="onDigit('0')">0</td>
                         <td @click="resetForm()">Clear</td>
                     </tr>
@@ -576,7 +576,10 @@
 
                 // Called when a user clicks on a digit in the keypad.
                 onDigit: function (key) {
-                    if (this.phoneNumber.length < 16) {
+                    if (key == '-') { // Remove last digit from the phone number.
+                        this.phoneNumber = this.phoneNumber.substring(0, this.phoneNumber.length - 1);
+
+                    } else if (this.phoneNumber.length < 16) {
                         this.phoneNumber = this.phoneNumber + key
                     }
 
@@ -592,7 +595,6 @@
                     axios.get(HOST + '/rest/kiosk/branch/' + this.selectedBranchId)
                         .then(e => { this.branch = e.data })
                 },
-
 
                 setSelectedQueue: function (queue) {
                     this.selectedQueue = queue
