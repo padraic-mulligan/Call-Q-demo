@@ -530,6 +530,7 @@
                     disabled="disabled"
                     size="sm"
                     style="padding: 6px; margin: 10px; background-color: rgb(10, 158, 10);"
+                    type="button"
                     onclick="createVisit()">Print Ticket</button>
                 <b-button
                     class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block"
@@ -676,8 +677,8 @@
             axios.post('/rest/kiosk/branch/' + data.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + data.selectedCreateStationId + '/add', postData)
                 .then(e => {
                     data.createdVisit = e.data
-                    resetForm()
                     data.selectedQueue = {}
+                    resetForm()
                     // setPhonePrefix('')
                     // setPhoneNumber('')
                     updateSplash()
@@ -742,11 +743,10 @@
         }
 
         var setPhonePrefix = function (value) {
-            // console.log("setPhonePrefix(" + value + ")")
             document.getElementById("phonePrefix").value = value
         }
 
-        var onPhonePrefixChange = function(e) {
+        var onPhonePrefixChange = function () {
             var phonePrefix = getPhonePrefix()
             setPhoneNumber(phonePrefix)
 
@@ -767,8 +767,7 @@
             onPhoneNumberChange()
         }
 
-        var onPhoneNumberChange = function() {
-            // console.log("onPhoneNumberChange(" + getPhoneNumber().length + ")")
+        var onPhoneNumberChange = function () {
             document.getElementById("printTicketBtn").disabled = getPhoneNumber().length < 12
         }
 
