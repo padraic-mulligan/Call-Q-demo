@@ -15,7 +15,7 @@
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
     <!-- <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" /> -->
 
-    <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
+    <!-- <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script> -->
     <!-- <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script> -->
 </head>
 
@@ -466,28 +466,40 @@
         <!-- Customer Input Screen -->
         <div id="customerForm" style="max-width: 100%;max-height: 100%;">
             <form class="col-12 ml-auto mr-auto red-background" style="padding-top: 1rem; text-align: center; top: -100px; height: 120%;">
-                <h1>Select a Country and enter your mobile number so we can text you when it's time to go to the grotto for your turn to meet Santa then click 'Print Ticket'. You will receive a sms and ticket printed.</h1>
-                <br>
-                <br>
+                <h1>Enter your mobile number, print a ticket, and we'll text you when it's time to go to the grotto and meet Santa.</h1>
+                <p>You will receive an SMS and a printed ticket.</p>
 
-                <h3>Select country</h3>
-                <select id="phonePrefix" class="selections" v-model="phonePrefix" onchange="resetPhoneNumber()">
+                <!-- <h3>Select country</h3> -->
+                <select
+                    id="phonePrefix"
+                    class="selections"
+                    v-model="phonePrefix"
+                    onchange="onPhonePrefixChange()">
                     <option value="" style="color: black; font-size: 1rem;">Select country</option>
                     <option value="+353" style="color: black; font-size: 1rem;">Ireland</option>
                     <option value="+44" style="color: black; font-size: 1rem;">UK</option>
                     <option value="+1" style="color: black; font-size: 1rem;">USA</option>
+                    <option value="+" style="color: black; font-size: 1rem;">Other</option>
                 </select>
                 <br>
                 <br>
 
-                <input type="tel" id="phoneNumber" class="form-control tel" placeholder="e.g. 086xxxxxx" v-model="phoneNumber" name="code" style="font-size: 3rem; text-align: center;">
+                <input
+                    id="phoneNumber"
+                    class="form-control tel"
+                    disabled
+                    placeholder="e.g. 086xxxxxx"
+                    style="font-size: 3rem; text-align: center;"
+                    type="tel"
+                    oninput="onPhoneNumberChange()"
+                    />
 
                 <ul>
-                    <li v-for="error in errors" style="font-size:1.8rem; color:Black; margin: 0; font-weight: bolder; list-style-type: none;">{{ error }}</li>
+                    <!-- <li v-for="error in errors" style="font-size:1.8rem; color:Black; margin: 0; font-weight: bolder; list-style-type: none;">{{ error }}</li> -->
                 </ul>
                 <br>
 
-                <table id="keypad" cellpadding="18" cellspacing="50">
+                <!-- <table id="keypad" cellpadding="18" cellspacing="50">
                     <tr>
                         <td><button type="button" onclick="onDigit('1')">1</button></td>
                         <td><button type="button" onclick="onDigit('2')">2</button></td>
@@ -508,12 +520,22 @@
                         <td><button type="button" onclick="onDigit('0')">0</button></td>
                         <td><button type="button" onclick="resetForm()">Clear</button></td>
                     </tr>
-                </table>
+                </table> -->
 
+                <br >
                 <br>
-                <br>
-                <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" size="sm" block onclick='createVisit()' style="padding: 6px; margin: 10px; background-color: rgb(10, 158, 10);">Print Ticket</b-button>
-                <b-button class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block" size="sm" block style="margin-bottom: 60px;" style="padding: 6px; margin-bottom: 100px;;" onclick="goHome()"">Home</b-button>
+                <button
+                    id="printTicketBtn"
+                    class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" 
+                    disabled="disabled"
+                    size="sm"
+                    style="padding: 6px; margin: 10px; background-color: rgb(10, 158, 10);"
+                    onclick="createVisit()">Print Ticket</button>
+                <b-button
+                    class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block"
+                    size="sm"
+                    style="padding: 6px; margin-bottom: 100px;"
+                    onclick="goHome()">Home</b-button>
                 <br style="margin-top: 40rem;">
             </form>
 
@@ -562,10 +584,6 @@
             },
 
             selectedQueue: null,
-
-            phonePrefix: null,
-            phoneNumber: '',
-
             errors: []
         };
 
@@ -575,18 +593,17 @@
         }
 
         // Clear the entered phone number leaving just the country prefix.
-        var resetPhoneNumber = function () {
-            console.log("resetPhoneNumber()")
-            data.phonePrefix = document.getElementById("phonePrefix").value
-            data.phoneNumber = data.phonePrefix
-            updateUi()
-        }
+        // var resetPhoneNumber = function () {
+        //     console.log("resetPhoneNumber()")
+        //     setPhoneNumber(getPhonePrefix())
+        //     updateUi()
+        // }
 
         // Reset all aspects of the form, selected country prefix, customer details, errors etc.
         var resetForm = function () {
-            console.log("resetForm()")
-            data.phonePrefix = ''
-            data.phoneNumber = ''
+            // console.log("resetForm()")
+            setPhonePrefix('')
+            setPhoneNumber('')
             data.errors = []
             updateUi()
         }
@@ -625,8 +642,7 @@
 
         // Before submitting a form, ensure that the information entered is valid.
         var isFormValid  = function () {
-            console.log("isFormValid()")
-            if (data.phoneNumber) {
+            if (getPhoneNumber()) {
                 return true
             }
 
@@ -636,13 +652,15 @@
         }
 
         var createVisit = function () {
-            console.log("createVisit()")
+            // console.log("createVisit()")
             if (!isFormValid()) {
                 updateUi()
                 return // Do not submit the form if not valid.
             }
 
-            var pNumber = data.phoneNumber.replace(/.+?(?=8|77)/, data.phonePrefix)
+            var phoneNumber = getPhoneNumber()
+            var pNumber = phoneNumber.replace(/.+?(?=8|77)/, getPhonePrefix())
+
             var postData = {
                 customer: {
                     firstName: 'A',
@@ -651,26 +669,30 @@
                     phoneNumber: pNumber
                 }
             }
+            // console.log("Submitting")
+            // console.log(postData)
 
             var queue = data.selectedQueue
             axios.post('/rest/kiosk/branch/' + data.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + data.selectedCreateStationId + '/add', postData)
                 .then(e => {
                     data.createdVisit = e.data
-                    data.phoneNumber = ''
+                    resetForm()
                     data.selectedQueue = {}
+                    // setPhonePrefix('')
+                    // setPhoneNumber('')
                     updateSplash()
                 })
             updateUi()
         }
 
         var updateSplash = function () {
-            console.log("updateSplash()")
+            // console.log("updateSplash()")
             data.showSplash = true
             setTimeout(function () { data.showSplash = false }, 8000)
         }
 
         var created = function () {
-            console.log("created()")
+            // console.log("created()")
             var urlParams = new URLSearchParams(window.location.search)
 
             var branchLogicId = urlParams.get('branchId')
@@ -699,14 +721,12 @@
                     html += "<b-button class='col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa' size='lg' onclick='setSelectedQueue(" + i + ")'>" + queue.name + "</b-button>";
                 }
             }
-            console.log(html)
             document.getElementById("queueList").innerHTML = html;
         }
 
         var display = function(element, display) {
             document.getElementById(element).style.display = display ? "block" : "none";
         }
-
 
         var updateUi = function () {
             var xShowSplash = data.showSplash
@@ -715,10 +735,42 @@
             display("queueSelection", !xShowSplash && !xShowCustomerForm)
             display("customerForm", xShowCustomerForm)
             display("printingTickets", xShowSplash)
-
-            document.getElementById("phoneNumber").value = data.phoneNumber
         }
 
+        var getPhonePrefix = function () { 
+            return document.getElementById("phonePrefix").value
+        }
+
+        var setPhonePrefix = function (value) {
+            // console.log("setPhonePrefix(" + value + ")")
+            document.getElementById("phonePrefix").value = value
+        }
+
+        var onPhonePrefixChange = function(e) {
+            var phonePrefix = getPhonePrefix()
+            setPhoneNumber(phonePrefix)
+
+            if (phonePrefix == null || phonePrefix == '') {
+                document.getElementById("phoneNumber").disabled = true
+            } else {
+                document.getElementById("phoneNumber").disabled = false
+                document.getElementById("phoneNumber").focus()
+            }
+        }
+
+        var getPhoneNumber = function () { 
+            return document.getElementById("phoneNumber").value
+        }
+
+        var setPhoneNumber = function (value) { 
+            document.getElementById("phoneNumber").value = value
+            onPhoneNumberChange()
+        }
+
+        var onPhoneNumberChange = function() {
+            // console.log("onPhoneNumberChange(" + getPhoneNumber().length + ")")
+            document.getElementById("printTicketBtn").disabled = getPhoneNumber().length < 12
+        }
 
         created();
         updateUi();
