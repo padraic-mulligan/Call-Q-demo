@@ -38,12 +38,12 @@
         /* Media Query */
         --portrait-background-image: url("https://raw.githubusercontent.com/JCHendrickMedia/Call-Q-demo/master/LandingPagePortrait.jpg");
     }
-    
+
     body, html {
         overflow-x: hidden;
         overflow-y: hidden;
     }
-    
+
     body {
         overflow: hidden;
         width: 100vw;
@@ -55,7 +55,7 @@
         background-size: cover;
         z-index: 0;
     }
-    
+
     #closedImage {
         position: absolute;
         top: 0;
@@ -71,25 +71,25 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
-    
+
     .centred {
         text-align: center;
     }
-    
+
     .red-background {
         background-color: var(--background-color);
     }
-    
+
     .large-tkt-num {
         font-size: var(--large-tkt-num);
         z-index: 1;
     }
-    
+
     .h1-lrg {
         font-size: var(--h1-lrg);
         z-index: 1;
     }
-    
+
     .waveWrapper {
         overflow: hidden;
         position: absolute;
@@ -99,7 +99,7 @@
         top: 0;
         margin: auto;
     }
-    
+
     .waveWrapperInner {
         position: absolute;
         width: 100vw;
@@ -109,12 +109,12 @@
         /*background-image: linear-gradient(to top, #68B5DF 10%, #47A5D8 80%); */
         background-color: var(--background-color);
     }
-    
+
     button, select {
         color: #ffffff !important;
         text-transform: none !important;
     }
-    
+
     .btn-div {
         border-radius: 70px;
         margin: 0;
@@ -124,35 +124,35 @@
         -moz-box-shadow: 7px 7px 5px 0px rgba(130, 130, 130, 1);
         box-shadow: 7px 7px 5px 0px rgba(130, 130, 130, 1);
     }
-    
+
     .bgTop {
         z-index: 15;
         opacity: 0.5;
     }
-    
+
     .bgMiddle {
         z-index: 10;
         opacity: 0.75;
     }
-    
+
     .bgBottom {
         z-index: 5;
     }
-    
+
     .button-text {
         font-size: var(--button-font-size);
         color: var(--button-font-color);
     }
-    
+
     .button-text-santa {
         color: var(--button-font-color-santa) !important;
         z-index: -1;
     }
-    
+
     .button-text-small {
         font-size: var(--button-font-size-small);
     }
-    
+
     .btn-image {
         background-image: var(--background-image);
         background-position: top;
@@ -162,11 +162,11 @@
         color: var(--button-image-font-color);
         z-index: 2;
     }
-    
+
     .btn-image, select {
         color: #ffffff00 !important;
     }
-    
+
     .button-style {
         font-weight: var(--button-font-weight);
         background-color: var(--background-color);
@@ -174,7 +174,7 @@
         border-color: var(--button-border-color);
         z-index: 3;
     }
-    
+
     .grid-container {
         overflow-x: hidden;
         overflow-y: hidden;
@@ -185,49 +185,49 @@
         max-width: auto;
         margin-left: 0;
     }
-    
+
     .container-margin {
         margin: 0;
     }
-    
+
     .mySplash {
         margin-top: 7rem;
     }
-    
+
     .buttons {
         margin: 0;
     }
-    
+
     .customer {
         margin-top: 0;
     }
-    
+
     .pad {
         padding-bottom: 0;
     }
-    
+
     .topMargin {
         margin-top: 18rem;
     }
-    
+
     .portMargin {
         margin-left: 0;
     }
-    
+
     .portCustomerMargin {
         margin-top: 0;
     }
-    
+
     .col-lg-6 {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%;
     }
-    
+
     .col-9 {
         margin-left: 0 !important;
     }
-    
+
     .container-margin {
         margin-top: 6rem;
         margin-right: 0;
@@ -444,28 +444,31 @@
 
     <!-- Main Div -->
     <div class="grid-container centred  " id="app" style="height: 100%; width: 100%;">
-        <!-- Splash Screen / Ticket Printing -->
-        <div class="splashScreen container d-flex float-right container-margin mySplash" style="text-align: center;">
-            <div id="printingTickets" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 32%;">
-                <h1>Please wait while your ticket is printing</h1>
-                <h1 class="large-tkt-num">Ticket: {{createdVisit.left.ticket}}</h1>
-                <br>
-                <br>
-                <h1>Please ensure you have received a text with your ticket number</h1>
-            </div>
-        </div>
-
         <!-- Main Screen -->
-        <div id="queueSelection" class="container h-100 float-right container-margin buttons portMargin" >
+        <div id="mainScreen" class="container h-100 float-right container-margin buttons portMargin" >
             <h2 class="topMargin">Please press for Ticket</h2>
             <div id="queueList" class="row pad ">
                 <!-- <b-button class="col-lg-6 ml-auto mr-auto button-text btn-div button-style btn-red btn-image button-text-santa " size="lg" onclick="setSelectedQueue(queue)">{{queue.name}}</b-button> -->
             </div>
         </div>
 
+        <!-- Splash Screen / Ticket Printing -->
+        <div  class="splashScreen container d-flex float-right container-margin mySplash" style="text-align: center;">
+            <div id="splashScreen" class="float-right col-lg-6 ml-auto mr-auto " style="margin-top: 32%;">
+                <h1>Please wait while your ticket is printing</h1>
+                <h1 class="large-tkt-num">Ticket: <span id="ticketNumber">{{createdVisit.left.ticket}}</span></h1>
+                <br>
+                <br>
+                <h1>Please ensure you have received a text with your ticket number</h1>
+            </div>
+        </div>
+
         <!-- Customer Input Screen -->
-        <div id="customerForm" style="max-width: 100%;max-height: 100%;">
-            <form class="col-12 ml-auto mr-auto red-background" style="padding-top: 1rem; text-align: center; top: -100px; height: 120%;">
+        <div id="formScreen" style="width: 100%; height: 100%;">
+            <form
+                autocomplete="off"
+                class="col-12 ml-auto mr-auto red-background"
+                style="padding-top: 1rem; text-align: center; top: -100px; height: 120%;">
                 <h1>Enter your mobile number, print a ticket, and we'll text you when it's time to go to the grotto and meet Santa.</h1>
                 <p>You will receive an SMS and a printed ticket.</p>
 
@@ -526,12 +529,13 @@
                 <br>
                 <button
                     id="printTicketBtn"
-                    class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success" 
+                    class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block btn btn-success"
                     disabled="disabled"
                     size="sm"
                     style="padding: 6px; margin: 10px; background-color: rgb(10, 158, 10);"
                     type="button"
                     onclick="createVisit()">Print Ticket</button>
+
                 <b-button
                     class="col-5 ml-auto mr-auto button-text-small btn-div button-style btn-lg btn-block"
                     size="sm"
@@ -566,8 +570,6 @@
             stompClient: null,
             // clientName: 'Arnotts',
 
-            showSplash: false,
-
             branch: {
                 branchName: 'loading....',
                 queues: [{
@@ -578,27 +580,13 @@
             selectedBranchId: -1,
             selectedCreateStationId: -1,
 
-            createdVisit: {
-                left: {
-                    ticket: "000"
-                }
-            },
-
             selectedQueue: null,
             errors: []
         };
 
-            
         var showCustomerForm = function () {
             return data.selectedQueue && data.selectedQueue.name == "SantaQ"
         }
-
-        // Clear the entered phone number leaving just the country prefix.
-        // var resetPhoneNumber = function () {
-        //     console.log("resetPhoneNumber()")
-        //     setPhoneNumber(getPhonePrefix())
-        //     updateUi()
-        // }
 
         // Reset all aspects of the form, selected country prefix, customer details, errors etc.
         var resetForm = function () {
@@ -606,32 +594,24 @@
             setPhonePrefix('')
             setPhoneNumber('')
             data.errors = []
-            updateUi()
         }
 
         // Called when a user clicks on a digit in the keypad.
         var onDigit = function (key) {
-            console.log("onDigit(" + key + ")")
+            // console.log("onDigit(" + key + ")")
             if (key == '-') { // Remove last digit from the phone number.
                 data.phoneNumber = data.phoneNumber.substring(0, data.phoneNumber.length - 1);
 
             } else if (data.phoneNumber.length < 16) {
                 data.phoneNumber = data.phoneNumber + key
             }
-            updateUi()
         }
 
         // Call the backend to populate the different queues (branches).
         var getQueues = function () {
-            console.log("getQueues()")
+            // console.log("getQueues()")
             axios.get(HOST + '/rest/kiosk/branch/' + data.selectedBranchId)
                 .then(e => { data.branch = e.data; updateQueueList(); })
-        }
-
-        var setSelectedQueue = function (index) {
-            data.selectedQueue = data.branch.queues[index]
-            console.log(">" + data.selectedQueue.name + "<")
-            updateUi()
         }
 
         // Navigate to the landing screen.
@@ -639,6 +619,13 @@
             console.log("goHome()")
             data.selectedQueue = {}
             resetForm()
+            display("mainScreen")
+        }
+
+        var setSelectedQueue = function (index) {
+            data.selectedQueue = data.branch.queues[index]
+            console.log(">" + data.selectedQueue.name + "<")
+            display("formScreen")
         }
 
         // Before submitting a form, ensure that the information entered is valid.
@@ -655,7 +642,6 @@
         var createVisit = function () {
             // console.log("createVisit()")
             if (!isFormValid()) {
-                updateUi()
                 return // Do not submit the form if not valid.
             }
 
@@ -670,40 +656,35 @@
                     phoneNumber: pNumber
                 }
             }
-            // console.log("Submitting")
-            // console.log(postData)
 
             var queue = data.selectedQueue
             axios.post('/rest/kiosk/branch/' + data.selectedBranchId + '/queue/' + queue.logicId + '/createStation/' + data.selectedCreateStationId + '/add', postData)
                 .then(e => {
-                    data.createdVisit = e.data
                     data.selectedQueue = {}
                     resetForm()
-                    // setPhonePrefix('')
-                    // setPhoneNumber('')
-                    updateSplash()
+                    displaySplash(e.data.left.ticket)
                 })
-            updateUi()
         }
 
-        var updateSplash = function () {
-            // console.log("updateSplash()")
-            data.showSplash = true
-            setTimeout(function () { data.showSplash = false }, 8000)
+        var displaySplash = function (ticketNumber) {
+            // console.log("displaySplash()")
+            document.getElementById("ticketNumber").innerHTML = ticketNumber
+            display("splashScreen")
+            setTimeout(function () { display("mainScreen") }, 8000)
         }
 
         var created = function () {
             // console.log("created()")
             var urlParams = new URLSearchParams(window.location.search)
 
-            var branchLogicId = urlParams.get('branchId')
+            var branchLogicId = urlParams.get("branchId")
             if (branchLogicId == "" || branchLogicId == null) {
                 branchLogicId = -1
                 console.error("please set a branch ID!")
             }
             data.selectedBranchId = branchLogicId
 
-            var selectedCreateStationId = urlParams.get('createStationId')
+            var selectedCreateStationId = urlParams.get("createStationId")
             if (selectedCreateStationId == null || selectedCreateStationId == '') {
                 selectedCreateStationId = -1
                 console.error("please select a branchId")
@@ -725,20 +706,18 @@
             document.getElementById("queueList").innerHTML = html;
         }
 
-        var display = function(element, display) {
-            document.getElementById(element).style.display = display ? "block" : "none";
+        var display = function(screen) {
+            document.getElementById("mainScreen").style.display = (screen == "mainScreen" ? "block" : "none")
+            // console.log("mainScreen " + document.getElementById("mainScreen").style.display)
+
+            document.getElementById("formScreen").style.display = (screen == "formScreen" ? "block" : "none")
+            // console.log("formScreen " + document.getElementById("formScreen").style.display)
+
+            document.getElementById("splashScreen").style.display = (screen == "splashScreen" ? "block" : "none")
+            // console.log("splashScreen " + document.getElementById("splashScreen").style.display)
         }
 
-        var updateUi = function () {
-            var xShowSplash = data.showSplash
-            var xShowCustomerForm = showCustomerForm()
-
-            display("queueSelection", !xShowSplash && !xShowCustomerForm)
-            display("customerForm", xShowCustomerForm)
-            display("printingTickets", xShowSplash)
-        }
-
-        var getPhonePrefix = function () { 
+        var getPhonePrefix = function () {
             return document.getElementById("phonePrefix").value
         }
 
@@ -758,11 +737,11 @@
             }
         }
 
-        var getPhoneNumber = function () { 
+        var getPhoneNumber = function () {
             return document.getElementById("phoneNumber").value
         }
 
-        var setPhoneNumber = function (value) { 
+        var setPhoneNumber = function (value) {
             document.getElementById("phoneNumber").value = value
             onPhoneNumberChange()
         }
@@ -772,7 +751,8 @@
         }
 
         created();
-        updateUi();
+        display("mainScreen")
+
     </script>
 </body>
 
