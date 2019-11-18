@@ -187,8 +187,7 @@
     }
 
     .container-margin {
-        margin-top: 6rem;
-        margin-right: 0;
+        margin: 0;
     }
 
     .mySplash {
@@ -229,6 +228,10 @@
         margin-left: 0 !important;
     }
 
+    .container-margin {
+        margin-top: 6rem;
+        margin-right: 0;
+    }
 
     /* Overlay and Spinner */
     #overlay {
@@ -491,9 +494,6 @@
         <button class="closedButton2" onclick="toggle_visibility('closedImage');">Open</button>
     </div>
 
-    <!-- Overlay and Spinner -->
-    <div id="overlay" style="display: none"><div class="spinner"></div></div>
-
     <!-- Main Div -->
     <div class="grid-container centred  " id="app" style="height: 100%; width: 100%;">
         <!-- Main Screen -->
@@ -603,6 +603,9 @@
             <!-- <div v-if="selectedCreateStationId == -1 || selectedCreateStationId == ''">PLEASE SELECT A CREATE STATION BY ADDING THE QUERY PARAM</div> -->
         </div>
     </div>
+
+    <!-- Overlay and Spinner -->
+    <div id="overlay" style="display: none"><div class="spinner"></div></div>
 
     <script type="text/javascript">
         function toggle_visibility(id) {
@@ -818,6 +821,7 @@
 
         created();
         display("mainScreen")
+
     </script>
 </body>
 
