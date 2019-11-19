@@ -530,7 +530,6 @@
                     class="selections"
                     v-model="phonePrefix"
                     onchange="onPhonePrefixChange()">
-                    <option value="" style="color: black; font-size: 1rem;">Select country</option>
                     <option value="+353" style="color: black; font-size: 1rem;">Ireland</option>
                     <option value="+44" style="color: black; font-size: 1rem;">UK</option>
                     <option value="+1" style="color: black; font-size: 1rem;">USA</option>
@@ -646,7 +645,7 @@
         // Reset all aspects of the form, selected country prefix, customer details, errors etc.
         var resetForm = function () {
             // console.log("resetForm()")
-            setPhonePrefix('')
+            setPhonePrefix('+353')
             setPhoneNumber('')
             data.errors = []
             document.getElementById("overlay").style.display = "none"
@@ -777,13 +776,13 @@
 
         var display = function(screen) {
             document.getElementById("mainScreen").style.display = (screen == "mainScreen" ? "block" : "none")
-            // console.log("mainScreen " + document.getElementById("mainScreen").style.display)
 
             document.getElementById("formScreen").style.display = (screen == "formScreen" ? "block" : "none")
-            // console.log("formScreen " + document.getElementById("formScreen").style.display)
+            if (screen == "formScreen" && getPhonePrefix()) {
+                onPhonePrefixChange()
+            }
 
             document.getElementById("splashScreen").style.display = (screen == "splashScreen" ? "block" : "none")
-            // console.log("splashScreen " + document.getElementById("splashScreen").style.display)
         }
 
         var getPhonePrefix = function () {
@@ -821,7 +820,6 @@
 
         created();
         display("mainScreen")
-
     </script>
 </body>
 
